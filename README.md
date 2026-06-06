@@ -9,5 +9,6 @@ Development workspace for a ChrisYoungCooks video (working title: *Pitmaster Pul
 
 ## Published draft
 
-<!-- GitHub Pages URL added once Pages is live -->
-_Pending Pages setup._
+- **Live page:** https://chrisyoungcooks.github.io/draft-17ab2f8ed6fe6477/
+- **Repo:** `chrisyoungcooks/draft-17ab2f8ed6fe6477` (public; obscure name so the unreleased concept isn't discoverable)
+- **Hosting:** GitHub Pages, `main` branch, root path. Editing `index.html` and pushing to `main` republishes the draft.
