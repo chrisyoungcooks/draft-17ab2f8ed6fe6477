@@ -38,44 +38,14 @@
     justify-content: space-between;
   }
 
-  .shot {
-    display: flex;
-    gap: 1em;
-    margin: 1em 0;
-  }
-
-  .shot-num {
-    flex-shrink: 0;
-    width: 2em;
-    font-weight: bold;
-    color: #999;
-  }
-
-  .shot-content {
-    flex: 1;
-  }
-
+  .shot { display: flex; gap: 1em; margin: 1em 0; }
+  .shot-num { flex-shrink: 0; width: 2em; font-weight: bold; color: #999; }
+  .shot-content { flex: 1; }
   .action { margin: 0.5em 0; }
 
-  .character {
-    text-transform: uppercase;
-    margin-left: 2in;
-    margin-bottom: 0;
-    margin-top: 0.75em;
-  }
-
-  .dialogue {
-    margin-left: 1in;
-    margin-right: 1in;
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  .transition {
-    text-align: right;
-    text-transform: uppercase;
-    margin: 1.5em 0;
-  }
+  .character { text-transform: uppercase; margin-left: 2in; margin-bottom: 0; margin-top: 0.75em; }
+  .dialogue { margin-left: 1in; margin-right: 1in; margin-top: 0; margin-bottom: 0; }
+  .transition { text-align: right; text-transform: uppercase; margin: 1.5em 0; }
 
   .note {
     font-style: italic;
@@ -107,6 +77,14 @@
     margin: 2.5em 0 0 0;
   }
 
+  .spine {
+    text-align: center;
+    font-weight: bold;
+    font-size: 13pt;
+    margin: 1.5em 0;
+    color: #1a1a1a;
+  }
+
   @media screen and (max-width: 600px) {
     body { font-size: 11pt; margin: 0; padding: 1em; max-width: 100%; }
     .title-page { margin-top: 1in; margin-bottom: 1in; }
@@ -119,52 +97,60 @@
 <body>
 
 <!--
-  ACT-STRUCTURE PASS (2026-06-07). Title + major acts only; shot-by-shot to follow.
+  ACT-STRUCTURE PASS (2026-06-07, rev 2: science integrated). Title + major acts; shots to follow.
   Title A/B set: docs/ideation/2026-06-06-youtube-title-analysis.md
   Spec: docs/brainstorms/2026-06-07-screenplay-spec.md
   Built against the "$6 Michelin Stock" beat study.
 -->
 <div class="title-page">
   <h1>1 Hour of Smoke Is Enough for Real Barbecue</h1>
-  <div class="subtitle">A barbecue Western, in two halves · reverse-smoke pulled pork</div>
+  <div class="subtitle">The Ballad of the One-Hour Man</div>
   <div class="byline">Act Structure — Working Draft</div>
 </div>
 
-<p class="note"><b>The shape.</b> Two halves. <b>Half 1 (modern)</b> is the fast, food-first case: it hooks, teaches, and proves — paced like the "$6 Michelin Stock" video, where the hook hands straight into action and the story rides <em>over</em> the cooking so the momentum never drops. <b>Half 2</b> is a dreamed Old-West legend: after the real proof, Chris falls asleep over the overnight cook and dreams himself as the heretic inventor the orthodoxy puts on trial. The video ends on a hard <b>fade-to-black hanging</b> — the reason to watch to the last second. Controlling idea: <b>the hard part was never the part that made it good.</b> Every act below lists what must happen and why the audience needs it.</p>
+<p class="note"><b>The shape.</b> Two halves. <b>Half 1 (modern)</b> is the fast, food-first case — paced like the "$6 Michelin Stock" video: the hook hands straight into action, and the story and science ride <em>over</em> the cooking so momentum never drops. <b>Half 2</b> is a dreamed Old-West legend: after the real proof, Chris falls asleep over the overnight cook and dreams himself as the heretic inventor the orthodoxy puts on trial. The video ends on a hard <b>fade-to-black hanging</b> — the reason to watch to the last second. Controlling idea: <b>the hard part was never the part that made it good.</b></p>
+
+<p class="note"><b>The science spine (the one idea everything hangs from).</b> The <b>surface-water gate</b>: a wet surface can't become barbecue — bark, smoke, color, and the pull are reactions that only switch on once the surface dries, and it can't dry until the meat stops sweating. So the all-day cook isn't <em>flavoring</em> the meat; it's <em>drying</em> it. You burn twelve hours boiling water to earn the one hour where barbecue actually happens — so pre-pay the drying overnight and the one hour is all that's left. Every science beat is this same gate seen from a new side, never five disconnected facts. The repeatable refrain:</p>
+
+<p class="spine">"Barbecue starts when the meat stops sweating."</p>
 
 <p class="half-title">— Half 1 · Modern: The Case —</p>
 
 <p class="section-title">Act 1 — The Hook</p>
-<p class="action"><b>What happens:</b> Hard open on the Big Green Egg lid lifting to reveal a stunning pork shoulder. The claim: "One hour of smoke. Not twelve." A fast promise ladder follows — a dramatic cutaway flash ("…and it works in <em>any</em> smoker, once you see what's really happening in there"), the credential ("I helped invent the sous-vide tools half of you cook with"), the data promise ("how fast smoke and bark actually develop, and the temperature that does it"), the bonus ("and it comes out juicier than the all-day version"), and the open loop ("barbecue people wanted me hanged for this — stick around"). Hands off on a verb: "It starts the night before."</p>
-<p class="note"><b>Why it's critical:</b> This is the only stretch most of the audience will see before deciding to leave. We have ~45 seconds to deliver appetite (the reveal), the claim, and a <em>stack</em> of distinct reasons to stay — so a viewer who shrugs at one hook is caught by another. The handoff verb kills the dead air where stylish videos die.</p>
+<p class="action"><b>What happens:</b> Hard open on the Big Green Egg lid lifting to reveal a stunning pork shoulder. "One hour of smoke. Not twelve." A fast promise ladder: a dramatic cutaway flash ("…and it works in <em>any</em> smoker, once you see what's really happening in there"), the credential ("I helped invent the sous-vide tools half of you cook with"), the data promise ("how fast smoke and bark actually develop, and the temperature that does it"), the bonus ("and it's juicier than the all-day version"), the open loop ("barbecue people wanted me hanged for this — stick around"). Hands off on a verb: "It starts the night before."</p>
+<p class="note"><b>Why it's critical:</b> This is the only stretch most of the audience sees before deciding to leave. ~45 seconds to deliver appetite, the claim, and a <em>stack</em> of distinct reasons to stay. The handoff verb kills the dead air where stylish videos die.</p>
 
 <p class="section-title">Act 2 — The Cook &amp; the Sous-Vide Story</p>
-<p class="action"><b>What happens:</b> The hook becomes action — Chris seasons and starts the shoulder (sous vide as the clean demonstration) — and the origin story rides over the cooking: sous vide pioneered at restaurants like the Fat Duck where he worked, <em>Modernist Cuisine</em> beginning as a sous-vide book, inventing the Joule circulator. The thesis seed: "sous vide is really just an easy way to control time and temperature — and that turns out to be the whole secret to barbecue." Plants the loop: "you won't even need the bag, or the circulator I built — I'll show you the oven version."</p>
-<p class="note"><b>Why it's critical:</b> Momentum can't sag after the hook, so we never stop to "set up" — the story is told <em>over</em> motion. It earns the trust the science will spend (why believe this guy), and plants the one idea — control time and temperature — that the whole method rests on. The "you won't need the gear" promise keeps the casual, equipment-free viewer from leaving.</p>
+<p class="action"><b>What happens:</b> The hook becomes action — Chris seasons and starts the shoulder (sous vide as the clean demo) — and the origin story rides over the cooking: sous vide pioneered at restaurants like the Fat Duck where he worked, <em>Modernist Cuisine</em> beginning as a sous-vide book, inventing Joule. Thesis seed: "sous vide is really just an easy way to control time and temperature — and that's the whole secret to barbecue." Plants the loop: "you won't even need the bag, or the circulator I built — I'll show you the oven version."</p>
+<p class="note"><b>Why it's critical:</b> Momentum can't sag after the hook, so we never stop to "set up" — the story is told <em>over</em> motion. It earns the trust the science will spend, and plants the one idea (control time and temperature) the method rests on. The "no gear needed" promise keeps the equipment-free viewer.</p>
 
 <p class="section-title">Act 3 — The Stall, Explained (Common Ground)</p>
-<p class="action"><b>What happens:</b> The hinge — "sous vide is literally how we proved what the stall is": sealed, no evaporation, no stall, so the stall <em>is</em> evaporative cooling (landed first with an everyday analogy — sweat on a hot day — then named). The point: stop the evaporation and you can finally control the temperature, instead of burning a fire all day to boil water out — and vaporizing water costs a staggering amount of energy <em>and time</em>. The predictive thermometer, reading the surface, is the lens. Then the democratizing translation: no cooler of water, no wrestling a shoulder into a vacuum bag — just foil-wrap it and nudge a low oven until the surface hovers at the target. He sets it, goes to bed (the doomscroll gag — "the hard part happens while I sleep"), and we time-lapse to morning.</p>
-<p class="note"><b>Why it's critical:</b> Before the contrarian claim, we get the audience — especially the skeptical BBQ crowd — <em>nodding</em>, by explaining the now-accepted science and grounding it in Chris's own proof. Agreement first is what makes the heresy impossible to wave off later. The oven translation keeps it do-able for everyone; the bedroom gag plants the trapdoor we drop through at the end.</p>
+<p class="action"><b>What happens:</b> The hinge — "sous vide is literally how we proved what the stall is." Land it with an everyday demo first — <b>sweat on a hot day</b> (a surface that refuses to get hot while it's wet) — <em>then</em> name it: evaporative cooling. Sealed, no evaporation, no stall — so stop the evaporation and you can finally control the temperature, instead of fighting a fire all day to boil water out. The predictive thermometer (reading the surface) is the lens. Then the democratizing translation: no cooler of water, no bagging an awkward shoulder — foil-wrap it and nudge a low oven until the surface hovers at the target. He sets it, goes to bed (the doomscroll gag — "the hard part happens while I sleep"), time-lapse to morning.</p>
+<p class="note"><b>Why it's critical:</b> Before the contrarian claim, we get the audience — especially the skeptical BBQ crowd — <em>nodding</em>, by explaining now-accepted science and grounding it in Chris's own proof. Agreement first is what makes the heresy impossible to wave off. The bedroom gag plants the trapdoor we drop through at the end.</p>
 
-<p class="section-title">Act 4 — The Heresy</p>
-<p class="action"><b>What happens:</b> The turn, paid off by the full dramatic cutaway: that same evaporating water wasn't just slowing the doneness — it was <em>blocking the bark and the smoke</em> (smoke slides off the wet surface; it can't brown or stick until the surface dries). A counterintuitive sub-reveal ("the core literally can't get hotter than the surface"), and the objection-killer ("but surely more smoke is better?" — past a point, the water carries it away faster than it sticks). The realized payoff: because the dewatering was pre-paid overnight, the dry surface builds bark and grabs smoke in one hour.</p>
-<p class="note"><b>Why it's critical:</b> This is the discovery the whole video exists for and the curiosity the hook promised. The cutaway makes the invisible visible — the single thing only Chris can show — and reframes how the audience thinks about every barbecue they've ever waited on. The objection-killer pre-empts the comment-section pushback before it forms.</p>
+<p class="section-title">Act 4 — The Calculation (Wood → Water)</p>
+<p class="action"><b>What happens:</b> The hard number, made visceral — the pork "1 hour = 6 hours of simmering." Vaporizing water costs a staggering amount of energy <em>and time</em>: <b>sort the wood pile</b> — log by log, two-thirds of every fire goes into a "boils water and leaves" bin, one-third "feeds the meat" — and weigh the purge the overnight squeezed out. The respectful caveat, built in: "At a restaurant cooking hundreds of pounds, a wood pit is cheap and it works — nobody's wrong to use one. The error isn't the fire. It's <em>assuming</em> those hours of smoke bath are what made it smoky."</p>
+<p class="note"><b>Why it's critical:</b> This is the bridge that flips common ground into heresy — "yes, the all-day cook is real work… but the work was boiling water, not flavoring." A hard figure converts the claim into a gut-feeling, and the caveat keeps the BBQ crowd onside through the turn instead of feeling attacked.</p>
 
-<p class="section-title">Act 5 — The Proof</p>
+<p class="section-title">Act 5 — The Heresy</p>
+<p class="action"><b>What happens:</b> The turn — that same water wasn't just slowing doneness, it was <em>blocking the bark and the smoke</em>. The hero cutaway plays here (smoke slides off the wet surface, then bites once it dries) and the <b>smoke-on-a-sweating-window</b> proof (two panes, one misted; smoke both; the wet one stays clean). Then the heart, given equal billing — <b>the two regions the dry surface must sweep through</b>: 140–170 °F = smoke adsorption; 170–200 °F = dehydration + melanoidin browning — shown as a <b>thermochromic strip</b> sweeping across the shoulder (the all-day cook stranded below the first zone for hours; the toast test: wet bread won't brown). The objection-killer: "but surely more smoke is better?" — past a point, water carries it off faster than it sticks. Then the centerpiece proof — <b>"Two Clocks on One Shoulder"</b>: across a real all-day cook, plot surface temperature and bark development hourly; bark sits at <em>zero</em> through the stall, then spikes the instant the surface breaks free — the visible knee is the gate opening. Collapse it to the bar: eleven gray "boiling water" hours, one glowing "bark" slice. The refrain lands: <em>"barbecue starts when the meat stops sweating."</em></p>
+<p class="note"><b>Why it's critical:</b> This is the discovery the whole video exists for and the curiosity the hook promised. Two named regions = two "aha"s and make the science feel <em>deep</em>, not asserted; the "Two Clocks" curve is un-riggable proof that earns the blind test; and keeping the <em>mechanism</em> here (the <em>meaning</em> waits for Act 7) protects both payoffs. It's the cutaway-as-illustration plus the experiment-as-evidence — kept distinct, the way the stock video kept the coffee analogy separate from the refractometer data.</p>
+
+<p class="section-title">Act 6 — The Proof</p>
 <p class="action"><b>What happens:</b> The real, un-rigged blind test with real, credible pitmasters — and they can't tell the one-hour cook from the all-day one. Paired with the unguarded bark-pull tasting and the hard number (the fifth of its weight in water, caught in a cup, removed while he slept).</p>
-<p class="note"><b>Why it's critical:</b> A contrarian claim is worthless without proof, and "the best in the world couldn't tell" is the un-dismissible evidence that lets the video break out — establishment-humiliation travels far past the BBQ tribe. The sensory taste plus the number gives the audience both the emotional and the rational payoff they were promised.</p>
+<p class="note"><b>Why it's critical:</b> A contrarian claim is worthless without proof; "the best in the world couldn't tell" is the un-dismissible evidence that lets the video break out — establishment-humiliation travels far past the BBQ tribe. The taste plus the number is both the emotional and the rational payoff.</p>
 
-<p class="section-title">Act 6 — The Thesis &amp; the Trapdoor</p>
+<p class="section-title">Act 7 — The Thesis &amp; the Trapdoor</p>
 <p class="action"><b>What happens:</b> The permission valve — "you could stop right here; you've got better barbecue with a fraction of the suffering. But there's one more thing this is really about." — into the sincere thesis. The distilled line lands here, and nowhere earlier: <b>"The hard part was never the part that made it good."</b> Then it widens — it's not just barbecue — and "eat, you earned it." Then Chris goes to bed; we return to that same night (the doomscroll) and the scrolling tips into a dream.</p>
-<p class="note"><b>Why it's critical:</b> The "you could stop here" valve lets a satisfied viewer feel complete (no anxiety) while the thesis lands as a <em>gift</em>, not a tacked-on moral — which is the thing people actually share. The trapdoor turns the video's biggest swing (the Western) into an earned payoff instead of an entry tax, and sets the final retention hook. <b>Line placement:</b> "the hard part was never the part that made it good" must land <em>only</em> here, after the blind-test proof — said in the hook it's an empty boast; said after the best in the world couldn't tell, it's a revelation the audience has earned.</p>
+<p class="note"><b>Why it's critical:</b> The "you could stop here" valve lets a satisfied viewer feel complete while the thesis lands as a <em>gift</em>, not a moral — the thing people share. <b>Line placement:</b> the thesis line must land <em>only</em> here, after the blind-test proof — said in the hook it's an empty boast; after the best in the world couldn't tell, it's a revelation the audience has earned. The trapdoor turns the Western into an earned payoff, not an entry tax.</p>
 
 <p class="half-title">— Half 2 · The Dreamed Legend —</p>
 
-<p class="section-title">Act 7 — The Reckoning</p>
+<p class="section-title">Act 8 — The Reckoning</p>
 <p class="action"><b>What happens:</b> The dreamed Old West (ballad-narrated, sepia): the blind test re-staged as a mythic saloon showdown that curdles when the humiliated "kings of the coals" cry "Witch!" → the trial → "Good enough. Hang him." → the gallows → "First time?" → Chris finds the apprentice he taught in the crowd, the heir, looking up → "the recipe got away" → the hood → <b>fade to black</b>, hard cut.</p>
-<p class="note"><b>Why it's critical:</b> The dark, funny dream is the reason to watch to the very last second — it pays off the hook's open loop, and ending on the fade-to-black hang is the hard-cut button that maximizes watch-to-the-end. Because it's a dream, the absurdism is licensed and the hanging is safe. And "the recipe got away" lands the controlling idea one final time: they can hang the heretic, but they can't un-teach the idea.</p>
+<p class="note"><b>Why it's critical:</b> The dark, funny dream is the reason to watch to the very last second — it pays off the hook's open loop, and ending on the fade-to-black hang is the hard-cut button that maximizes watch-to-the-end. Because it's a dream, the absurdism is licensed and the hanging is safe. "The recipe got away" lands the controlling idea one final time: they can hang the heretic, but they can't un-teach the idea.</p>
 
-<p class="transition">END — 7 ACTS · SHOTS TO FOLLOW</p>
+<p class="transition">END — 8 ACTS · SHOTS TO FOLLOW</p>
 
 </body>
 </html>
