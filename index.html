@@ -158,6 +158,72 @@
     text-underline-offset: 0.16em;
   }
 
+  .ref-toggle { margin: 0; }
+
+  .ref-toggle summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    color: var(--accent);
+    cursor: pointer;
+    font-weight: 700;
+    list-style: none;
+  }
+
+  .ref-toggle summary::-webkit-details-marker { display: none; }
+
+  .ref-title {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.16em;
+  }
+
+  .ref-toggle summary::after {
+    flex: 0 0 auto;
+    content: "View";
+    border: 1px solid rgba(47, 111, 79, 0.28);
+    border-radius: 999px;
+    color: #5f665e;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    padding: 0.26rem 0.42rem;
+    text-transform: uppercase;
+  }
+
+  .ref-toggle[open] summary::after { content: "Hide"; }
+
+  .ref-media {
+    display: block;
+    margin-top: 0.55rem;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #ebe6dd;
+    box-shadow: 0 8px 20px rgba(42, 36, 28, 0.08);
+  }
+
+  .ref-media img,
+  .ref-media video,
+  .ref-media iframe {
+    display: block;
+    width: 100%;
+    border: 0;
+  }
+
+  .ref-media img {
+    max-height: 360px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .ref-media video,
+  .ref-media iframe {
+    aspect-ratio: 16 / 9;
+  }
+
   body[data-mode="read"] .note { display: none; }
   body[data-mode="read"] .shot { padding-top: 0.72rem; padding-bottom: 0.72rem; }
 
@@ -169,6 +235,9 @@
     .shot { grid-template-columns: 1.45rem minmax(0, 1fr); gap: 0.55rem; width: 100%; max-width: 100%; padding: 0.7rem 0.15rem 0.75rem 0; }
     .shot-num { font-size: 0.68rem; }
     .note { grid-template-columns: 2.7rem minmax(0, 1fr); font-size: 0.74rem; padding: 0.38rem 0.45rem; }
+    .ref-toggle summary { align-items: flex-start; gap: 0.55rem; }
+    .ref-toggle summary::after { margin-top: 0.08rem; }
+    .ref-media img { max-height: 280px; }
     .scene-heading,
     .action,
     .dialogue,
@@ -221,7 +290,14 @@
 <div class="shot"><span class="shot-num">1</span><div class="shot-content">
 <p class="scene-heading">EXT. THE SMOKER — DAY</p>
 <p class="note"><span class="lbl">CAM</span><span class="note-text">35mm, eye-level, tight; Chris fills the frame, eyeline straight down the lens. The smoker lid sits just below frame, unseen until it rises.</span></p>
-<p class="note"><span class="lbl">REF</span><span class="note-text"><a href="refs/buster-scruggs-closeup.png">Cowboy Chris look — The Ballad of Buster Scruggs</a>.</span></p>
+<div class="note ref-note"><span class="lbl">REF</span><div class="note-text">
+  <details class="ref-toggle">
+    <summary><span class="ref-title">Cowboy Chris look — The Ballad of Buster Scruggs</span></summary>
+    <a class="ref-media" href="refs/buster-scruggs-closeup.png" target="_blank" rel="noopener">
+      <img src="refs/buster-scruggs-closeup.png" alt="Cowboy Chris close-up reference from The Ballad of Buster Scruggs." loading="lazy" decoding="async">
+    </a>
+  </details>
+</div></div>
 <p class="action">On his last word, the smoker lid rises into the bottom of frame and wipes the image to black.</p>
 <p class="character">CHRIS</p>
 <p class="dialogue">Great barbecue is supposed to take all day.</p>
@@ -256,7 +332,14 @@
 <p class="scene-heading">INT. RUSTIC KITCHEN — CONTINUOUS</p>
 <p class="note"><span class="lbl">CAM</span><span class="note-text">wide on the same axis; Chris backlit hard by daylight raking through the window. The board and pork stay visible in the foreground.</span></p>
 <p class="action">He slaps his chest twice. A little cloud hangs in the light. He struts out of frame.</p>
-<p class="note"><span class="lbl">REF</span><span class="note-text"><a href="refs/buster-scruggs-dustoff.png">The Ballad of Buster Scruggs (Netflix), 5:05</a>; an interior backlit by hard daylight.</span></p>
+<div class="note ref-note"><span class="lbl">REF</span><div class="note-text">
+  <details class="ref-toggle">
+    <summary><span class="ref-title">The Ballad of Buster Scruggs (Netflix), 5:05; interior backlit by hard daylight</span></summary>
+    <a class="ref-media" href="refs/buster-scruggs-dustoff.png" target="_blank" rel="noopener">
+      <img src="refs/buster-scruggs-dustoff.png" alt="Backlit interior dust-off reference from The Ballad of Buster Scruggs." loading="lazy" decoding="async">
+    </a>
+  </details>
+</div></div>
 </div></div>
 
 <div class="shot"><span class="shot-num">6</span><div class="shot-content">
