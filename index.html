@@ -7,15 +7,66 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
 
+  :root {
+    --paper: #f8f6f1;
+    --page: #fffdfa;
+    --ink: #171717;
+    --muted: #77716a;
+    --line: #e4ded4;
+    --note-bg: #f4f1e9;
+    --note-ink: #3f3b35;
+    --accent: #2f6f4f;
+    --rail: #b8afa2;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { overflow-x: hidden; }
+
   body {
     font-family: 'Courier Prime', 'Courier New', Courier, monospace;
     font-size: 12pt;
     line-height: 1.5;
+    width: 100%;
+    max-width: 8.75in;
+    margin: 0 auto;
+    padding: 0 0.45in 0.7in;
+    color: var(--ink);
+    background: var(--paper);
+    font-kerning: normal;
+    overflow-x: hidden;
+  }
+
+  .view-controls {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.35rem;
     max-width: 8in;
-    margin: 0.5in auto;
-    padding: 0 0.5in;
-    color: #1a1a1a;
-    background: #fff;
+    margin: 0 auto;
+    padding: 0.5rem 0 0.35rem;
+    background: linear-gradient(var(--paper) 70%, rgba(248, 246, 241, 0));
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .view-controls button {
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--page);
+    color: #5c554d;
+    cursor: pointer;
+    font: 600 0.72rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    padding: 0.42rem 0.56rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .view-controls button[aria-pressed="true"] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--page);
   }
 
   .title-page {
@@ -29,36 +80,137 @@
   .title-page .subtitle { font-size: 12pt; font-style: italic; margin-bottom: 1in; }
   .title-page .byline { font-size: 12pt; }
 
+  .shot {
+    display: grid;
+    grid-template-columns: 2.4rem minmax(0, 1fr);
+    gap: 0.8rem;
+    max-width: 8in;
+    margin: 0 auto 1.35rem;
+    padding: 0.9rem 0.85rem 0.95rem 0;
+    background: var(--page);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .shot + .shot { border-top: 1px solid rgba(228, 222, 212, 0.72); }
+
+  .shot-num {
+    align-self: start;
+    color: var(--rail);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    padding-top: 0.28rem;
+    text-align: right;
+  }
+
+  .shot-content { min-width: 0; }
+
   .scene-heading {
     text-transform: uppercase;
     font-weight: bold;
-    margin-top: 2em;
+    margin-top: 0;
     margin-bottom: 0.5em;
   }
 
-  .shot { display: flex; gap: 1em; margin: 1em 0; }
-  .shot-num { flex-shrink: 0; width: 2em; font-weight: bold; color: #999; }
-  .shot-content { flex: 1; }
-  .action { margin: 0.5em 0; }
+  .action { margin: 0.62em 0; }
 
   .character { text-transform: uppercase; margin-left: 2in; margin-bottom: 0; margin-top: 0.75em; }
   .dialogue { margin-left: 1in; margin-right: 1in; margin-top: 0; margin-bottom: 0; }
   .transition { text-align: right; text-transform: uppercase; margin: 1.5em 0; }
 
-  .note { font-style: italic; color: #888; font-size: 10.5pt; margin: 0.35em 0; }
-  .note .lbl { font-style: normal; font-weight: bold; color: #666; letter-spacing: 0.5px; }
-  .note a { color: #2f6f4f; }
+  .note {
+    display: grid;
+    grid-template-columns: 3.2rem minmax(0, 1fr);
+    gap: 0.45rem;
+    align-items: start;
+    margin: 0.28rem 0;
+    padding: 0.42rem 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--note-bg);
+    color: var(--note-ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.78rem;
+    font-style: normal;
+    line-height: 1.38;
+  }
+
+  .note + .action { margin-top: 0.72rem; }
+
+  .note .lbl {
+    color: #665f56;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .note .note-text { min-width: 0; }
+
+  .note a {
+    color: var(--accent);
+    font-weight: 650;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.16em;
+  }
+
+  body[data-mode="read"] .note { display: none; }
+  body[data-mode="read"] .shot { padding-top: 0.72rem; padding-bottom: 0.72rem; }
 
   @media screen and (max-width: 600px) {
-    body { font-size: 11pt; margin: 0; padding: 1em; max-width: 100%; }
-    .title-page { margin-top: 1in; margin-bottom: 1in; }
-    .title-page h1 { font-size: 18pt; margin-bottom: 0.3in; }
-    .character { margin-left: 1in; }
-    .dialogue { margin-left: 0.5in; margin-right: 0.25in; }
+    body { font-size: 11pt; margin: 0; padding: 0 0.7rem 1rem; max-width: 100%; }
+    .view-controls { width: 100%; max-width: 100%; padding: 0.5rem 0 0.35rem; }
+    .title-page { margin-top: 1in; margin-bottom: 1in; overflow-wrap: anywhere; padding: 0 0.2rem; }
+    .title-page h1 { font-size: 16pt; letter-spacing: 0.06em; line-height: 1.34; margin-bottom: 0.3in; }
+    .shot { grid-template-columns: 1.45rem minmax(0, 1fr); gap: 0.55rem; width: 100%; max-width: 100%; padding: 0.7rem 0.15rem 0.75rem 0; }
+    .shot-num { font-size: 0.68rem; }
+    .note { grid-template-columns: 2.7rem minmax(0, 1fr); font-size: 0.74rem; padding: 0.38rem 0.45rem; }
+    .scene-heading,
+    .action,
+    .dialogue,
+    .transition,
+    .note-text { overflow-wrap: anywhere; }
+    .character { margin-left: 0; text-align: center; }
+    .dialogue { margin-left: 0.4rem; margin-right: 0.4rem; }
+  }
+
+  @media print {
+    body {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+
+    .view-controls { display: none; }
+    .title-page { margin-top: 2in; }
+    .shot {
+      max-width: none;
+      margin: 0 0 0.25in;
+      padding: 0;
+      background: #fff;
+      border-top: 0;
+    }
+
+    .note {
+      background: #f6f6f6;
+      border-color: #d8d8d8;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
   }
 </style>
 </head>
-<body>
+<body data-mode="shoot">
+
+<div class="view-controls" aria-label="View options">
+  <button type="button" data-set-mode="read" aria-pressed="false">Read</button>
+  <button type="button" data-set-mode="shoot" aria-pressed="true">Shoot</button>
+</div>
 
 <div class="title-page">
   <h1>1 Hour of Smoke Is Enough for Real Barbecue</h1>
@@ -68,8 +220,8 @@
 
 <div class="shot"><span class="shot-num">1</span><div class="shot-content">
 <p class="scene-heading">EXT. THE SMOKER — DAY</p>
-<p class="note"><span class="lbl">CAM</span> — 35mm, eye-level, tight; Chris fills the frame, eyeline straight down the lens. The smoker lid sits just below frame, unseen until it rises.</p>
-<p class="note"><span class="lbl">REF</span> — <a href="refs/buster-scruggs-closeup.png">Cowboy Chris look — The Ballad of Buster Scruggs</a>.</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">35mm, eye-level, tight; Chris fills the frame, eyeline straight down the lens. The smoker lid sits just below frame, unseen until it rises.</span></p>
+<p class="note"><span class="lbl">REF</span><span class="note-text"><a href="refs/buster-scruggs-closeup.png">Cowboy Chris look — The Ballad of Buster Scruggs</a>.</span></p>
 <p class="action">On his last word, the smoker lid rises into the bottom of frame and wipes the image to black.</p>
 <p class="character">CHRIS</p>
 <p class="dialogue">Great barbecue is supposed to take all day.</p>
@@ -78,7 +230,7 @@
 
 <div class="shot"><span class="shot-num">2</span><div class="shot-content">
 <p class="scene-heading">INSIDE THE SMOKER — DAY</p>
-<p class="note"><span class="lbl">CAM</span> — inside the smoker, 3/4 top-down on the pork shoulder. Same lid movement from Shot 1, now seen from the other side.</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">inside the smoker, 3/4 top-down on the pork shoulder. Same lid movement from Shot 1, now seen from the other side.</span></p>
 <p class="action">From black, the lid lifts. Hard daylight floods in, cutting through billowing smoke. The almost-black shoulder resolves into focus, all bark and glow. Black-gloved hands reach in and lift it toward camera.</p>
 <p class="character">CHRIS (V.O.)</p>
 <p class="dialogue">But this pork shoulder—</p>
@@ -87,29 +239,29 @@
 
 <div class="shot"><span class="shot-num">3</span><div class="shot-content">
 <p class="scene-heading">INT. RUSTIC KITCHEN — DAY</p>
-<p class="note"><span class="lbl">CAM</span> — tight insert on the cutting board. The shoulder enters frame on the same screen direction as the lift from Shot 2.</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">tight insert on the cutting board. The shoulder enters frame on the same screen direction as the lift from Shot 2.</span></p>
 <p class="action">The gloved hands land the pork bark-side up. Let the texture read before the graphic hits.</p>
-<p class="note"><span class="lbl">GFX</span> — timer animates 0:00 → 60:00, locks on "1 HOUR OF SMOKE."</p>
+<p class="note"><span class="lbl">GFX</span><span class="note-text">timer animates 0:00 → 60:00, locks on "1 HOUR OF SMOKE."</span></p>
 <p class="character">CHRIS (V.O.)</p>
 <p class="dialogue">—got one hour of smoke.</p>
 </div></div>
 
 <div class="shot"><span class="shot-num">4</span><div class="shot-content">
 <p class="scene-heading">INT. RUSTIC KITCHEN — CONTINUOUS</p>
-<p class="note"><span class="lbl">CAM</span> — tight continuity insert, gloves and hands only; matched to the board position from Shot 3.</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">tight continuity insert, gloves and hands only; matched to the board position from Shot 3.</span></p>
 <p class="action">He peels off the black gloves and pulls his hand out of frame, setting up the next wide.</p>
 </div></div>
 
 <div class="shot"><span class="shot-num">5</span><div class="shot-content">
 <p class="scene-heading">INT. RUSTIC KITCHEN — CONTINUOUS</p>
-<p class="note"><span class="lbl">CAM</span> — wide on the same axis; Chris backlit hard by daylight raking through the window. The board and pork stay visible in the foreground.</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">wide on the same axis; Chris backlit hard by daylight raking through the window. The board and pork stay visible in the foreground.</span></p>
 <p class="action">He slaps his chest twice. A little cloud hangs in the light. He struts out of frame.</p>
-<p class="note"><span class="lbl">REF</span> — <a href="refs/buster-scruggs-dustoff.png">The Ballad of Buster Scruggs (Netflix), 5:05</a>; an interior backlit by hard daylight.</p>
+<p class="note"><span class="lbl">REF</span><span class="note-text"><a href="refs/buster-scruggs-dustoff.png">The Ballad of Buster Scruggs (Netflix), 5:05</a>; an interior backlit by hard daylight.</span></p>
 </div></div>
 
 <div class="shot"><span class="shot-num">6</span><div class="shot-content">
 <p class="scene-heading">INT. RUSTIC KITCHEN — CONTINUOUS</p>
-<p class="note"><span class="lbl">CAM</span> — close 40mm; Chris lands in frame from the strut, eyeline straight to the audience.</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">close 40mm; Chris lands in frame from the strut, eyeline straight to the audience.</span></p>
 <p class="action">He stops the bit and levels with the viewer.</p>
 <p class="character">CHRIS</p>
 <p class="dialogue">With reverse smoking, you can leave the hours of smoke and sweat behind.</p>
@@ -117,7 +269,7 @@
 
 <div class="shot"><span class="shot-num">7</span><div class="shot-content">
 <p class="scene-heading">INT. RUSTIC KITCHEN — CONTINUOUS</p>
-<p class="note"><span class="lbl">CAM</span> — tight insert, carrying the pivot from Shot 6. Chris's hand drops into frame toward the book.</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">tight insert, carrying the pivot from Shot 6. Chris's hand drops into frame toward the book.</span></p>
 <p class="action">Chris slides Modernist Cuisine from its slipcase.</p>
 <p class="character">CHRIS (V.O.)</p>
 <p class="dialogue">In Modernist Cuisine,</p>
@@ -125,7 +277,7 @@
 
 <div class="shot"><span class="shot-num">8</span><div class="shot-content">
 <p class="scene-heading">INT. RUSTIC KITCHEN — CONTINUOUS</p>
-<p class="note"><span class="lbl">CAM</span> — tight insert, low raking angle on the page.</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">tight insert, low raking angle on the page.</span></p>
 <p class="action">A page riffles past and settles on a detail that reads like a cross-section diagram.</p>
 <p class="character">CHRIS (V.O.)</p>
 <p class="dialogue">we showed where those hours really go.</p>
@@ -134,28 +286,28 @@
 
 <div class="shot"><span class="shot-num">9</span><div class="shot-content">
 <p class="scene-heading">INSIDE THE BIG GREEN EGG — CUTAWAY</p>
-<p class="note"><span class="lbl">CAM</span> — slow crawl out from inside the cutaway; hold long enough for the audience to understand the cooker has been opened up.</p>
-<p class="note"><span class="lbl">VFX</span> — the page dissolves into a live cross-section of the Big Green Egg: coal glow below, smoke moving around the shoulder, probe line visible. No labels yet; this is the visual promise, not the lesson.</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">slow crawl out from inside the cutaway; hold long enough for the audience to understand the cooker has been opened up.</span></p>
+<p class="note"><span class="lbl">VFX</span><span class="note-text">the page dissolves into a live cross-section of the Big Green Egg: coal glow below, smoke moving around the shoulder, probe line visible. No labels yet; this is the visual promise, not the lesson.</span></p>
 <p class="action">The smoke curls around the shoulder in the cutaway. Let the image breathe for a beat before cutting out.</p>
 </div></div>
 
 <div class="shot"><span class="shot-num">10</span><div class="shot-content">
 <p class="scene-heading">EXT. THE BIG GREEN EGG — DAY</p>
-<p class="note"><span class="lbl">CAM</span> — medium; the cutaway resolves to the real Egg in the same orientation.</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">medium; the cutaway resolves to the real Egg in the same orientation.</span></p>
 <p class="character">CHRIS</p>
 <p class="dialogue">But I missed the better question: how much smoke does barbecue actually need?</p>
 </div></div>
 
 <div class="shot"><span class="shot-num">11</span><div class="shot-content">
 <p class="scene-heading">EXT. RURAL TOWN — DAY</p>
-<p class="note"><span class="lbl">CAM</span> — aerial / drone, drifting over the town at golden hour. The scale shift makes the claim feel bigger than one shoulder.</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">aerial / drone, drifting over the town at golden hour. The scale shift makes the claim feel bigger than one shoulder.</span></p>
 <p class="character">CHRIS (V.O.)</p>
 <p class="dialogue">The answer can make <em>your</em> barbecue the best in your town—</p>
 </div></div>
 
 <div class="shot"><span class="shot-num">12</span><div class="shot-content">
 <p class="scene-heading">INT. BEDROOM — NIGHT</p>
-<p class="note"><span class="lbl">CAM</span> — medium; Chris in bed.</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">medium; Chris in bed.</span></p>
 <p class="action">He settles in and reaches for the lamp.</p>
 <p class="character">CHRIS</p>
 <p class="dialogue">—while you sleep.</p>
@@ -164,7 +316,7 @@
 
 <div class="shot"><span class="shot-num">13</span><div class="shot-content">
 <p class="scene-heading">INT. RUSTIC KITCHEN — NIGHT</p>
-<p class="note"><span class="lbl">CAM</span> — tight on the oven door.</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">tight on the oven door.</span></p>
 <p class="action">Cut from black: the oven glows in the dark kitchen.</p>
 <p class="character">CHRIS (V.O.)</p>
 <p class="dialogue">The long cook happens overnight.</p>
@@ -173,12 +325,25 @@
 
 <div class="shot"><span class="shot-num">14</span><div class="shot-content">
 <p class="scene-heading">EXT. THE BIG GREEN EGG — DAWN</p>
-<p class="note"><span class="lbl">CAM</span> — tight on the Egg dome, matching the oven-door glow from Shot 13. The first daylight hits the ceramic.</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">tight on the Egg dome, matching the oven-door glow from Shot 13. The first daylight hits the ceramic.</span></p>
 <p class="action">The vent opens. A clean ribbon of smoke starts to move.</p>
 <p class="character">CHRIS (V.O.)</p>
 <p class="dialogue">The smoke comes last.</p>
 <p class="transition">CUT TO:</p>
 </div></div>
+
+<script>
+  const modeButtons = document.querySelectorAll('[data-set-mode]');
+  modeButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const mode = button.dataset.setMode;
+      document.body.dataset.mode = mode;
+      modeButtons.forEach((item) => {
+        item.setAttribute('aria-pressed', String(item === button));
+      });
+    });
+  });
+</script>
 
 </body>
 </html>
