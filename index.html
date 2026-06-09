@@ -115,12 +115,21 @@
 
   .action {
     margin: 0.72em 0;
-    max-width: 6.35in;
+    max-width: none;
     text-align: left;
   }
 
-  .character { text-transform: uppercase; margin-left: 2in; margin-bottom: 0; margin-top: 0.75em; }
-  .dialogue { margin-left: 1in; margin-right: 1in; margin-top: 0; margin-bottom: 0; }
+  .character {
+    text-align: center;
+    text-transform: uppercase;
+    margin: 1.08em auto 0;
+  }
+
+  .dialogue {
+    width: min(3.85in, 64%);
+    margin: 0 auto;
+  }
+
   .transition { text-align: right; text-transform: uppercase; margin: 1.5em 0; }
 
   .note {
@@ -245,9 +254,8 @@
     .dialogue,
     .transition,
     .note-text { overflow-wrap: anywhere; }
-    .action { max-width: none; }
-    .character { margin-left: 0; text-align: center; }
-    .dialogue { width: 78%; margin-left: auto; margin-right: auto; }
+    .character { margin-top: 1em; }
+    .dialogue { width: 72%; }
   }
 
   @media print {
