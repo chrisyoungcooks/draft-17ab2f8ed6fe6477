@@ -38,27 +38,25 @@
   }
 
   .view-controls {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.35rem;
-    max-width: 8in;
-    margin: 0 auto;
-    padding: 0.5rem 0 0.35rem;
-    background: linear-gradient(var(--paper) 70%, rgba(248, 246, 241, 0));
+    display: inline-flex;
+    justify-content: center;
+    gap: 0;
+    margin: 0.42in auto 0;
+    padding: 0.16rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #efeae1;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
   .view-controls button {
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    background: var(--page);
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
     color: #5c554d;
     cursor: pointer;
     font: 600 0.72rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    padding: 0.42rem 0.56rem;
+    padding: 0.52rem 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
@@ -115,7 +113,11 @@
     margin-bottom: 0.5em;
   }
 
-  .action { margin: 0.62em 0; }
+  .action {
+    margin: 0.72em 0;
+    max-width: 6.35in;
+    text-align: left;
+  }
 
   .character { text-transform: uppercase; margin-left: 2in; margin-bottom: 0; margin-top: 0.75em; }
   .dialogue { margin-left: 1in; margin-right: 1in; margin-top: 0; margin-bottom: 0; }
@@ -229,7 +231,7 @@
 
   @media screen and (max-width: 600px) {
     body { font-size: 11pt; margin: 0; padding: 0 0.7rem 1rem; max-width: 100%; }
-    .view-controls { width: 100%; max-width: 100%; padding: 0.5rem 0 0.35rem; }
+    .view-controls { margin-top: 0.34in; padding: 0.16rem; }
     .title-page { margin-top: 1in; margin-bottom: 1in; overflow-wrap: anywhere; padding: 0 0.2rem; }
     .title-page h1 { font-size: 16pt; letter-spacing: 0.06em; line-height: 1.34; margin-bottom: 0.3in; }
     .shot { grid-template-columns: 1.45rem minmax(0, 1fr); gap: 0.55rem; width: 100%; max-width: 100%; padding: 0.7rem 0.15rem 0.75rem 0; }
@@ -243,8 +245,9 @@
     .dialogue,
     .transition,
     .note-text { overflow-wrap: anywhere; }
+    .action { max-width: none; }
     .character { margin-left: 0; text-align: center; }
-    .dialogue { margin-left: 0.4rem; margin-right: 0.4rem; }
+    .dialogue { width: 78%; margin-left: auto; margin-right: auto; }
   }
 
   @media print {
@@ -276,15 +279,14 @@
 </head>
 <body data-mode="shoot">
 
-<div class="view-controls" aria-label="View options">
-  <button type="button" data-set-mode="read" aria-pressed="false">Read</button>
-  <button type="button" data-set-mode="shoot" aria-pressed="true">Shoot</button>
-</div>
-
 <div class="title-page">
   <h1>1 Hour of Smoke Is Enough for Real Barbecue</h1>
   <div class="subtitle">The Ballad of a Barbecue Rustler</div>
   <div class="byline">Working Draft</div>
+  <div class="view-controls" aria-label="View options">
+    <button type="button" data-set-mode="read" aria-pressed="false">Read</button>
+    <button type="button" data-set-mode="shoot" aria-pressed="true">Shoot</button>
+  </div>
 </div>
 
 <div class="shot"><span class="shot-num">1</span><div class="shot-content">
@@ -310,7 +312,6 @@
 <p class="action">From black, the lid lifts. Hard daylight floods in, cutting through billowing smoke. The almost-black shoulder resolves into focus, all bark and glow. Black-gloved hands reach in and lift it toward camera.</p>
 <p class="character">CHRIS (V.O.)</p>
 <p class="dialogue">But this pork shoulder—</p>
-<p class="transition">MATCH CUT TO:</p>
 </div></div>
 
 <div class="shot"><span class="shot-num">3</span><div class="shot-content">
@@ -412,7 +413,6 @@
 <p class="action">The vent opens. A clean ribbon of smoke starts to move.</p>
 <p class="character">CHRIS (V.O.)</p>
 <p class="dialogue">The smoke comes last.</p>
-<p class="transition">CUT TO:</p>
 </div></div>
 
 <script>
