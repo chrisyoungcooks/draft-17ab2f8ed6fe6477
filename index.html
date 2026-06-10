@@ -285,7 +285,7 @@
   }
 </style>
 </head>
-<body data-mode="shoot">
+<body data-mode="board">
 
 <div class="title-page">
   <h1>1 Hour of Smoke Is Enough for Real Barbecue</h1>
@@ -293,8 +293,8 @@
   <div class="byline">Working Draft</div>
   <div class="view-controls" aria-label="View options">
     <button type="button" data-set-mode="read" aria-pressed="false">Read</button>
-    <button type="button" data-set-mode="shoot" aria-pressed="true">Shoot</button>
-    <button type="button" data-set-mode="board" aria-pressed="false">Board</button>
+    <button type="button" data-set-mode="shoot" aria-pressed="false">Shoot</button>
+    <button type="button" data-set-mode="board" aria-pressed="true">Board</button>
   </div>
 </div>
 
@@ -504,16 +504,16 @@
   let savedRefOpenStates = null;
 
   function setMode(mode) {
-    const previousMode = document.body.dataset.mode;
-
-    if (mode === 'board' && previousMode !== 'board') {
-      savedRefOpenStates = Array.from(refToggles, (toggle) => toggle.open);
+    if (mode === 'board') {
+      if (!savedRefOpenStates) {
+        savedRefOpenStates = Array.from(refToggles, (toggle) => toggle.open);
+      }
       refToggles.forEach((toggle) => {
         toggle.open = true;
       });
     }
 
-    if (previousMode === 'board' && mode !== 'board' && savedRefOpenStates) {
+    if (mode !== 'board' && savedRefOpenStates) {
       refToggles.forEach((toggle, index) => {
         toggle.open = savedRefOpenStates[index] ?? false;
       });
@@ -531,6 +531,8 @@
       setMode(button.dataset.setMode);
     });
   });
+
+  setMode(document.body.dataset.mode);
 </script>
 
 </body>
