@@ -294,6 +294,7 @@
   <div class="view-controls" aria-label="View options">
     <button type="button" data-set-mode="read" aria-pressed="false">Read</button>
     <button type="button" data-set-mode="shoot" aria-pressed="true">Shoot</button>
+    <button type="button" data-set-mode="board" aria-pressed="false">Board</button>
   </div>
 </div>
 
@@ -484,13 +485,35 @@
 
 <script>
   const modeButtons = document.querySelectorAll('[data-set-mode]');
+  const refToggles = document.querySelectorAll('.ref-toggle');
+  let savedRefOpenStates = null;
+
+  function setMode(mode) {
+    const previousMode = document.body.dataset.mode;
+
+    if (mode === 'board' && previousMode !== 'board') {
+      savedRefOpenStates = Array.from(refToggles, (toggle) => toggle.open);
+      refToggles.forEach((toggle) => {
+        toggle.open = true;
+      });
+    }
+
+    if (previousMode === 'board' && mode !== 'board' && savedRefOpenStates) {
+      refToggles.forEach((toggle, index) => {
+        toggle.open = savedRefOpenStates[index] ?? false;
+      });
+      savedRefOpenStates = null;
+    }
+
+    document.body.dataset.mode = mode;
+    modeButtons.forEach((item) => {
+      item.setAttribute('aria-pressed', String(item.dataset.setMode === mode));
+    });
+  }
+
   modeButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      const mode = button.dataset.setMode;
-      document.body.dataset.mode = mode;
-      modeButtons.forEach((item) => {
-        item.setAttribute('aria-pressed', String(item === button));
-      });
+      setMode(button.dataset.setMode);
     });
   });
 </script>
