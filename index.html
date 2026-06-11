@@ -27,8 +27,6 @@
     --ref-pill-ink: #5f665e;
     --media-bg: #ebe6dd;
     --media-shadow: rgba(42, 36, 28, 0.08);
-    --light-accent: #8a6134;
-    --track-accent: #536f7b;
     --decision-bg: #fff0ca;
     --decision-border: #d8aa47;
     --decision-ink: #6f4b10;
@@ -53,8 +51,6 @@
       --ref-pill-ink: #b8c9b8;
       --media-bg: #171411;
       --media-shadow: rgba(0, 0, 0, 0.34);
-      --light-accent: #d2a45e;
-      --track-accent: #8fb9c8;
       --decision-bg: #3a2d15;
       --decision-border: #b98124;
       --decision-ink: #f1cf86;
@@ -224,9 +220,6 @@
     text-transform: uppercase;
   }
 
-  .note-light .lbl { color: var(--light-accent); }
-  .note-track .lbl { color: var(--track-accent); }
-
   .note .note-text { min-width: 0; }
 
   .decision {
@@ -386,7 +379,7 @@
 <section class="production-notes" aria-labelledby="production-notes-heading">
   <h2 id="production-notes-heading">Production Notes</h2>
   <p class="note"><span class="lbl">FORMAT</span><span class="note-text">Capture format is global — no per-shot format specs. <span class="decision">[DECISION NEEDED: spherical 16:9 vs anamorphic 2.39]</span></span></p>
-  <p class="note note-light"><span class="lbl">SCHEDULE</span><span class="note-text">Shots 1–5: hard noon. Shots 8–9: golden hour. Shot 10: golden hour into night. Shots 11–12: night interior. Two distinct exterior lighting setups; golden hour is a ~40 min window — schedule Shot 8 end-frame plate elements and exterior smoke elements in their own golden-hour slot.</span></p>
+  <p class="note note-light"><span class="lbl">SCHEDULE</span><span class="note-text">Shots 1–5: hard noon. Shots 8–9: golden hour. Shot 10: golden hour into night. Shots 11–13: night interior. Two distinct exterior lighting setups; golden hour is a ~40 min window — schedule Shot 8 end-frame plate elements and exterior smoke elements in their own golden-hour slot.</span></p>
   <p class="note"><span class="lbl">BUILD ORDER</span><span class="note-text">Build order runs backward from the page order: (1) choose/generate desert background plate, (2) previz Shots 7–8–9 as one continuous move (30-second animatic before any plates are shot), (3) stage/green screen day lit to match the plate, (4) VFX builds. Shot 9's plate and framing decisions drive Shot 8's end frame, not vice versa.</span></p>
   <p class="note note-track"><span class="lbl">VFX KIT</span><span class="note-text">Every VFX-touched shot (3, 5, 7, 8 handoff frames, 9) gets: tracking markers, clean plate, HDRI + gray/chrome ball, lighting log. See per-shot TRACK notes.</span></p>
 </section>
@@ -617,9 +610,9 @@
 
 <div class="shot"><span class="shot-num">11</span><div class="shot-content">
 <p class="scene-heading">INT. BEDROOM — NIGHT</p>
-<p class="note"><span class="lbl">CAM</span><span class="note-text">40mm medium on Chris in bed, practical lamp in frame. <span class="decision">[CONFIRM]</span></span></p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">40mm medium-close on Chris in bed, practical lamp at the edge of frame. <span class="decision">[CONFIRM]</span></span></p>
 <p class="note note-light"><span class="lbl">LIGHT</span><span class="note-text">Lamp is the key and effectively the only source; ambient near zero. Expose so the click reads as true black in camera, not in the grade.</span></p>
-<p class="note"><span class="lbl">EDIT</span><span class="note-text">The lamp click creates the black transition into Shot 12.</span></p>
+<p class="note"><span class="lbl">EDIT</span><span class="note-text">Close bedside angle carries the setup line and motivates the reach. Cut wider before the final phrase so the lamp-click payoff has room to read.</span></p>
 <div class="note ref-note"><span class="lbl">REF</span><div class="note-text">
   <details class="ref-toggle">
     <summary><span class="ref-title">Bedside lamp close reference</span></summary>
@@ -627,23 +620,32 @@
       <img src="refs/shot-11-bedside-lamp-close-reference.jpg" alt="Bedside lamp close reference for Shot 11." loading="lazy" decoding="async">
     </a>
   </details>
-  <details class="ref-toggle">
-    <summary><span class="ref-title">Bedside lamp wide reference</span></summary>
-    <a class="ref-media" href="refs/shot-11-bedside-lamp-wide-reference.jpg" target="_blank" rel="noopener">
-      <img src="refs/shot-11-bedside-lamp-wide-reference.jpg" alt="Bedside lamp wide reference for Shot 11." loading="lazy" decoding="async">
-    </a>
-  </details>
 </div></div>
 <p class="action">He settles in.</p>
 <p class="character">CHRIS</p>
 <p class="dialogue">And I'll show you a new technique that lets your oven do the hard work—</p>
 <p class="action">He reaches for the lamp.</p>
+</div></div>
+
+<div class="shot"><span class="shot-num">12</span><div class="shot-content">
+<p class="scene-heading">INT. BEDROOM — NIGHT</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">24-28mm wide bedside angle. Hold the bed, lamp, nightstand, and enough room geography for the click to play as a visual button. <span class="decision">[CONFIRM]</span></span></p>
+<p class="note note-light"><span class="lbl">LIGHT</span><span class="note-text">Lamp remains the key and effectively the only source; ambient near zero. Expose so the click reads as true black in camera, not in the grade.</span></p>
+<p class="note"><span class="lbl">EDIT</span><span class="note-text">The lamp click creates the black transition into Shot 13.</span></p>
+<div class="note ref-note"><span class="lbl">REF</span><div class="note-text">
+  <details class="ref-toggle">
+    <summary><span class="ref-title">Bedside lamp wide reference</span></summary>
+    <a class="ref-media" href="refs/shot-11-bedside-lamp-wide-reference.jpg" target="_blank" rel="noopener">
+      <img src="refs/shot-11-bedside-lamp-wide-reference.jpg" alt="Bedside lamp wide reference for Shot 12." loading="lazy" decoding="async">
+    </a>
+  </details>
+</div></div>
 <p class="character">CHRIS</p>
 <p class="dialogue">—while you sleep.</p>
 <p class="action">He clicks off the light. Black.</p>
 </div></div>
 
-<div class="shot"><span class="shot-num">12</span><div class="shot-content">
+<div class="shot"><span class="shot-num">13</span><div class="shot-content">
 <p class="scene-heading">INT. RUSTIC KITCHEN — NIGHT</p>
 <p class="note"><span class="lbl">CAM</span><span class="note-text">Tight on the oven door in the dark kitchen.</span></p>
 <p class="note note-light"><span class="lbl">LIGHT</span><span class="note-text">Oven interior light is the only source. Camera off-axis or polarized so the door glass doesn't reflect camera/crew/kitchen.</span></p>
