@@ -302,6 +302,12 @@
     aspect-ratio: 16 / 9;
   }
 
+  .ref-media video {
+    background: var(--media-bg);
+    object-fit: contain;
+    object-position: center;
+  }
+
   body[data-mode="read"] .note { display: none; }
   body[data-mode="read"] .shot { padding-top: 0.72rem; padding-bottom: 0.72rem; }
   body[data-mode="read"] .production-notes { display: none; }
@@ -427,9 +433,12 @@
 <div class="note ref-note"><span class="lbl">REF</span><div class="note-text">
   <details class="ref-toggle">
     <summary><span class="ref-title">Chronometer with open smoker reference</span></summary>
-    <a class="ref-media" href="refs/shot-3-chronometer-smoker-reference.jpg" target="_blank" rel="noopener">
-      <img src="refs/shot-3-chronometer-smoker-reference.jpg" alt="Chronometer with open smoker and pork reference for Shot 3." loading="lazy" decoding="async">
-    </a>
+    <div class="ref-media">
+      <video controls playsinline preload="metadata" poster="refs/shot-3-chronometer-smoker-reference-poster.jpg" aria-label="Chronometer with open smoker and pork movie reference for Shot 3.">
+        <source src="refs/shot-3-chronometer-smoker-reference.mp4" type="video/mp4">
+        <a href="refs/shot-3-chronometer-smoker-reference.mp4">Open the Shot 3 reference movie.</a>
+      </video>
+    </div>
   </details>
 </div></div>
 <p class="action">The watch sits between camera and smoker. The hour races across the dial and settles just shy of 60 minutes.</p>
