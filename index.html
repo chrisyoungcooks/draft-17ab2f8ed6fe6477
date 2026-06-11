@@ -3,25 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
 <title>1 Hour of Smoke Is Enough for Real Barbecue — Working Draft</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
 
   :root {
+    color-scheme: light dark;
     --paper: #f8f6f1;
     --page: #fffdfa;
     --ink: #171717;
     --muted: #77716a;
     --line: #e4ded4;
+    --divider: rgba(228, 222, 212, 0.72);
     --note-bg: #f4f1e9;
     --note-ink: #3f3b35;
     --accent: #2f6f4f;
     --rail: #b8afa2;
+    --control-bg: #efeae1;
+    --control-ink: #5c554d;
+    --label-ink: #665f56;
+    --ref-pill-border: rgba(47, 111, 79, 0.28);
+    --ref-pill-ink: #5f665e;
+    --media-bg: #ebe6dd;
+    --media-shadow: rgba(42, 36, 28, 0.08);
     --light-accent: #8a6134;
     --track-accent: #536f7b;
     --decision-bg: #fff0ca;
     --decision-border: #d8aa47;
     --decision-ink: #6f4b10;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #181614;
+      --page: #211e1a;
+      --ink: #eee6d8;
+      --muted: #aba095;
+      --line: #3a342d;
+      --divider: rgba(87, 77, 66, 0.62);
+      --note-bg: #2b2620;
+      --note-ink: #ded4c4;
+      --accent: #78b48f;
+      --rail: #8a7f72;
+      --control-bg: #2a251f;
+      --control-ink: #c6b9a8;
+      --label-ink: #b5a99a;
+      --ref-pill-border: rgba(120, 180, 143, 0.36);
+      --ref-pill-ink: #b8c9b8;
+      --media-bg: #171411;
+      --media-shadow: rgba(0, 0, 0, 0.34);
+      --light-accent: #d2a45e;
+      --track-accent: #8fb9c8;
+      --decision-bg: #3a2d15;
+      --decision-border: #b98124;
+      --decision-ink: #f1cf86;
+    }
   }
 
   * { box-sizing: border-box; }
@@ -50,7 +87,7 @@
     padding: 0.16rem;
     border: 1px solid var(--line);
     border-radius: 999px;
-    background: #efeae1;
+    background: var(--control-bg);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
@@ -58,7 +95,7 @@
     border: 0;
     border-radius: 999px;
     background: transparent;
-    color: #5c554d;
+    color: var(--control-ink);
     cursor: pointer;
     font: 600 0.72rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     padding: 0.52rem 0.72rem;
@@ -88,7 +125,7 @@
     margin: 0 auto 1.35rem;
     padding: 0.9rem 0.85rem 0.95rem;
     background: var(--page);
-    border-top: 1px solid rgba(228, 222, 212, 0.72);
+    border-top: 1px solid var(--divider);
     break-inside: avoid;
     page-break-inside: avoid;
   }
@@ -117,7 +154,7 @@
     page-break-inside: avoid;
   }
 
-  .shot + .shot { border-top: 1px solid rgba(228, 222, 212, 0.72); }
+  .shot + .shot { border-top: 1px solid var(--divider); }
 
   .shot-num {
     align-self: start;
@@ -179,7 +216,7 @@
   .note + .action { margin-top: 0.72rem; }
 
   .note .lbl {
-    color: #665f56;
+    color: var(--label-ink);
     font-size: 0.68rem;
     font-weight: 800;
     letter-spacing: 0.08em;
@@ -194,7 +231,7 @@
 
   .decision {
     display: inline;
-    border: 1px solid rgba(216, 170, 71, 0.62);
+    border: 1px solid var(--decision-border);
     border-radius: 999px;
     background: var(--decision-bg);
     color: var(--decision-ink);
@@ -238,9 +275,9 @@
   .ref-toggle summary::after {
     flex: 0 0 auto;
     content: "View";
-    border: 1px solid rgba(47, 111, 79, 0.28);
+    border: 1px solid var(--ref-pill-border);
     border-radius: 999px;
-    color: #5f665e;
+    color: var(--ref-pill-ink);
     font-size: 0.62rem;
     font-weight: 800;
     letter-spacing: 0.08em;
@@ -257,8 +294,8 @@
     overflow: hidden;
     border: 1px solid var(--line);
     border-radius: 8px;
-    background: #ebe6dd;
-    box-shadow: 0 8px 20px rgba(42, 36, 28, 0.08);
+    background: var(--media-bg);
+    box-shadow: 0 8px 20px var(--media-shadow);
   }
 
   .ref-media img,
