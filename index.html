@@ -121,17 +121,28 @@
   .title-page .byline { font-size: 12pt; }
 
   .section-title {
+    display: grid;
+    gap: 0.18rem;
     max-width: 8in;
     margin: 0 auto 1.35rem;
-    padding: 0.38rem 1rem;
+    padding: 0.5rem 1rem 0.56rem;
     background: var(--section-bg);
     color: var(--section-ink);
-    font-weight: bold;
-    letter-spacing: 0.14em;
     text-align: center;
-    text-transform: uppercase;
     break-inside: avoid;
     page-break-inside: avoid;
+  }
+
+  .section-title .section-label {
+    font-weight: bold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .section-title .section-purpose {
+    font-size: 0.76rem;
+    letter-spacing: 0.02em;
+    line-height: 1.35;
   }
 
   .shot {
@@ -323,7 +334,7 @@
     .shot { grid-template-columns: 1.45rem minmax(0, 1fr); gap: 0.55rem; width: 100%; max-width: 100%; padding: 0.7rem 0.15rem 0.75rem 0; }
     .shot-num { font-size: 0.68rem; }
     .note { grid-template-columns: 2.7rem minmax(0, 1fr); font-size: 0.74rem; padding: 0.38rem 0.45rem; }
-    .section-title { margin-bottom: 0.95rem; padding: 0.32rem 0.7rem; }
+    .section-title { margin-bottom: 0.95rem; padding: 0.42rem 0.7rem 0.48rem; }
     .ref-toggle summary { align-items: flex-start; gap: 0.55rem; }
     .ref-toggle summary::after { margin-top: 0.08rem; }
     .ref-media img { height: auto; }
@@ -376,7 +387,10 @@
   </div>
 </div>
 
-<div class="section-title">— THE HOOK —</div>
+<div class="section-title">
+  <span class="section-label">— SCENE 1: THE HOOK —</span>
+  <span class="section-purpose">Prove one hour of smoke, promise better barbecue with less suffering, and rehook on the catch.</span>
+</div>
 
 <div class="shot"><span class="shot-num">1</span><div class="shot-content">
 <p class="scene-heading">EXT. THE BIG GREEN EGG — DAY</p>
@@ -624,7 +638,10 @@
 <p class="dialogue">There's a catch, of course.</p>
 </div></div>
 
-<div class="section-title">— ACT 1 —</div>
+<div class="section-title">
+  <span class="section-label">— SCENE 2: BACKWARDS PREP —</span>
+  <span class="section-purpose">Race through the reversal: foil first, rub, wrap, probe, and get the pork into the oven.</span>
+</div>
 
 <div class="shot"><span class="shot-num">12</span><div class="shot-content">
 <p class="scene-heading">INSERT — KITCHEN COUNTER — DAY</p>
@@ -677,7 +694,10 @@
 <p class="dialogue">Let me show you.</p>
 </div></div>
 
-<div class="section-title">— ACT 2 —</div>
+<div class="section-title">
+  <span class="section-label">— SCENE 3: THE STALL MADE VISIBLE —</span>
+  <span class="section-purpose">Use schlieren photography to show the stall, then turn the science into temperature control.</span>
+</div>
 
 <div class="shot"><span class="shot-num">19</span><div class="shot-content">
 <p class="scene-heading">INSIDE THE OVEN — THE WRAPPED BUTT</p>
