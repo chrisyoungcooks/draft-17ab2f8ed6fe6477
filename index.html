@@ -134,20 +134,6 @@
     page-break-inside: avoid;
   }
 
-  .production-notes {
-    max-width: 8in;
-    margin: 0 auto 1.35rem;
-    padding: 0.9rem 0.85rem 0.95rem;
-    background: var(--page);
-    border-top: 1px solid var(--divider);
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
-  .production-notes .note {
-    grid-template-columns: 8.5rem minmax(0, 1fr);
-  }
-
   .shot {
     display: grid;
     grid-template-columns: 2.4rem minmax(0, 1fr);
@@ -328,7 +314,6 @@
 
   body[data-mode="read"] .note { display: none; }
   body[data-mode="read"] .shot { padding-top: 0.72rem; padding-bottom: 0.72rem; }
-  body[data-mode="read"] .production-notes { display: none; }
 
   @media screen and (max-width: 600px) {
     body { font-size: 11pt; margin: 0; padding: 0 0.7rem 1rem; max-width: 100%; }
@@ -338,8 +323,6 @@
     .shot { grid-template-columns: 1.45rem minmax(0, 1fr); gap: 0.55rem; width: 100%; max-width: 100%; padding: 0.7rem 0.15rem 0.75rem 0; }
     .shot-num { font-size: 0.68rem; }
     .note { grid-template-columns: 2.7rem minmax(0, 1fr); font-size: 0.74rem; padding: 0.38rem 0.45rem; }
-    .production-notes { padding: 0.7rem 0.6rem 0.75rem; }
-    .production-notes .note { grid-template-columns: 5.2rem minmax(0, 1fr); }
     .section-title { margin-bottom: 0.95rem; padding: 0.32rem 0.7rem; }
     .ref-toggle summary { align-items: flex-start; gap: 0.55rem; }
     .ref-toggle summary::after { margin-top: 0.08rem; }
@@ -392,13 +375,6 @@
     <button type="button" data-set-mode="board" aria-pressed="true">Board</button>
   </div>
 </div>
-
-<section class="production-notes" aria-label="Production notes">
-  <p class="note"><span class="lbl">FORMAT</span><span class="note-text">Capture format is global — no per-shot format specs. <span class="decision">[DECISION NEEDED: spherical 16:9 vs anamorphic 2.39]</span></span></p>
-  <p class="note note-light"><span class="lbl">SCHEDULE</span><span class="note-text">Shots 1–4: hard noon. Shots 5–6 and 12–13: day kitchen / slat-light continuity. Shots 7–8: golden hour. Shot 9: golden hour into night. Shots 10–11: night interior. Two distinct exterior lighting setups; golden hour is a ~40 min window — schedule Shot 7 end-frame plate elements and exterior smoke elements in their own golden-hour slot.</span></p>
-  <p class="note"><span class="lbl">BUILD ORDER</span><span class="note-text">Build order runs backward from the page order: (1) choose/generate desert background plate, (2) previz Shots 6–7–8 as one continuous move (30-second animatic before any plates are shot), (3) stage/green screen day lit to match the plate, (4) VFX builds. Shot 8's plate and framing decisions drive Shot 7's end frame, not vice versa.</span></p>
-  <p class="note note-track"><span class="lbl">VFX KIT</span><span class="note-text">Every VFX-touched shot (3, 4, 6, 7 handoff frames, 8) gets: tracking markers, clean plate, HDRI + gray/chrome ball, lighting log. See per-shot TRACK notes.</span></p>
-</section>
 
 <div class="section-title">— THE HOOK —</div>
 
@@ -566,7 +542,7 @@
 <p class="note"><span class="lbl">CAM</span><span class="note-text">Wider composite frame after Shot 7's outdoor Egg reveal. 35mm medium-close on Chris beside the Egg, same orientation as the pullback. Chris fills the left half of frame; Egg sits soft in the right background. Shallow background, enough center/right negative space for the smoke graph to live in the air between Chris and the audience. Shoot locked-off or with a controlled, trackable move. Plate and foreground must share lens, height, and sun angle.</span></p>
 <p class="note note-light"><span class="lbl">LIGHT</span><span class="note-text">Stage lighting is built to the chosen desert plate's sun angle and color — plate is selected BEFORE the stage day. Hat brim under hard golden key: plan fill and flag the brim shadow.</span></p>
 <p class="note"><span class="lbl">PROD</span><span class="note-text">Likely green screen stage shot. Capture Chris, hat brim, hands, and practical Egg or Egg proxy as foreground elements. Desert background is a selected plate or CG/matte background. Wardrobe edges, hat brim, fingers, and Egg silhouette will need clean roto.</span></p>
-<p class="note note-track"><span class="lbl">TRACK</span><span class="note-text">Physical hand-path target for the air-drawn graph (markers on a c-stand); witness cam records the hand path for the C4D plot. Standard VFX kit per global checklist.</span></p>
+<p class="note note-track"><span class="lbl">TRACK</span><span class="note-text">Physical hand-path target for the air-drawn graph (markers on a c-stand); witness cam records the hand path for the C4D plot. Full kit: tracking markers, clean plate, HDRI + gray/chrome ball, lighting log.</span></p>
 <p class="note"><span class="lbl">VFX</span><span class="note-text">Composite desert background, Chris, Egg, and atmospheric smoke. Animate the heating plot in Cinema 4D or similar so the lines look like illuminated smoke, with depth-aware occlusion around fingers and Egg. TIME on the x-axis and TEMPERATURE on the y-axis. Long plateau, bright smoke band on the final climb. When Chris blows, add turbulence so the plot breaks apart and disperses naturally.</span></p>
 <p class="note"><span class="lbl">EDIT</span><span class="note-text">Cut from Shot 7's outdoor Egg reveal to this wider composite setup. Preserve Egg position, smoke direction, and golden-hour light so it feels like the same world expanding. The graph appears as Chris draws it after the data line. After the last-hour line, he blows the smoke graph away; hold clean on the final line.</span></p>
 <div class="note ref-note"><span class="lbl">REF</span><div class="note-text">
