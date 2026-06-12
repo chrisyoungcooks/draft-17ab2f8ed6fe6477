@@ -30,6 +30,8 @@
     --decision-bg: #fff0ca;
     --decision-border: #d8aa47;
     --decision-ink: #6f4b10;
+    --section-bg: #3a251a;
+    --section-ink: #f8f1e6;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -54,6 +56,8 @@
       --decision-bg: #3a2d15;
       --decision-border: #b98124;
       --decision-ink: #f1cf86;
+      --section-bg: #4b3326;
+      --section-ink: #f4ead8;
     }
   }
 
@@ -115,6 +119,20 @@
   .title-page h1 { font-size: 24pt; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5in; text-wrap: balance; }
   .title-page .subtitle { font-size: 12pt; font-style: italic; margin-bottom: 1in; }
   .title-page .byline { font-size: 12pt; }
+
+  .section-title {
+    max-width: 8in;
+    margin: 0 auto 1.35rem;
+    padding: 0.38rem 1rem;
+    background: var(--section-bg);
+    color: var(--section-ink);
+    font-weight: bold;
+    letter-spacing: 0.14em;
+    text-align: center;
+    text-transform: uppercase;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
 
   .production-notes {
     max-width: 8in;
@@ -322,6 +340,7 @@
     .note { grid-template-columns: 2.7rem minmax(0, 1fr); font-size: 0.74rem; padding: 0.38rem 0.45rem; }
     .production-notes { padding: 0.7rem 0.6rem 0.75rem; }
     .production-notes .note { grid-template-columns: 5.2rem minmax(0, 1fr); }
+    .section-title { margin-bottom: 0.95rem; padding: 0.32rem 0.7rem; }
     .ref-toggle summary { align-items: flex-start; gap: 0.55rem; }
     .ref-toggle summary::after { margin-top: 0.08rem; }
     .ref-media img { height: auto; }
@@ -376,10 +395,12 @@
 
 <section class="production-notes" aria-label="Production notes">
   <p class="note"><span class="lbl">FORMAT</span><span class="note-text">Capture format is global — no per-shot format specs. <span class="decision">[DECISION NEEDED: spherical 16:9 vs anamorphic 2.39]</span></span></p>
-  <p class="note note-light"><span class="lbl">SCHEDULE</span><span class="note-text">Shots 1–4: hard noon. Shots 7–8: golden hour. Shot 9: golden hour into night. Shots 10–12: night interior. Two distinct exterior lighting setups; golden hour is a ~40 min window — schedule Shot 7 end-frame plate elements and exterior smoke elements in their own golden-hour slot.</span></p>
+  <p class="note note-light"><span class="lbl">SCHEDULE</span><span class="note-text">Shots 1–4: hard noon. Shots 5–6 and 12–13: day kitchen / slat-light continuity. Shots 7–8: golden hour. Shot 9: golden hour into night. Shots 10–11: night interior. Two distinct exterior lighting setups; golden hour is a ~40 min window — schedule Shot 7 end-frame plate elements and exterior smoke elements in their own golden-hour slot.</span></p>
   <p class="note"><span class="lbl">BUILD ORDER</span><span class="note-text">Build order runs backward from the page order: (1) choose/generate desert background plate, (2) previz Shots 6–7–8 as one continuous move (30-second animatic before any plates are shot), (3) stage/green screen day lit to match the plate, (4) VFX builds. Shot 8's plate and framing decisions drive Shot 7's end frame, not vice versa.</span></p>
   <p class="note note-track"><span class="lbl">VFX KIT</span><span class="note-text">Every VFX-touched shot (3, 4, 6, 7 handoff frames, 8) gets: tracking markers, clean plate, HDRI + gray/chrome ball, lighting log. See per-shot TRACK notes.</span></p>
 </section>
+
+<div class="section-title">— THE HOOK —</div>
 
 <div class="shot"><span class="shot-num">1</span><div class="shot-content">
 <p class="scene-heading">EXT. THE BIG GREEN EGG — DAY</p>
@@ -614,7 +635,7 @@
 <p class="scene-heading">INT. BEDROOM — NIGHT</p>
 <p class="note"><span class="lbl">CAM</span><span class="note-text">24mm wide bedside angle. Hold the bed, lamp, nightstand, and enough room geography for the click to play as a visual button.</span></p>
 <p class="note note-light"><span class="lbl">LIGHT</span><span class="note-text">Lamp remains the key and effectively the only source; ambient near zero. Expose so the click reads as true black in camera, not in the grade.</span></p>
-<p class="note"><span class="lbl">EDIT</span><span class="note-text">The lamp click creates the black transition into Shot 12.</span></p>
+<p class="note"><span class="lbl">EDIT</span><span class="note-text">The black holds; the V.O. lands a beat after the click. The black must never go silent. This is the retention rehook: the line is deliberately incomplete and is finished by Act 1's first on-camera line.</span></p>
 <div class="note ref-note"><span class="lbl">REF</span><div class="note-text">
   <details class="ref-toggle">
     <summary><span class="ref-title">Bedside lamp wide reference</span></summary>
@@ -626,21 +647,28 @@
 <p class="character">CHRIS</p>
 <p class="dialogue">—while you sleep.</p>
 <p class="action">He clicks off the light. Black.</p>
+<p class="character">CHRIS (V.O.)</p>
+<p class="dialogue">There's a catch, of course.</p>
 </div></div>
 
+<div class="section-title">— ACT 1 —</div>
+
 <div class="shot"><span class="shot-num">12</span><div class="shot-content">
-<p class="scene-heading">INT. RUSTIC KITCHEN — NIGHT</p>
-<p class="note"><span class="lbl">CAM</span><span class="note-text">Tight on the oven door in the dark kitchen.</span></p>
-<p class="note note-light"><span class="lbl">LIGHT</span><span class="note-text">Oven interior light is the only source. Camera off-axis or polarized so the door glass doesn't reflect camera/crew/kitchen.</span></p>
-<p class="note"><span class="lbl">PROP</span><span class="note-text"><span class="decision">[DECISION NEEDED: foil-wrapped shoulder visible through the glass (plants act one's technique) vs glow only (keeps the mystery). Choose deliberately]</span></span></p>
-<p class="note"><span class="lbl">EDIT</span><span class="note-text">Cut from the black created by the lamp click. Hold a full second of silent glowing oven on the Beat before the final line. Do not tighten this pause.</span></p>
-<p class="action">The oven glows in the dark kitchen, working unattended.</p>
-<p class="character">CHRIS (V.O.)</p>
-<p class="dialogue">By morning, the pork is tender.</p>
-<p class="action">Beat.</p>
-<p class="character">CHRIS (V.O.)</p>
-<p class="dialogue">Then all that's left is the hour that matters.</p>
-<p class="transition">CUT TO:</p>
+<p class="scene-heading">INSERT, KITCHEN COUNTER — DAY</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">Macro/insert on the kitchen counter. Stay low and close so the foil becomes the first image, not the meat.</span></p>
+<p class="note note-light"><span class="lbl">LIGHT</span><span class="note-text">Day kitchen, established slat look. Low raking light catches the foil as it pulls, tears, and lays flat.</span></p>
+<p class="note"><span class="lbl">SOUND</span><span class="note-text">The foil tear and pork landing carry the cut; no music.</span></p>
+<p class="note"><span class="lbl">EDIT</span><span class="note-text">Picture cuts up from the hook's black directly into the pull, audio-led. This wordless action plays in the gap between the two halves of the split line.</span></p>
+<p class="action">A long sheet of aluminum foil pulls from the box: dramatic, full-arm, catching the light. The sheet tears off against the box's teeth. The foil is laid out first. Then the pork shoulder lands on it with real weight.</p>
+</div></div>
+
+<div class="shot"><span class="shot-num">13</span><div class="shot-content">
+<p class="scene-heading">INT. RUSTIC KITCHEN — DAY</p>
+<p class="note"><span class="lbl">CAM</span><span class="note-text">Straight-on tight 40mm, wide open. Keep the hat large in frame.</span></p>
+<p class="note note-light"><span class="lbl">LIGHT</span><span class="note-text">Hard slats of daylight keep the background softly legible while fill keeps eyes alive under the hat.</span></p>
+<p class="note"><span class="lbl">EDIT</span><span class="note-text">This is the act's commitment beat — first eye contact since the bedroom; the reversal thesis lands on camera, not in V.O.</span></p>
+<p class="character">CHRIS</p>
+<p class="dialogue">…you do everything backwards.</p>
 </div></div>
 
 <script>
