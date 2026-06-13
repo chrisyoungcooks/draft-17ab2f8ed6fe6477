@@ -25,6 +25,8 @@
     --label-ink: #665f56;
     --ref-pill-border: rgba(47, 111, 79, 0.28);
     --ref-pill-ink: #5f665e;
+    --ref-caption-bg: #eee9df;
+    --focus-ring: rgba(47, 111, 79, 0.35);
     --media-bg: #ebe6dd;
     --media-shadow: rgba(42, 36, 28, 0.08);
     --decision-bg: #fff0ca;
@@ -51,6 +53,8 @@
       --label-ink: #b5a99a;
       --ref-pill-border: rgba(120, 180, 143, 0.36);
       --ref-pill-ink: #b8c9b8;
+      --ref-caption-bg: #24201b;
+      --focus-ring: rgba(120, 180, 143, 0.42);
       --media-bg: #171411;
       --media-shadow: rgba(0, 0, 0, 0.34);
       --decision-bg: #3a2d15;
@@ -251,7 +255,14 @@
     text-underline-offset: 0.16em;
   }
 
+  .ref-note .note-text {
+    display: grid;
+    gap: 0.7rem;
+  }
+
   .ref-toggle { margin: 0; }
+
+  .ref-toggle + .ref-toggle { margin-top: 0.28rem; }
 
   .ref-toggle summary {
     display: flex;
@@ -262,11 +273,19 @@
     cursor: pointer;
     font-weight: 700;
     list-style: none;
+    min-width: 0;
+  }
+
+  .ref-toggle summary:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
   }
 
   .ref-toggle summary::-webkit-details-marker { display: none; }
 
   .ref-title {
+    min-width: 0;
+    overflow-wrap: anywhere;
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.16em;
@@ -288,6 +307,28 @@
 
   .ref-toggle[open] summary::after { content: "Hide"; }
 
+  .ref-toggle[open] {
+    display: grid;
+    gap: 0;
+  }
+
+  .ref-toggle[open] summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    order: 2;
+    margin-top: 0;
+    padding: 0.48rem 0.6rem 0.5rem;
+    border: 1px solid var(--line);
+    border-top: 0;
+    border-radius: 0 0 8px 8px;
+    background: var(--ref-caption-bg);
+  }
+
+  .ref-toggle[open] .ref-title {
+    text-decoration: none;
+  }
+
   .ref-media {
     display: block;
     margin-top: 0.55rem;
@@ -295,6 +336,13 @@
     border: 1px solid var(--line);
     border-radius: 8px;
     background: var(--media-bg);
+    box-shadow: 0 8px 20px var(--media-shadow);
+  }
+
+  .ref-toggle[open] .ref-media {
+    order: 1;
+    margin-top: 0;
+    border-radius: 8px 8px 0 0;
     box-shadow: 0 8px 20px var(--media-shadow);
   }
 
