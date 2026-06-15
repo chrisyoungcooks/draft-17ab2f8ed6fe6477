@@ -24,6 +24,8 @@
     --control-ink: #5c554d;
     --control-shell: oklch(0.968 0.007 78);
     --control-active: oklch(0.205 0.012 78);
+    --layer-active-bg: oklch(0.93 0.032 152);
+    --layer-active-ink: oklch(0.34 0.085 154);
     --control-shadow: oklch(0.36 0.018 74 / 0.12);
     --filter-active-bg: oklch(0.93 0.032 152);
     --filter-active-ink: oklch(0.39 0.09 154);
@@ -61,6 +63,8 @@
       --control-ink: #c6b9a8;
       --control-shell: oklch(0.245 0.01 74);
       --control-active: oklch(0.88 0.012 78);
+      --layer-active-bg: oklch(0.29 0.032 154);
+      --layer-active-ink: oklch(0.82 0.07 154);
       --control-shadow: oklch(0 0 0 / 0.34);
       --filter-active-bg: oklch(0.31 0.035 154);
       --filter-active-ink: oklch(0.8 0.07 154);
@@ -138,11 +142,11 @@
   .control-row {
     display: inline-flex;
     justify-content: center;
-    gap: 0;
+    gap: 0.16rem;
     max-width: 100%;
-    padding: 0.12rem;
+    padding: 0.14rem;
     border: 1px solid var(--line);
-    border-radius: 999px;
+    border-radius: 10px;
     background: var(--control-bg);
   }
 
@@ -152,8 +156,8 @@
     align-items: center;
     gap: 0.3rem;
     min-height: 1.72rem;
-    border: 0;
-    border-radius: 999px;
+    border: 1px solid transparent;
+    border-radius: 8px;
     background: transparent;
     color: var(--control-ink);
     cursor: pointer;
@@ -181,12 +185,12 @@
   .shot-review summary:focus-visible,
   .shot-review button:focus-visible,
   .shot-review textarea:focus-visible,
+  .shot-review input:focus-visible,
   .shot-review select:focus-visible {
     outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
   }
 
-  .control-row button::before,
   .filter-panel button::before {
     content: "";
     width: 0.36rem;
@@ -197,15 +201,16 @@
   }
 
   .control-row button[aria-pressed="true"] {
-    background: var(--control-active);
-    border-color: var(--control-active);
-    color: var(--page);
+    background: var(--layer-active-bg);
+    border-color: var(--ref-pill-border);
+    color: var(--layer-active-ink);
   }
 
-  .control-row button[aria-pressed="true"]::before {
-    background: currentColor;
-    opacity: 1;
+  .control-row button[aria-pressed="false"] {
+    background: color-mix(in oklch, var(--filter-off-bg) 64%, transparent);
   }
+
+  .button-label-short { display: none; }
 
   .filter-panel {
     width: auto;
@@ -325,8 +330,7 @@
   }
 
   .review-tools button,
-  .review-import-label,
-  .shot-review button {
+  .review-import-label {
     min-height: 1.72rem;
     border: 1px solid var(--line);
     border-radius: 999px;
@@ -340,8 +344,7 @@
   }
 
   .review-tools button:hover,
-  .review-import-label:hover,
-  .shot-review button:hover {
+  .review-import-label:hover {
     background: var(--control-shell);
   }
 
@@ -711,33 +714,33 @@
   }
 
   .shot-review {
-    margin-top: 1rem;
+    margin-top: 0.92rem;
+    padding-top: 0.62rem;
+    border-top: 1px solid var(--divider);
     color: var(--note-ink);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 0.78rem;
     line-height: 1.38;
   }
 
-  .shot-review details {
-    border: 1px solid var(--review-line);
-    border-radius: 6px;
-    background: var(--review-bg);
-    box-shadow: inset 0 1px 0 color-mix(in oklch, var(--page) 58%, transparent);
-  }
-
-  .shot-review summary {
+  .shot-review-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.75rem;
-    padding: 0.48rem 0.58rem;
-    color: var(--control-ink);
-    cursor: pointer;
-    font-weight: 750;
-    list-style: none;
+    gap: 0.48rem;
+    flex-wrap: wrap;
   }
 
-  .shot-review summary::-webkit-details-marker { display: none; }
+  .shot-review-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    color: var(--muted);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
 
   .review-count {
     border: 1px solid var(--line);
@@ -751,14 +754,66 @@
     white-space: nowrap;
   }
 
+  .shot-review-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.34rem;
+    flex: 1 1 auto;
+  }
+
+  .shot-review button {
+    min-height: 1.68rem;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: var(--filter-off-bg);
+    color: var(--control-ink);
+    cursor: pointer;
+    font: 800 0.58rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    letter-spacing: 0.06em;
+    padding: 0.36rem 0.52rem;
+    text-transform: uppercase;
+    transition: background-color 180ms ease-out, border-color 180ms ease-out, color 180ms ease-out, opacity 180ms ease-out;
+  }
+
+  .shot-review button:hover {
+    background: var(--control-shell);
+  }
+
+  .shot-review .review-add {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--page);
+  }
+
+  .shot-review .review-add[aria-expanded="true"] {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .shot-review .review-copy-shot,
+  .shot-review .review-cancel {
+    color: var(--muted);
+  }
+
   .shot-review-form {
     display: grid;
-    grid-template-columns: minmax(0, 8.8rem) minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 8.2rem) minmax(0, 8.2rem) minmax(0, 1fr) auto auto;
     gap: 0.45rem;
-    padding: 0 0.58rem 0.58rem;
+    margin-top: 0.5rem;
+    padding: 0.52rem;
+    border: 1px solid var(--review-line);
+    border-radius: 8px;
+    background: var(--review-bg);
+    box-shadow: inset 0 1px 0 color-mix(in oklch, var(--page) 58%, transparent);
+  }
+
+  .shot-review-form[hidden] {
+    display: none;
   }
 
   .shot-review select,
+  .shot-review input,
   .shot-review textarea {
     width: 100%;
     border: 1px solid var(--line);
@@ -773,6 +828,11 @@
     padding: 0 0.5rem;
   }
 
+  .shot-review input {
+    min-height: 2rem;
+    padding: 0 0.5rem;
+  }
+
   .shot-review textarea {
     min-height: 2.05rem;
     max-height: 8rem;
@@ -783,8 +843,12 @@
   .shot-review-list {
     display: grid;
     gap: 0.45rem;
-    margin: 0;
-    padding: 0 0.58rem 0.58rem;
+    margin: 0.52rem 0 0;
+    padding: 0;
+  }
+
+  .shot-review-list:empty {
+    display: none;
   }
 
   .review-note-item {
@@ -811,6 +875,7 @@
   .review-note-actions {
     display: flex;
     justify-content: flex-end;
+    gap: 0.32rem;
   }
 
   .shot-review .review-delete {
@@ -910,9 +975,10 @@
     .control-stack { gap: 0.32rem; width: calc(100% + 1.4rem); margin: 0 -0.7rem 0.85rem; padding: 0.38rem 0.7rem; }
     .control-group { width: 100%; justify-content: center; gap: 0; }
     .control-label { display: none; }
-    .control-row { width: 100%; max-width: 100%; flex-wrap: wrap; border-radius: 16px; }
+    .control-row { width: 100%; max-width: 100%; flex-wrap: wrap; border-radius: 12px; gap: 0.16rem; }
     .control-row button { flex: 1 1 42%; justify-content: center; white-space: nowrap; padding: 0.44rem 0.46rem; }
-    .control-row button::before { display: none; }
+    .button-label-full { display: none; }
+    .button-label-short { display: inline; }
     .filter-panel summary,
     .review-tools-panel summary { min-height: 1.78rem; padding: 0.34rem 0.52rem; font-size: 0.58rem; }
     .filter-panel button { min-height: 1.84rem; padding: 0.36rem 0.48rem; }
@@ -927,6 +993,10 @@
     .shot-num { font-size: 0.68rem; }
     .note { grid-template-columns: 2.7rem minmax(0, 1fr); font-size: 0.74rem; padding: 0.38rem 0.45rem; }
     .shot-review { font-size: 0.74rem; }
+    .shot-review-bar { align-items: stretch; }
+    .shot-review-title { flex: 1 1 100%; }
+    .shot-review-actions { justify-content: stretch; width: 100%; }
+    .shot-review-actions button { flex: 1 1 0; justify-content: center; }
     .shot-review-form { grid-template-columns: 1fr; }
     .shot-review button { justify-content: center; }
     .section-title { margin-bottom: 0.95rem; padding: 0.42rem 0.7rem 0.48rem; }
@@ -969,16 +1039,16 @@
   }
 </style>
 </head>
-<body data-show-screenplay="true" data-show-storyboard="true" data-show-production="true" data-show-review="false">
+<body data-show-screenplay="true" data-show-storyboard="true" data-show-production="true" data-show-review="true">
 
 <div class="control-stack" aria-label="Draft display controls">
   <div class="control-group">
     <span class="control-label">Show</span>
     <div class="control-row" aria-label="Page layers">
-      <button type="button" data-layer-toggle="screenplay" aria-pressed="true">Screenplay</button>
-      <button type="button" data-layer-toggle="storyboard" aria-pressed="true">Storyboard</button>
-      <button type="button" data-layer-toggle="production" aria-pressed="true">Production Notes</button>
-      <button type="button" data-layer-toggle="review" aria-pressed="false">Review Notes</button>
+      <button type="button" data-layer-toggle="screenplay" aria-pressed="true"><span class="button-label-full">Screenplay</span><span class="button-label-short">Script</span></button>
+      <button type="button" data-layer-toggle="storyboard" aria-pressed="true"><span>Storyboard</span></button>
+      <button type="button" data-layer-toggle="production" aria-pressed="true"><span class="button-label-full">Production Notes</span><span class="button-label-short">Production</span></button>
+      <button type="button" data-layer-toggle="review" aria-pressed="true"><span class="button-label-full">Review Notes</span><span class="button-label-short">Notes</span></button>
     </div>
   </div>
   <details class="filter-panel" data-enabled="true">
@@ -1684,6 +1754,7 @@
   const reviewClearButton = document.querySelector('[data-review-clear]');
   const reviewStatus = document.querySelector('.review-status');
   const reviewStorageKey = 'pulled-pork-shot-review-notes-v1';
+  const reviewAuthorKey = 'pulled-pork-review-author-v1';
   const layerState = {
     screenplay: document.body.dataset.showScreenplay !== 'false',
     storyboard: document.body.dataset.showStoryboard !== 'false',
@@ -1776,6 +1847,7 @@
           shot: String(note.shot || shotNumber),
           heading: note.heading || '',
           category: note.category || 'Script',
+          author: note.author || '',
           text: note.text.trim(),
           createdAt: note.createdAt || new Date().toISOString()
         }));
@@ -1817,7 +1889,7 @@
       meta.className = 'review-note-meta';
       const date = new Date(note.createdAt);
       const stamp = Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString([], { month: 'short', day: 'numeric' });
-      meta.textContent = [note.category, stamp].filter(Boolean).join(' • ');
+      meta.textContent = [note.category, note.author, stamp].filter(Boolean).join(' • ');
 
       const text = document.createElement('p');
       text.className = 'review-note-text';
@@ -1861,16 +1933,45 @@
     const panel = document.createElement('div');
     panel.className = 'shot-review';
 
-    const details = document.createElement('details');
-    const summary = document.createElement('summary');
+    const bar = document.createElement('div');
+    bar.className = 'shot-review-bar';
+
     const title = document.createElement('span');
-    title.textContent = 'Review notes';
+    title.className = 'shot-review-title';
+    title.textContent = 'Review';
+
     const count = document.createElement('span');
     count.className = 'review-count';
-    summary.append(title, count);
+    title.append(count);
+
+    const actions = document.createElement('div');
+    actions.className = 'shot-review-actions';
+
+    const addButton = document.createElement('button');
+    addButton.type = 'button';
+    addButton.className = 'review-add';
+    addButton.textContent = 'Add note';
+    addButton.setAttribute('aria-expanded', 'false');
+
+    const copyShotButton = document.createElement('button');
+    copyShotButton.type = 'button';
+    copyShotButton.className = 'review-copy-shot';
+    copyShotButton.textContent = 'Copy packet';
+    copyShotButton.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(JSON.stringify(shotPacket(shot), null, 2));
+        setReviewStatus(`Shot ${number} copied`);
+      } catch {
+        setReviewStatus('Copy failed');
+      }
+    });
+
+    actions.append(addButton, copyShotButton);
+    bar.append(title, actions);
 
     const form = document.createElement('form');
     form.className = 'shot-review-form';
+    form.hidden = true;
 
     const category = document.createElement('select');
     category.setAttribute('aria-label', `Review note type for shot ${number}`);
@@ -1881,6 +1982,12 @@
       category.append(option);
     });
 
+    const author = document.createElement('input');
+    author.type = 'text';
+    author.placeholder = 'Reviewer';
+    author.value = localStorage.getItem(reviewAuthorKey) || '';
+    author.setAttribute('aria-label', `Reviewer name for shot ${number}`);
+
     const textarea = document.createElement('textarea');
     textarea.placeholder = 'Add a note for this shot';
     textarea.setAttribute('aria-label', `Review note for shot ${number}`);
@@ -1889,36 +1996,50 @@
     saveButton.type = 'submit';
     saveButton.textContent = 'Save';
 
-    form.append(category, textarea, saveButton);
+    const cancelButton = document.createElement('button');
+    cancelButton.type = 'button';
+    cancelButton.className = 'review-cancel';
+    cancelButton.textContent = 'Cancel';
 
-    const tools = document.createElement('div');
-    tools.className = 'review-note-actions';
-    const copyShotButton = document.createElement('button');
-    copyShotButton.type = 'button';
-    copyShotButton.textContent = 'Copy shot packet';
-    copyShotButton.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(JSON.stringify(shotPacket(shot), null, 2));
-        setReviewStatus(`Shot ${number} copied`);
-      } catch {
-        setReviewStatus('Copy failed');
-      }
-    });
-    tools.append(copyShotButton);
+    form.append(category, author, textarea, saveButton, cancelButton);
 
     const list = document.createElement('div');
     list.className = 'shot-review-list';
+
+    function setComposerOpen(open) {
+      form.hidden = !open;
+      addButton.setAttribute('aria-expanded', String(open));
+      addButton.textContent = open ? 'Close note' : 'Add note';
+      if (open) {
+        requestAnimationFrame(() => textarea.focus());
+      }
+      scheduleControlSpaceUpdate();
+    }
+
+    addButton.addEventListener('click', () => {
+      setComposerOpen(form.hidden);
+    });
+
+    cancelButton.addEventListener('click', () => {
+      textarea.value = '';
+      setComposerOpen(false);
+    });
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const text = textarea.value.trim();
       if (!text) return;
       const meta = getShotMeta(shot);
+      const reviewer = author.value.trim();
+      if (reviewer) {
+        localStorage.setItem(reviewAuthorKey, reviewer);
+      }
       const note = {
         id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
         shot: meta.number,
         heading: meta.heading,
         category: category.value,
+        author: reviewer,
         text,
         createdAt: new Date().toISOString()
       };
@@ -1926,12 +2047,11 @@
       textarea.value = '';
       saveReviewNotes();
       updateReviewPanels();
-      details.open = true;
+      setComposerOpen(false);
       setReviewStatus(`Shot ${number} saved`);
     });
 
-    details.append(summary, form, tools, list);
-    panel.append(details);
+    panel.append(bar, form, list);
     shot.querySelector('.shot-content')?.append(panel);
   }
 
