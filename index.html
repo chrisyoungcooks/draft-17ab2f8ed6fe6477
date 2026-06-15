@@ -22,6 +22,12 @@
     --rail: #b8afa2;
     --control-bg: #efeae1;
     --control-ink: #5c554d;
+    --control-shell: oklch(0.968 0.007 78);
+    --control-active: oklch(0.205 0.012 78);
+    --control-shadow: oklch(0.36 0.018 74 / 0.12);
+    --filter-active-bg: oklch(0.93 0.032 152);
+    --filter-active-ink: oklch(0.39 0.09 154);
+    --filter-off-bg: oklch(0.985 0.006 78);
     --label-ink: #665f56;
     --ref-pill-border: rgba(47, 111, 79, 0.28);
     --ref-pill-ink: #5f665e;
@@ -50,6 +56,12 @@
       --rail: #8a7f72;
       --control-bg: #2a251f;
       --control-ink: #c6b9a8;
+      --control-shell: oklch(0.245 0.01 74);
+      --control-active: oklch(0.88 0.012 78);
+      --control-shadow: oklch(0 0 0 / 0.34);
+      --filter-active-bg: oklch(0.31 0.035 154);
+      --filter-active-ink: oklch(0.8 0.07 154);
+      --filter-off-bg: oklch(0.2 0.008 74);
       --label-ink: #b5a99a;
       --ref-pill-border: rgba(120, 180, 143, 0.36);
       --ref-pill-ink: #b8c9b8;
@@ -76,7 +88,7 @@
     width: 100%;
     max-width: 8.75in;
     margin: 0 auto;
-    padding: 0 0.45in 0.7in;
+    padding: var(--control-space, 3.2rem) 0.45in 0.7in;
     color: var(--ink);
     background: var(--paper);
     font-kerning: normal;
@@ -84,18 +96,47 @@
   }
 
   .control-stack {
-    display: grid;
-    justify-items: center;
-    gap: 0.5rem;
-    margin: 0.42in auto 0;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    z-index: 20;
+    width: min(100%, 8.75in);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.42rem 0.62rem;
+    margin: 0;
+    padding: 0.54rem 0.45in 0.5rem;
+    border-bottom: 1px solid var(--divider);
+    background: color-mix(in oklch, var(--paper) 92%, var(--page));
+    box-shadow: 0 0.22rem 0.9rem var(--control-shadow);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    transform: translateX(-50%);
+  }
+
+  .control-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 0;
+  }
+
+  .control-label {
+    color: var(--muted);
+    font-size: 0.64rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
   }
 
   .control-row {
     display: inline-flex;
     justify-content: center;
     gap: 0;
-    padding: 0.16rem;
+    max-width: 100%;
+    padding: 0.14rem;
     border: 1px solid var(--line);
     border-radius: 999px;
     background: var(--control-bg);
@@ -103,6 +144,10 @@
 
   .control-row button,
   .filter-panel button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.36rem;
+    min-height: 2rem;
     border: 0;
     border-radius: 999px;
     background: transparent;
@@ -112,26 +157,68 @@
     padding: 0.52rem 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
+    transition: background-color 180ms ease-out, border-color 180ms ease-out, color 180ms ease-out, opacity 180ms ease-out;
   }
 
-  .control-row button[aria-pressed="true"],
-  .filter-panel button[aria-pressed="true"] {
-    background: var(--ink);
-    border-color: var(--ink);
+  .control-row button:hover,
+  .filter-panel summary:hover,
+  .filter-panel button:hover {
+    color: var(--ink);
+  }
+
+  .control-row button:focus-visible,
+  .filter-panel summary:focus-visible,
+  .filter-panel button:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .control-row button::before,
+  .filter-panel button::before {
+    content: "";
+    width: 0.42rem;
+    height: 0.42rem;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    opacity: 0.38;
+  }
+
+  .control-row button[aria-pressed="true"] {
+    background: var(--control-active);
+    border-color: var(--control-active);
     color: var(--page);
   }
 
+  .control-row button[aria-pressed="true"]::before {
+    background: currentColor;
+    opacity: 1;
+  }
+
   .filter-panel {
-    width: min(100%, 6.9in);
+    width: auto;
     color: var(--control-ink);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
+  .filter-panel[open] {
+    flex-basis: 100%;
+    display: grid;
+    justify-items: center;
+  }
+
   .filter-panel summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    min-height: 2rem;
+    padding: 0.42rem 0.66rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--control-shell);
     cursor: pointer;
     list-style: none;
-    color: var(--muted);
-    font-size: 0.68rem;
+    color: var(--control-ink);
+    font-size: 0.66rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-align: center;
@@ -141,25 +228,49 @@
   .filter-panel summary::-webkit-details-marker { display: none; }
 
   .filter-panel summary::after {
-    content: "Show";
-    margin-left: 0.35rem;
-    color: var(--accent);
+    content: "";
+    width: 0.42rem;
+    height: 0.42rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    opacity: 0.62;
+    transform: rotate(45deg) translateY(-0.08rem);
+    transform-origin: center;
   }
 
-  .filter-panel[open] summary::after { content: "Hide"; }
+  .filter-panel[open] summary::after {
+    transform: rotate(225deg) translate(-0.04rem, -0.02rem);
+  }
 
   .filter-controls {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.28rem;
-    margin-top: 0.4rem;
+    width: min(100%, 6.9in);
+    margin-top: 0.44rem;
   }
 
   .filter-panel button {
     border: 1px solid var(--line);
-    background: var(--page);
+    background: var(--filter-off-bg);
     padding: 0.42rem 0.56rem;
+  }
+
+  .filter-panel button[aria-pressed="true"] {
+    background: var(--filter-active-bg);
+    border-color: var(--ref-pill-border);
+    color: var(--filter-active-ink);
+  }
+
+  .filter-panel button[aria-pressed="true"]::before {
+    background: currentColor;
+    opacity: 1;
+  }
+
+  .filter-panel button[aria-pressed="false"] {
+    color: var(--muted);
+    opacity: 0.78;
   }
 
   .filter-panel[data-enabled="false"] {
@@ -172,7 +283,7 @@
 
   .title-page {
     text-align: center;
-    margin-top: 2in;
+    margin-top: 1.55in;
     margin-bottom: 2in;
     page-break-after: always;
   }
@@ -190,6 +301,7 @@
     background: var(--section-bg);
     color: var(--section-ink);
     text-align: center;
+    scroll-margin-top: calc(var(--control-space, 3.2rem) + 1rem);
     break-inside: avoid;
     page-break-inside: avoid;
   }
@@ -214,6 +326,7 @@
     margin: 0 auto 1.35rem;
     padding: 0.9rem 0.85rem 0.95rem 0;
     background: var(--page);
+    scroll-margin-top: calc(var(--control-space, 3.2rem) + 1rem);
     break-inside: avoid;
     page-break-inside: avoid;
   }
@@ -343,8 +456,9 @@
   }
 
   body[data-show-storyboard="true"] .ref-note .note-text {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14.5rem), 1fr));
     align-items: start;
+    gap: 0.78rem;
   }
 
   body[data-show-storyboard="true"] .ref-source {
@@ -353,6 +467,14 @@
 
   body[data-show-storyboard="true"] .ref-toggle + .ref-toggle {
     margin-top: 0;
+  }
+
+  body[data-show-storyboard="true"] .ref-toggle[open] {
+    min-width: 0;
+  }
+
+  body[data-show-storyboard="true"] .ref-toggle[open] summary {
+    min-height: 2.65rem;
   }
 
   .ref-toggle { margin: 0; }
@@ -583,11 +705,17 @@
   }
 
   @media screen and (max-width: 600px) {
-    body { font-size: 11pt; margin: 0; padding: 0 0.7rem 1rem; max-width: 100%; }
-    .control-stack { margin-top: 0.34in; }
-    .control-row { max-width: 100%; overflow-x: auto; }
-    .control-row button { white-space: nowrap; }
-    .title-page { margin-top: 1in; margin-bottom: 1in; overflow-wrap: anywhere; padding: 0 0.2rem; }
+    body { font-size: 11pt; margin: 0; padding: var(--control-space, 4.8rem) 0.7rem 1rem; max-width: 100%; }
+    .control-stack { gap: 0.38rem; width: 100%; padding: 0.46rem 0.7rem 0.44rem; }
+    .control-group { width: 100%; justify-content: center; gap: 0; }
+    .control-label { display: none; }
+    .control-row { width: 100%; max-width: 100%; overflow-x: auto; }
+    .control-row button { white-space: nowrap; padding: 0.48rem 0.56rem; }
+    .control-row button::before { display: none; }
+    .filter-panel summary { min-height: 1.84rem; padding: 0.36rem 0.56rem; font-size: 0.6rem; }
+    .filter-panel button { min-height: 1.84rem; padding: 0.36rem 0.48rem; }
+    .filter-controls { gap: 0.22rem; margin-top: 0.34rem; }
+    .title-page { margin-top: 0.55in; margin-bottom: 1in; overflow-wrap: anywhere; padding: 0 0.2rem; }
     .title-page h1 { font-size: 16pt; letter-spacing: 0.06em; line-height: 1.34; margin-bottom: 0.3in; }
     .shot { grid-template-columns: 1.45rem minmax(0, 1fr); gap: 0.55rem; width: 100%; max-width: 100%; padding: 0.7rem 0.15rem 0.75rem 0; }
     .shot-num { font-size: 0.68rem; }
@@ -634,30 +762,34 @@
 </head>
 <body data-show-screenplay="true" data-show-storyboard="true" data-show-production="true">
 
-<div class="title-page">
-  <h1>1 Hour of Smoke Is Enough for Real Barbecue</h1>
-  <div class="subtitle">The Ballad of a Barbecue Rustler</div>
-  <div class="byline">Working Draft</div>
-  <div class="control-stack" aria-label="View options">
+<div class="control-stack" aria-label="Draft display controls">
+  <div class="control-group">
+    <span class="control-label">Show</span>
     <div class="control-row" aria-label="Page layers">
       <button type="button" data-layer-toggle="screenplay" aria-pressed="true">Screenplay</button>
       <button type="button" data-layer-toggle="storyboard" aria-pressed="true">Storyboard</button>
       <button type="button" data-layer-toggle="production" aria-pressed="true">Production Notes</button>
     </div>
-    <details class="filter-panel" open data-enabled="true">
-      <summary>Note filters</summary>
-      <div class="filter-controls" aria-label="Production note filters">
-        <button type="button" data-note-filter="CAM" aria-pressed="true">CAM</button>
-        <button type="button" data-note-filter="LIGHT" aria-pressed="true">LIGHT</button>
-        <button type="button" data-note-filter="PROD" aria-pressed="true">PROD</button>
-        <button type="button" data-note-filter="PROP" aria-pressed="true">PROP</button>
-        <button type="button" data-note-filter="TRACK" aria-pressed="true">TRACK</button>
-        <button type="button" data-note-filter="VFX" aria-pressed="true">VFX</button>
-        <button type="button" data-note-filter="GFX" aria-pressed="true">GFX</button>
-        <button type="button" data-note-filter="EDIT" aria-pressed="true">EDIT</button>
-      </div>
-    </details>
   </div>
+  <details class="filter-panel" data-enabled="true">
+    <summary>Filter notes</summary>
+    <div class="filter-controls" aria-label="Production note filters">
+      <button type="button" data-note-filter="CAM" aria-pressed="true">CAM</button>
+      <button type="button" data-note-filter="LIGHT" aria-pressed="true">LIGHT</button>
+      <button type="button" data-note-filter="PROD" aria-pressed="true">PROD</button>
+      <button type="button" data-note-filter="PROP" aria-pressed="true">PROP</button>
+      <button type="button" data-note-filter="TRACK" aria-pressed="true">TRACK</button>
+      <button type="button" data-note-filter="VFX" aria-pressed="true">VFX</button>
+      <button type="button" data-note-filter="GFX" aria-pressed="true">GFX</button>
+      <button type="button" data-note-filter="EDIT" aria-pressed="true">EDIT</button>
+    </div>
+  </details>
+</div>
+
+<div class="title-page">
+  <h1>1 Hour of Smoke Is Enough for Real Barbecue</h1>
+  <div class="subtitle">The Ballad of a Barbecue Rustler</div>
+  <div class="byline">Working Draft</div>
 </div>
 
 <div class="section-title">
@@ -1316,6 +1448,7 @@
 
 <script>
   const layerButtons = document.querySelectorAll('[data-layer-toggle]');
+  const controlStack = document.querySelector('.control-stack');
   const filterPanel = document.querySelector('.filter-panel');
   const filterButtons = document.querySelectorAll('[data-note-filter]');
   const productionNotes = document.querySelectorAll('.note:not(.ref-note)');
@@ -1339,6 +1472,29 @@
   filterButtons.forEach((button) => {
     noteFilters[button.dataset.noteFilter] = button.getAttribute('aria-pressed') !== 'false';
   });
+
+  function updateControlSpace() {
+    if (!controlStack) return;
+    document.documentElement.style.setProperty('--control-space', `${Math.ceil(controlStack.offsetHeight)}px`);
+  }
+
+  function scheduleControlSpaceUpdate() {
+    updateControlSpace();
+    requestAnimationFrame(updateControlSpace);
+    setTimeout(updateControlSpace, 220);
+  }
+
+  if (controlStack) {
+    scheduleControlSpaceUpdate();
+    window.addEventListener('resize', scheduleControlSpaceUpdate);
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(scheduleControlSpaceUpdate).observe(controlStack);
+    }
+  }
+
+  if (filterPanel) {
+    filterPanel.addEventListener('toggle', scheduleControlSpaceUpdate);
+  }
 
   function formatVideoTime(seconds) {
     if (!Number.isFinite(seconds)) return '0:00';
