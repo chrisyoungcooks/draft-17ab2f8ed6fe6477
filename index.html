@@ -177,6 +177,31 @@
 
   .shot-content { min-width: 0; }
 
+  .scene-outline {
+    max-width: 8in;
+    margin: 0 auto 1.35rem;
+    padding: 0.9rem 1rem 1rem;
+    background: var(--page);
+    border-top: 1px solid var(--divider);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .beat-list {
+    margin: 0.8rem 0 0;
+    padding-left: 1.3rem;
+  }
+
+  .beat-list li {
+    margin: 0.62rem 0;
+    padding-left: 0.12rem;
+  }
+
+  .beat-label {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
   .scene-heading {
     text-transform: uppercase;
     font-weight: bold;
@@ -1136,6 +1161,25 @@
 <p class="character">CHRIS</p>
 <p class="dialogue">But my oven’s warm is not your oven’s warm.</p>
 </div></div>
+
+<div class="section-title">
+  <span class="section-label">— SCENE 6: THE MISSING TIMETABLE —</span>
+  <span class="section-purpose">Turn the solved stall into a usable schedule: measure the temperature around the pork, choose a time, sleep, then wake up ready to smoke.</span>
+</div>
+
+<div class="scene-outline">
+<p class="scene-heading">BEAT OUTLINE — TO BE BROKEN INTO SHOTS</p>
+<ol class="beat-list">
+  <li><span class="beat-label">The catch:</span> Chris has beaten the stall, but the method still depends on the one vague thing every home oven gives you: WARM.</li>
+  <li><span class="beat-label">The uncertainty:</span> My oven's warm is not your oven's warm. A dial that says WARM, or even a digital oven set to a number, is not measuring the air right around the food.</li>
+  <li><span class="beat-label">The tool:</span> You need a thermometer where the pork is. Chris recommends the wireless Predictive Thermometer he makes with his team at Combustion Inc. because its eight sensors show the air around the food, the surface, and the TrueCore.</li>
+  <li><span class="beat-label">The fallback:</span> If you do not have one, put a reliable thermometer as close to the wrapped roast as you can. The key is not the knob; it is the temperature the wrapped pork is actually living in.</li>
+  <li><span class="beat-label">The missing page:</span> An old cookbook opens with uselessly vague barbecue advice. Chris turns to the page it should have had: a tested reverse-smoking timetable.</li>
+  <li><span class="beat-label">The timetable:</span> Once you know the temperature around the pork, the rest is a choose-your-own-adventure schedule. Different temperatures get the pork to roughly the same pulled-pork tenderness; they just arrive at different times.</li>
+  <li><span class="beat-label">The earned science:</span> Brief Arrhenius beat. Collagen breakdown is chemistry: a little warmer makes the tenderizing clock run a lot faster. No equation here unless the visual demands it.</li>
+  <li><span class="beat-label">The handoff:</span> Pick the line that fits your oven and your bedtime. The timetable becomes the night/day transition: oven working, Chris sleeping, morning light, pork tender and ready for the hour that matters.</li>
+</ol>
+</div>
 
 <script>
   const modeButtons = document.querySelectorAll('[data-set-mode]');
