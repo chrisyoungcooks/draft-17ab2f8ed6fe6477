@@ -367,8 +367,95 @@
 
   .ref-media video {
     background: var(--media-bg);
+    cursor: pointer;
     object-fit: contain;
     object-position: center;
+  }
+
+  .ref-video-card {
+    display: grid;
+  }
+
+  .ref-video-controls {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.55rem;
+    align-items: center;
+    padding: 0.44rem 0.56rem 0.48rem;
+    border-top: 1px solid var(--line);
+    background: var(--ref-caption-bg);
+    color: var(--control-ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.68rem;
+    line-height: 1;
+  }
+
+  .ref-video-play {
+    border: 1px solid var(--ref-pill-border);
+    border-radius: 999px;
+    background: var(--page);
+    color: var(--accent);
+    cursor: pointer;
+    font: 800 0.62rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    letter-spacing: 0.07em;
+    min-width: 3.05rem;
+    padding: 0.38rem 0.48rem;
+    text-transform: uppercase;
+  }
+
+  .ref-video-play:focus-visible,
+  .ref-video-scrub:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .ref-video-scrub {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 1.25rem;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .ref-video-scrub::-webkit-slider-runnable-track {
+    height: 0.24rem;
+    border-radius: 999px;
+    background: var(--line);
+  }
+
+  .ref-video-scrub::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0.82rem;
+    height: 0.82rem;
+    margin-top: -0.29rem;
+    border: 2px solid var(--ref-caption-bg);
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .ref-video-scrub::-moz-range-track {
+    height: 0.24rem;
+    border-radius: 999px;
+    background: var(--line);
+  }
+
+  .ref-video-scrub::-moz-range-thumb {
+    width: 0.82rem;
+    height: 0.82rem;
+    border: 2px solid var(--ref-caption-bg);
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .ref-video-time {
+    min-width: 4.9rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
   }
 
   body[data-mode="read"] .note { display: none; }
@@ -493,7 +580,7 @@
   <details class="ref-toggle">
     <summary><span class="ref-title">Chronometer with open smoker reference</span></summary>
     <div class="ref-media">
-      <video controls playsinline preload="metadata" poster="refs/shot-3-chronometer-smoker-reference-poster.jpg" aria-label="Chronometer with open smoker and pork movie reference for Shot 3.">
+      <video playsinline preload="metadata" poster="refs/shot-3-chronometer-smoker-reference-poster.jpg" aria-label="Chronometer with open smoker and pork movie reference for Shot 3.">
         <source src="refs/shot-3-chronometer-smoker-reference.mp4" type="video/mp4">
         <a href="refs/shot-3-chronometer-smoker-reference.mp4">Open the Shot 3 reference movie.</a>
       </video>
@@ -642,7 +729,7 @@
   <details class="ref-toggle">
     <summary><span class="ref-title">Rural town golden-hour-to-night reference</span></summary>
     <div class="ref-media">
-      <video controls playsinline preload="metadata" poster="refs/shot-9-rural-town-transition-reference-poster.jpg" aria-label="Rural town golden-hour-to-night movie reference for Shot 9.">
+      <video playsinline preload="metadata" poster="refs/shot-9-rural-town-transition-reference-poster.jpg" aria-label="Rural town golden-hour-to-night movie reference for Shot 9.">
         <source src="refs/shot-9-rural-town-transition-reference.mp4" type="video/mp4">
         <a href="refs/shot-9-rural-town-transition-reference.mp4">Open the Shot 9 reference movie.</a>
       </video>
@@ -742,7 +829,7 @@
   <details class="ref-toggle">
     <summary><span class="ref-title">Option B — high 3/4 insert with more panel context</span></summary>
     <div class="ref-media">
-      <video controls playsinline preload="metadata" poster="refs/shot-17-oven-warm-dial-option-b.jpg" aria-label="Option B reference clip for Shot 17: high three-quarter insert on the oven dial with more control-panel context.">
+      <video playsinline preload="metadata" poster="refs/shot-17-oven-warm-dial-option-b.jpg" aria-label="Option B reference clip for Shot 17: high three-quarter insert on the oven dial with more control-panel context.">
         <source src="refs/shot-17-oven-warm-dial-option-b.mp4" type="video/mp4">
         <a href="refs/shot-17-oven-warm-dial-option-b.mp4">Open the Shot 17 Option B reference clip.</a>
       </video>
@@ -1136,7 +1223,105 @@
 <script>
   const modeButtons = document.querySelectorAll('[data-set-mode]');
   const refToggles = document.querySelectorAll('.ref-toggle');
+  const refVideos = document.querySelectorAll('.ref-media video');
   let savedRefOpenStates = null;
+
+  function formatVideoTime(seconds) {
+    if (!Number.isFinite(seconds)) return '0:00';
+    const minutes = Math.floor(seconds / 60);
+    const remainder = String(Math.floor(seconds % 60)).padStart(2, '0');
+    return `${minutes}:${remainder}`;
+  }
+
+  function setupReferenceVideo(video) {
+    const media = video.closest('.ref-media');
+    if (!media || video.dataset.customControls === 'true') return;
+
+    video.dataset.customControls = 'true';
+    video.controls = false;
+    video.removeAttribute('controls');
+    video.setAttribute('tabindex', '0');
+    media.classList.add('ref-video-card');
+
+    const controls = document.createElement('div');
+    controls.className = 'ref-video-controls';
+
+    const playButton = document.createElement('button');
+    playButton.type = 'button';
+    playButton.className = 'ref-video-play';
+    playButton.textContent = 'Play';
+    playButton.setAttribute('aria-label', 'Play reference clip');
+
+    const scrubber = document.createElement('input');
+    scrubber.type = 'range';
+    scrubber.className = 'ref-video-scrub';
+    scrubber.min = '0';
+    scrubber.max = '1000';
+    scrubber.step = '1';
+    scrubber.value = '0';
+    scrubber.setAttribute('aria-label', 'Reference clip position');
+
+    const time = document.createElement('span');
+    time.className = 'ref-video-time';
+    time.textContent = '0:00 / 0:00';
+
+    controls.append(playButton, scrubber, time);
+    media.appendChild(controls);
+
+    function updateVideoControls() {
+      const duration = video.duration;
+      const current = video.currentTime;
+      const hasDuration = Number.isFinite(duration) && duration > 0;
+
+      if (hasDuration) {
+        scrubber.value = String(Math.round((current / duration) * 1000));
+        time.textContent = `${formatVideoTime(current)} / ${formatVideoTime(duration)}`;
+      } else {
+        scrubber.value = '0';
+        time.textContent = `${formatVideoTime(current)} / 0:00`;
+      }
+
+      playButton.textContent = video.paused ? 'Play' : 'Pause';
+      playButton.setAttribute('aria-label', video.paused ? 'Play reference clip' : 'Pause reference clip');
+    }
+
+    async function togglePlayback() {
+      if (video.paused) {
+        try {
+          await video.play();
+        } catch {
+          // If the browser blocks playback, leave the poster and controls as-is.
+        }
+      } else {
+        video.pause();
+      }
+      updateVideoControls();
+    }
+
+    playButton.addEventListener('click', togglePlayback);
+    video.addEventListener('click', togglePlayback);
+    video.addEventListener('loadedmetadata', updateVideoControls);
+    video.addEventListener('timeupdate', updateVideoControls);
+    video.addEventListener('play', updateVideoControls);
+    video.addEventListener('pause', updateVideoControls);
+    video.addEventListener('ended', updateVideoControls);
+    video.addEventListener('keydown', (event) => {
+      if (event.key === ' ' || event.key === 'Enter') {
+        event.preventDefault();
+        togglePlayback();
+      }
+    });
+
+    scrubber.addEventListener('input', () => {
+      if (Number.isFinite(video.duration) && video.duration > 0) {
+        video.currentTime = (Number(scrubber.value) / 1000) * video.duration;
+      }
+    });
+
+    updateVideoControls();
+  }
+
+  refVideos.forEach(setupReferenceVideo);
 
   function setMode(mode) {
     if (mode === 'board') {
