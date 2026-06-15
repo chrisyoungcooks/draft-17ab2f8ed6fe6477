@@ -83,19 +83,26 @@
     overflow-x: hidden;
   }
 
-  .view-controls {
+  .control-stack {
+    display: grid;
+    justify-items: center;
+    gap: 0.5rem;
+    margin: 0.42in auto 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .control-row {
     display: inline-flex;
     justify-content: center;
     gap: 0;
-    margin: 0.42in auto 0;
     padding: 0.16rem;
     border: 1px solid var(--line);
     border-radius: 999px;
     background: var(--control-bg);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
-  .view-controls button {
+  .control-row button,
+  .filter-panel button {
     border: 0;
     border-radius: 999px;
     background: transparent;
@@ -107,10 +114,60 @@
     letter-spacing: 0.06em;
   }
 
-  .view-controls button[aria-pressed="true"] {
+  .control-row button[aria-pressed="true"],
+  .filter-panel button[aria-pressed="true"] {
     background: var(--ink);
     border-color: var(--ink);
     color: var(--page);
+  }
+
+  .filter-panel {
+    width: min(100%, 6.9in);
+    color: var(--control-ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .filter-panel summary {
+    cursor: pointer;
+    list-style: none;
+    color: var(--muted);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .filter-panel summary::-webkit-details-marker { display: none; }
+
+  .filter-panel summary::after {
+    content: "Show";
+    margin-left: 0.35rem;
+    color: var(--accent);
+  }
+
+  .filter-panel[open] summary::after { content: "Hide"; }
+
+  .filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.28rem;
+    margin-top: 0.4rem;
+  }
+
+  .filter-panel button {
+    border: 1px solid var(--line);
+    background: var(--page);
+    padding: 0.42rem 0.56rem;
+  }
+
+  .filter-panel[data-enabled="false"] {
+    opacity: 0.48;
+  }
+
+  .filter-panel[data-enabled="false"] button {
+    cursor: not-allowed;
   }
 
   .title-page {
@@ -285,6 +342,19 @@
     gap: 0.7rem;
   }
 
+  body[data-show-storyboard="true"] .ref-note .note-text {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    align-items: start;
+  }
+
+  body[data-show-storyboard="true"] .ref-source {
+    grid-column: 1 / -1;
+  }
+
+  body[data-show-storyboard="true"] .ref-toggle + .ref-toggle {
+    margin-top: 0;
+  }
+
   .ref-toggle { margin: 0; }
 
   .ref-toggle + .ref-toggle { margin-top: 0.28rem; }
@@ -406,6 +476,26 @@
     object-position: center;
   }
 
+  body[data-show-screenplay="false"] .action,
+  body[data-show-screenplay="false"] .character,
+  body[data-show-screenplay="false"] .dialogue,
+  body[data-show-screenplay="false"] .transition,
+  body[data-show-screenplay="false"] .scene-outline {
+    display: none;
+  }
+
+  body[data-show-production="false"] .note:not(.ref-note) {
+    display: none;
+  }
+
+  body[data-show-storyboard="false"] .ref-note {
+    display: none;
+  }
+
+  .note[hidden] {
+    display: none;
+  }
+
   .ref-video-card {
     display: grid;
   }
@@ -492,12 +582,11 @@
     white-space: nowrap;
   }
 
-  body[data-mode="read"] .note { display: none; }
-  body[data-mode="read"] .shot { padding-top: 0.72rem; padding-bottom: 0.72rem; }
-
   @media screen and (max-width: 600px) {
     body { font-size: 11pt; margin: 0; padding: 0 0.7rem 1rem; max-width: 100%; }
-    .view-controls { margin-top: 0.34in; padding: 0.16rem; }
+    .control-stack { margin-top: 0.34in; }
+    .control-row { max-width: 100%; overflow-x: auto; }
+    .control-row button { white-space: nowrap; }
     .title-page { margin-top: 1in; margin-bottom: 1in; overflow-wrap: anywhere; padding: 0 0.2rem; }
     .title-page h1 { font-size: 16pt; letter-spacing: 0.06em; line-height: 1.34; margin-bottom: 0.3in; }
     .shot { grid-template-columns: 1.45rem minmax(0, 1fr); gap: 0.55rem; width: 100%; max-width: 100%; padding: 0.7rem 0.15rem 0.75rem 0; }
@@ -524,7 +613,7 @@
       background: #fff;
     }
 
-    .view-controls { display: none; }
+    .control-stack { display: none; }
     .title-page { margin-top: 2in; }
     .shot {
       max-width: none;
@@ -543,16 +632,31 @@
   }
 </style>
 </head>
-<body data-mode="board">
+<body data-show-screenplay="true" data-show-storyboard="true" data-show-production="true">
 
 <div class="title-page">
   <h1>1 Hour of Smoke Is Enough for Real Barbecue</h1>
   <div class="subtitle">The Ballad of a Barbecue Rustler</div>
   <div class="byline">Working Draft</div>
-  <div class="view-controls" aria-label="View options">
-    <button type="button" data-set-mode="read" aria-pressed="false">Read</button>
-    <button type="button" data-set-mode="shoot" aria-pressed="false">Shoot</button>
-    <button type="button" data-set-mode="board" aria-pressed="true">Board</button>
+  <div class="control-stack" aria-label="View options">
+    <div class="control-row" aria-label="Page layers">
+      <button type="button" data-layer-toggle="screenplay" aria-pressed="true">Screenplay</button>
+      <button type="button" data-layer-toggle="storyboard" aria-pressed="true">Storyboard</button>
+      <button type="button" data-layer-toggle="production" aria-pressed="true">Production Notes</button>
+    </div>
+    <details class="filter-panel" open data-enabled="true">
+      <summary>Note filters</summary>
+      <div class="filter-controls" aria-label="Production note filters">
+        <button type="button" data-note-filter="CAM" aria-pressed="true">CAM</button>
+        <button type="button" data-note-filter="LIGHT" aria-pressed="true">LIGHT</button>
+        <button type="button" data-note-filter="PROD" aria-pressed="true">PROD</button>
+        <button type="button" data-note-filter="PROP" aria-pressed="true">PROP</button>
+        <button type="button" data-note-filter="TRACK" aria-pressed="true">TRACK</button>
+        <button type="button" data-note-filter="VFX" aria-pressed="true">VFX</button>
+        <button type="button" data-note-filter="GFX" aria-pressed="true">GFX</button>
+        <button type="button" data-note-filter="EDIT" aria-pressed="true">EDIT</button>
+      </div>
+    </details>
   </div>
 </div>
 
@@ -1211,10 +1315,30 @@
 </div>
 
 <script>
-  const modeButtons = document.querySelectorAll('[data-set-mode]');
+  const layerButtons = document.querySelectorAll('[data-layer-toggle]');
+  const filterPanel = document.querySelector('.filter-panel');
+  const filterButtons = document.querySelectorAll('[data-note-filter]');
+  const productionNotes = document.querySelectorAll('.note:not(.ref-note)');
   const refToggles = document.querySelectorAll('.ref-toggle');
   const refVideos = document.querySelectorAll('.ref-media video');
+  const layerState = {
+    screenplay: document.body.dataset.showScreenplay !== 'false',
+    storyboard: document.body.dataset.showStoryboard !== 'false',
+    production: document.body.dataset.showProduction !== 'false'
+  };
+  const noteFilters = {};
   let savedRefOpenStates = null;
+
+  productionNotes.forEach((note) => {
+    const label = note.querySelector('.lbl')?.textContent?.trim().toUpperCase();
+    if (label) {
+      note.dataset.noteType = label;
+    }
+  });
+
+  filterButtons.forEach((button) => {
+    noteFilters[button.dataset.noteFilter] = button.getAttribute('aria-pressed') !== 'false';
+  });
 
   function formatVideoTime(seconds) {
     if (!Number.isFinite(seconds)) return '0:00';
@@ -1313,36 +1437,93 @@
 
   refVideos.forEach(setupReferenceVideo);
 
-  function setMode(mode) {
-    if (mode === 'board') {
-      if (!savedRefOpenStates) {
-        savedRefOpenStates = Array.from(refToggles, (toggle) => toggle.open);
-      }
-      refToggles.forEach((toggle) => {
-        toggle.open = true;
-      });
+  function showStoryboardRefs() {
+    if (!savedRefOpenStates) {
+      savedRefOpenStates = Array.from(refToggles, (toggle) => toggle.open);
     }
+    refToggles.forEach((toggle) => {
+      toggle.open = true;
+    });
+  }
 
-    if (mode !== 'board' && savedRefOpenStates) {
+  function restoreStoryboardRefs() {
+    if (savedRefOpenStates) {
       refToggles.forEach((toggle, index) => {
         toggle.open = savedRefOpenStates[index] ?? false;
       });
       savedRefOpenStates = null;
     }
-
-    document.body.dataset.mode = mode;
-    modeButtons.forEach((item) => {
-      item.setAttribute('aria-pressed', String(item.dataset.setMode === mode));
-    });
   }
 
-  modeButtons.forEach((button) => {
+  function applyNoteFilters() {
+    productionNotes.forEach((note) => {
+      const type = note.dataset.noteType;
+      note.hidden = Boolean(type && noteFilters[type] === false);
+    });
+
+    filterButtons.forEach((button) => {
+      const type = button.dataset.noteFilter;
+      button.setAttribute('aria-pressed', String(noteFilters[type] !== false));
+      button.disabled = !layerState.production;
+    });
+
+    if (filterPanel) {
+      filterPanel.dataset.enabled = String(layerState.production);
+    }
+  }
+
+  function applyLayerState() {
+    document.body.dataset.showScreenplay = String(layerState.screenplay);
+    document.body.dataset.showStoryboard = String(layerState.storyboard);
+    document.body.dataset.showProduction = String(layerState.production);
+
+    layerButtons.forEach((button) => {
+      const layer = button.dataset.layerToggle;
+      button.setAttribute('aria-pressed', String(Boolean(layerState[layer])));
+    });
+
+    applyNoteFilters();
+  }
+
+  function setLayer(layer, value) {
+    if (!(layer in layerState)) return;
+
+    const nextValue = Boolean(value);
+    const changed = layerState[layer] !== nextValue;
+    layerState[layer] = nextValue;
+
+    if (layer === 'storyboard' && changed) {
+      if (nextValue) {
+        showStoryboardRefs();
+      } else {
+        restoreStoryboardRefs();
+      }
+    }
+
+    applyLayerState();
+  }
+
+  layerButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      setMode(button.dataset.setMode);
+      const layer = button.dataset.layerToggle;
+      setLayer(layer, !layerState[layer]);
     });
   });
 
-  setMode(document.body.dataset.mode);
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      if (!layerState.production) return;
+      const type = button.dataset.noteFilter;
+      noteFilters[type] = !noteFilters[type];
+      applyNoteFilters();
+    });
+  });
+
+  if (layerState.storyboard) {
+    showStoryboardRefs();
+  }
+
+  applyLayerState();
 </script>
 
 </body>
