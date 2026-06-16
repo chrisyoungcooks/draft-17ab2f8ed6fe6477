@@ -142,6 +142,21 @@
     min-width: 0;
   }
 
+  .build-stamp {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.72rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--filter-off-bg);
+    color: var(--muted);
+    font: 800 0.56rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    letter-spacing: 0.08em;
+    padding: 0.38rem 0.54rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
   .control-label {
     color: var(--muted);
     font-size: 0.58rem;
@@ -867,6 +882,21 @@
     display: none;
   }
 
+  .review-field {
+    display: grid;
+    gap: 0.18rem;
+    min-width: 0;
+  }
+
+  .review-field-label {
+    color: var(--muted);
+    font-size: 0.56rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
   .shot-review select,
   .shot-review input,
   .shot-review textarea {
@@ -893,6 +923,11 @@
     max-height: 8rem;
     resize: vertical;
     padding: 0.4rem 0.5rem;
+  }
+
+  .review-save,
+  .review-cancel {
+    align-self: end;
   }
 
   .shot-review-list {
@@ -1074,8 +1109,11 @@
 
   @media screen and (max-width: 600px) {
     body { font-size: 11pt; margin: 0; padding: 0 0.7rem 1rem; max-width: 100%; }
+    .control-stack:has(.filter-panel[open]),
+    .control-stack:has(.review-tools-panel[open]) { position: static; }
     .control-stack { gap: 0.32rem; width: calc(100% + 1.4rem); margin: 0 -0.7rem 0.85rem; padding: 0.38rem 0.7rem; }
     .control-group { width: 100%; justify-content: center; gap: 0; }
+    .build-stamp { min-height: 1.62rem; margin-top: 0.1rem; padding: 0.32rem 0.5rem; }
     .control-label { display: none; }
     .control-row { width: 100%; max-width: 100%; flex-wrap: wrap; border-radius: 12px; gap: 0.16rem; }
     .control-row button { flex: 1 1 42%; justify-content: center; white-space: nowrap; padding: 0.44rem 0.46rem; }
@@ -1100,6 +1138,8 @@
     .shot-review-actions { justify-content: stretch; width: 100%; }
     .shot-review-actions button { flex: 1 1 0; justify-content: center; }
     .shot-review-form { grid-template-columns: 1fr; }
+    .review-save,
+    .review-cancel { align-self: stretch; }
     .shot-review button { justify-content: center; }
     .section-title { margin-bottom: 0.95rem; padding: 0.42rem 0.7rem 0.48rem; }
     .ref-toggle summary { align-items: flex-start; gap: 0.55rem; }
@@ -1154,8 +1194,9 @@
       <button type="button" data-layer-toggle="review" aria-pressed="true"><span class="button-label-full">Review Notes</span><span class="button-label-short">Notes</span></button>
     </div>
   </div>
+  <span class="build-stamp" title="Use the cache-busted URL if this stamp is missing.">Tooling v3</span>
   <details class="filter-panel" data-enabled="true">
-    <summary>Filter notes</summary>
+    <summary>View filters</summary>
     <div class="filter-controls" aria-label="Production note filters">
       <span class="filter-subhead">Production Components</span>
       <button type="button" data-note-filter="CAM" aria-pressed="true">CAM</button>
@@ -1175,10 +1216,10 @@
     </div>
   </details>
   <details class="review-tools-panel">
-    <summary>Review tools</summary>
-    <div class="review-tools" aria-label="Review note tools">
+    <summary>Draft tools</summary>
+    <div class="review-tools" aria-label="Draft review and edit tools">
       <button type="button" data-edit-toggle aria-pressed="false">Edit text</button>
-      <button type="button" data-edit-copy>Copy edits</button>
+      <button type="button" data-edit-copy>Copy text edits</button>
       <button type="button" data-review-copy>Copy review JSON</button>
       <button type="button" data-review-download>Download JSON</button>
       <label class="review-import-label">Import JSON<input type="file" accept="application/json" data-review-import></label>
@@ -1944,11 +1985,33 @@
   }
 
   if (filterPanel) {
-    filterPanel.addEventListener('toggle', scheduleControlSpaceUpdate);
+    filterPanel.querySelector('summary')?.addEventListener('click', () => {
+      if (!filterPanel.open && reviewToolsPanel) {
+        reviewToolsPanel.open = false;
+      }
+    });
+
+    filterPanel.addEventListener('toggle', () => {
+      if (filterPanel.open && reviewToolsPanel) {
+        reviewToolsPanel.open = false;
+      }
+      scheduleControlSpaceUpdate();
+    });
   }
 
   if (reviewToolsPanel) {
-    reviewToolsPanel.addEventListener('toggle', scheduleControlSpaceUpdate);
+    reviewToolsPanel.querySelector('summary')?.addEventListener('click', () => {
+      if (!reviewToolsPanel.open && filterPanel) {
+        filterPanel.open = false;
+      }
+    });
+
+    reviewToolsPanel.addEventListener('toggle', () => {
+      if (reviewToolsPanel.open && filterPanel) {
+        filterPanel.open = false;
+      }
+      scheduleControlSpaceUpdate();
+    });
   }
 
   function setReviewStatus(message) {
@@ -2329,7 +2392,7 @@
     const copyShotButton = document.createElement('button');
     copyShotButton.type = 'button';
     copyShotButton.className = 'review-copy-shot';
-    copyShotButton.textContent = 'Copy packet';
+    copyShotButton.textContent = 'Copy shot JSON';
     copyShotButton.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(JSON.stringify(shotPacket(shot), null, 2));
@@ -2345,6 +2408,16 @@
     const form = document.createElement('form');
     form.className = 'shot-review-form';
     form.hidden = true;
+
+    function wrapField(labelText, field) {
+      const label = document.createElement('label');
+      label.className = 'review-field';
+      const fieldLabel = document.createElement('span');
+      fieldLabel.className = 'review-field-label';
+      fieldLabel.textContent = labelText;
+      label.append(fieldLabel, field);
+      return label;
+    }
 
     const target = document.createElement('select');
     target.setAttribute('aria-label', `Review note target for shot ${number}`);
@@ -2376,6 +2449,7 @@
 
     const saveButton = document.createElement('button');
     saveButton.type = 'submit';
+    saveButton.className = 'review-save';
     saveButton.textContent = 'Save';
 
     const cancelButton = document.createElement('button');
@@ -2383,7 +2457,14 @@
     cancelButton.className = 'review-cancel';
     cancelButton.textContent = 'Cancel';
 
-    form.append(target, kind, author, textarea, saveButton, cancelButton);
+    form.append(
+      wrapField('Target', target),
+      wrapField('Type', kind),
+      wrapField('Reviewer', author),
+      wrapField('Note', textarea),
+      saveButton,
+      cancelButton
+    );
 
     const list = document.createElement('div');
     list.className = 'shot-review-list';
