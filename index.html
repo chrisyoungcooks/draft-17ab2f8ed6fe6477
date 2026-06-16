@@ -149,7 +149,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 1.64rem;
+    min-height: 2.12rem;
     border: 1px solid transparent;
     border-radius: 999px;
     background: transparent;
@@ -580,7 +580,7 @@
   }
 
   .shot-review button {
-    min-height: 1.68rem;
+    min-height: 2rem;
     border: 1px solid var(--line);
     border-radius: 7px;
     background: var(--filter-off-bg);
@@ -684,6 +684,16 @@
     padding: 0.55rem 0.62rem;
   }
 
+  .review-form-message {
+    margin: -0.18rem 0 0;
+    color: var(--decision-ink);
+    font-size: 0.72rem;
+  }
+
+  .review-form-message[hidden] {
+    display: none;
+  }
+
   .review-save,
   .review-cancel {
     align-self: center;
@@ -739,6 +749,7 @@
 
   .review-note-text {
     margin: 0;
+    overflow-wrap: anywhere;
   }
 
   .review-note-actions {
@@ -761,7 +772,7 @@
   .review-empty[hidden] { display: none; }
 
   .shot-review .review-delete {
-    min-height: 1.45rem;
+    min-height: 2rem;
     padding: 0.26rem 0.42rem;
     font-size: 0.56rem;
   }
@@ -856,7 +867,7 @@
     body { font-size: 11pt; margin: 0; padding: 0 0.7rem 1rem; max-width: 100%; }
     .control-stack { position: static; width: calc(100% + 1.4rem); margin: 0 -0.7rem 0.85rem; padding: 0.42rem 0.7rem; }
     .control-row { width: 100%; max-width: 28rem; flex-wrap: wrap; border-radius: 13px; gap: 0.12rem; }
-    .control-row button { flex: 1 1 42%; white-space: nowrap; padding: 0.45rem 0.46rem; }
+    .control-row button { flex: 1 1 42%; min-height: 2.75rem; white-space: nowrap; padding: 0.45rem 0.46rem; }
     .title-page { margin-top: 0.55in; margin-bottom: 1in; overflow-wrap: anywhere; padding: 0 0.2rem; }
     .title-page h1 { font-size: 16pt; letter-spacing: 0.06em; line-height: 1.34; margin-bottom: 0.3in; }
     .shot { grid-template-columns: 1.45rem minmax(0, 1fr); gap: 0.55rem; width: 100%; max-width: 100%; padding: 0.7rem 0.15rem 0.75rem 0; }
@@ -873,7 +884,8 @@
     .review-form-actions button { flex: 1 1 0; }
     .review-save,
     .review-cancel { align-self: stretch; }
-    .shot-review button { justify-content: center; }
+    .shot-review button { justify-content: center; min-height: 2.75rem; }
+    .shot-review .review-delete { min-height: 2.75rem; }
     .section-title { margin-bottom: 0.95rem; padding: 0.42rem 0.7rem 0.48rem; }
     .shot-media { margin: 0.62rem 0 0.72rem; }
     .media-grid { grid-template-columns: 1fr; }
@@ -1755,7 +1767,12 @@
   }
 
   function saveReviewNotes() {
-    localStorage.setItem(reviewStorageKey, JSON.stringify(reviewNotes));
+    try {
+      localStorage.setItem(reviewStorageKey, JSON.stringify(reviewNotes));
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   function getShotMeta(shot) {
@@ -1970,6 +1987,7 @@
 
     const form = document.createElement('form');
     form.className = 'shot-review-form';
+    form.noValidate = true;
     form.hidden = true;
     let editingId = '';
 
@@ -1995,16 +2013,17 @@
     const related = document.createElement('input');
     related.type = 'text';
     related.placeholder = '4, 8, 12';
-    related.setAttribute('aria-label', `Other shots this note applies to`);
+    related.setAttribute('aria-label', `Other shot numbers this note applies to`);
 
     const author = document.createElement('input');
     author.type = 'text';
-    author.placeholder = 'Reviewer';
+    author.placeholder = 'Name';
     author.value = localStorage.getItem(reviewAuthorKey) || '';
     author.setAttribute('aria-label', `Reviewer name for shot ${number}`);
 
     const textarea = document.createElement('textarea');
-    textarea.placeholder = 'Write a clear note another reviewer or agent can act on.';
+    textarea.placeholder = 'Describe the change, question, or risk. Be specific enough for a reviewer or agent to act on.';
+    textarea.required = true;
     textarea.setAttribute('aria-label', `Review note for shot ${number}`);
 
     const saveButton = document.createElement('button');
@@ -2020,11 +2039,19 @@
     const noteField = wrapField('Note', textarea);
     noteField.classList.add('review-field-note');
 
+    const message = document.createElement('p');
+    message.className = 'review-form-message';
+    message.hidden = true;
+    message.id = `review-message-${number}`;
+    message.setAttribute('role', 'status');
+    message.setAttribute('aria-live', 'polite');
+    textarea.setAttribute('aria-describedby', message.id);
+
     const metaFields = document.createElement('div');
     metaFields.className = 'review-form-meta';
     metaFields.append(
-      wrapField('Target', target),
-      wrapField('Also applies to shots', related),
+      wrapField('About', target),
+      wrapField('Also applies to', related),
       wrapField('Reviewer', author)
     );
 
@@ -2032,7 +2059,7 @@
     formActions.className = 'review-form-actions';
     formActions.append(saveButton, cancelButton);
 
-    form.append(noteField, metaFields, formActions);
+    form.append(noteField, message, metaFields, formActions);
 
     const list = document.createElement('div');
     list.className = 'shot-review-list';
@@ -2046,7 +2073,14 @@
       target.value = 'Shot';
       related.value = '';
       textarea.value = '';
+      message.hidden = true;
+      message.textContent = '';
       saveButton.textContent = 'Save';
+    }
+
+    function showComposerMessage(text) {
+      message.textContent = text;
+      message.hidden = false;
     }
 
     function setComposerOpen(open, note = null) {
@@ -2085,11 +2119,19 @@
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const text = textarea.value.trim();
-      if (!text) return;
+      if (!text) {
+        showComposerMessage('Add a note before saving.');
+        textarea.focus();
+        return;
+      }
       const meta = getShotMeta(shot);
       const reviewer = author.value.trim();
       if (reviewer) {
-        localStorage.setItem(reviewAuthorKey, reviewer);
+        try {
+          localStorage.setItem(reviewAuthorKey, reviewer);
+        } catch {
+          // Reviewer names are only a convenience. If storage is unavailable, the note can still be created in memory.
+        }
       }
       const existing = editingId ? findReviewNote(editingId)?.note : null;
       const primaryShot = existing?.shot || meta.number;
@@ -2106,9 +2148,13 @@
         updatedAt: new Date().toISOString()
       };
       upsertReviewNote(note);
-      resetComposer();
-      saveReviewNotes();
+      const saved = saveReviewNotes();
       updateReviewPanels();
+      if (!saved) {
+        showComposerMessage('This note is visible for now, but your browser blocked saving it. Copy it before leaving the page.');
+        return;
+      }
+      resetComposer();
       setComposerOpen(false);
       setReviewStatus(`Shot ${number} note saved`);
     });
