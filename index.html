@@ -125,50 +125,20 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
-    gap: 0.28rem 0.52rem;
+    justify-content: space-between;
+    gap: 0.42rem 0.7rem;
     margin: 0 -0.45in 1rem;
-    padding: 0.36rem 0.45in;
+    padding: 0.42rem 0.45in;
     border-bottom: 1px solid var(--divider);
     background: color-mix(in oklch, var(--paper) 92%, var(--page));
-    box-shadow: 0 0.22rem 0.9rem var(--control-shadow);
+    box-shadow: 0 0.18rem 0.75rem var(--control-shadow);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
-
-  .control-group {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    min-width: 0;
-  }
-
-  .build-stamp {
-    display: inline-flex;
-    align-items: center;
-    min-height: 1.72rem;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: var(--filter-off-bg);
-    color: var(--muted);
-    font: 800 0.56rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    letter-spacing: 0.08em;
-    padding: 0.38rem 0.54rem;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .control-label {
-    color: var(--muted);
-    font-size: 0.58rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    line-height: 1;
-    text-transform: uppercase;
   }
 
   .control-row {
     display: inline-flex;
-    justify-content: center;
+    flex: 0 1 auto;
+    align-items: center;
     gap: 0.16rem;
     max-width: 100%;
     padding: 0.14rem;
@@ -177,11 +147,9 @@
     background: var(--control-bg);
   }
 
-  .control-row button,
-  .filter-panel button {
+  .control-row button {
     display: inline-flex;
     align-items: center;
-    gap: 0.3rem;
     min-height: 1.72rem;
     border: 1px solid transparent;
     border-radius: 8px;
@@ -196,19 +164,15 @@
   }
 
   .control-row button:hover,
-  .filter-panel summary:hover,
-  .filter-panel button:hover,
-  .review-tools-panel summary:hover,
-  .review-tools button:hover,
+  .review-exchange button:hover,
+  .review-import-label:hover,
   .shot-review button:hover {
     color: var(--ink);
   }
 
   .control-row button:focus-visible,
-  .filter-panel summary:focus-visible,
-  .filter-panel button:focus-visible,
-  .review-tools-panel summary:focus-visible,
-  .review-tools button:focus-visible,
+  .review-exchange button:focus-visible,
+  .review-import-label:focus-within,
   .shot-review summary:focus-visible,
   .shot-review button:focus-visible,
   .shot-review textarea:focus-visible,
@@ -216,15 +180,6 @@
   .shot-review select:focus-visible {
     outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
-  }
-
-  .filter-panel button::before {
-    content: "";
-    width: 0.36rem;
-    height: 0.36rem;
-    border: 1px solid currentColor;
-    border-radius: 50%;
-    opacity: 0.38;
   }
 
   .control-row button[aria-pressed="true"] {
@@ -237,115 +192,33 @@
     background: color-mix(in oklch, var(--filter-off-bg) 64%, transparent);
   }
 
-  .button-label-short { display: none; }
-
-  .filter-panel {
-    width: auto;
-    color: var(--control-ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
-
-  .filter-panel[open],
-  .review-tools-panel[open] {
-    flex-basis: 100%;
-    display: grid;
-    justify-items: center;
-  }
-
-  .filter-panel summary,
-  .review-tools-panel summary {
+  .review-exchange {
     display: inline-flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 0.36rem;
+    flex: 1 1 14rem;
+    min-width: 0;
+  }
+
+  .review-exchange button,
+  .review-import-label {
     min-height: 1.72rem;
-    padding: 0.38rem 0.58rem;
     border: 1px solid var(--line);
     border-radius: 999px;
-    background: var(--control-shell);
-    cursor: pointer;
-    list-style: none;
-    color: var(--control-ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 0.6rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  .filter-panel summary::-webkit-details-marker { display: none; }
-  .review-tools-panel summary::-webkit-details-marker { display: none; }
-
-  .filter-panel summary::after,
-  .review-tools-panel summary::after {
-    content: "";
-    width: 0.36rem;
-    height: 0.36rem;
-    border-right: 1.5px solid currentColor;
-    border-bottom: 1.5px solid currentColor;
-    opacity: 0.62;
-    transform: rotate(45deg) translateY(-0.08rem);
-    transform-origin: center;
-  }
-
-  .filter-panel[open] summary::after,
-  .review-tools-panel[open] summary::after {
-    transform: rotate(225deg) translate(-0.04rem, -0.02rem);
-  }
-
-  .filter-controls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.28rem;
-    width: min(100%, 6.9in);
-    margin-top: 0.3rem;
-  }
-
-  .filter-subhead {
-    flex: 1 0 100%;
-    margin-top: 0.18rem;
-    color: var(--muted);
-    font-size: 0.56rem;
-    font-weight: 800;
-    letter-spacing: 0.09em;
-    line-height: 1;
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  .filter-subhead:first-child {
-    margin-top: 0;
-  }
-
-  .filter-panel button {
-    border: 1px solid var(--line);
     background: var(--filter-off-bg);
-    padding: 0.42rem 0.56rem;
+    color: var(--control-ink);
+    cursor: pointer;
+    font: 800 0.58rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    letter-spacing: 0.06em;
+    padding: 0.38rem 0.58rem;
+    text-transform: uppercase;
+    white-space: nowrap;
   }
 
-  .filter-panel button[aria-pressed="true"] {
-    background: var(--filter-active-bg);
-    border-color: var(--ref-pill-border);
-    color: var(--filter-active-ink);
-  }
-
-  .filter-panel button[aria-pressed="true"]::before {
-    background: currentColor;
-    opacity: 1;
-  }
-
-  .filter-panel button[aria-pressed="false"] {
-    color: var(--muted);
-    opacity: 0.78;
-  }
-
-  .filter-panel[data-enabled="false"] {
-    opacity: 0.48;
-  }
-
-  .filter-panel[data-enabled="false"] button {
-    cursor: not-allowed;
+  .review-exchange button:hover,
+  .review-import-label:hover {
+    background: var(--control-shell);
   }
 
   .note[data-note-type="LOC"] {
@@ -355,46 +228,6 @@
 
   .note[data-note-type="LOC"] .lbl {
     color: var(--accent);
-  }
-
-  .review-tools-panel {
-    width: auto;
-    color: var(--control-ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
-
-  .review-tools {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.35rem;
-    width: min(100%, 6.9in);
-    margin-top: 0.3rem;
-  }
-
-  .review-tools button,
-  .review-import-label {
-    min-height: 1.72rem;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: var(--filter-off-bg);
-    color: var(--control-ink);
-    cursor: pointer;
-    font: 800 0.6rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    letter-spacing: 0.06em;
-    padding: 0.38rem 0.58rem;
-    text-transform: uppercase;
-  }
-
-  .review-tools button:hover,
-  .review-import-label:hover {
-    background: var(--control-shell);
-  }
-
-  .review-tools button[aria-pressed="true"] {
-    background: var(--layer-active-bg);
-    border-color: var(--ref-pill-border);
-    color: var(--layer-active-ink);
   }
 
   .review-import-label {
@@ -413,8 +246,9 @@
   .review-status {
     align-self: center;
     color: var(--muted);
+    flex: 0 1 auto;
     font-size: 0.72rem;
-    min-width: 8rem;
+    min-width: 0;
   }
 
   .title-page {
@@ -481,7 +315,30 @@
     text-align: right;
   }
 
-  .shot-content { min-width: 0; }
+  .shot-content {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .scene-heading { order: 0; }
+  .action,
+  .character,
+  .dialogue,
+  .transition { order: 10; }
+
+  .note:not(.ref-note) { order: 20; }
+  .note[data-note-type="CAM"] { order: 20; }
+  .note[data-note-type="LIGHT"] { order: 21; }
+  .note[data-note-type="LOC"] { order: 22; }
+  .note[data-note-type="PROD"] { order: 23; }
+  .note[data-note-type="PROP"] { order: 24; }
+  .note[data-note-type="TRACK"] { order: 25; }
+  .note[data-note-type="VFX"] { order: 26; }
+  .note[data-note-type="GFX"] { order: 27; }
+  .note[data-note-type="EDIT"] { order: 28; }
+  .ref-note { order: 30; }
+  .shot-review { order: 40; }
 
   .scene-outline {
     max-width: 8in;
@@ -601,25 +458,20 @@
     grid-column: 1 / -1;
   }
 
-  body[data-show-storyboard="true"] .ref-toggle + .ref-toggle {
+  body[data-show-storyboard="true"] .ref-card + .ref-card {
     margin-top: 0;
   }
 
-  body[data-show-storyboard="true"] .ref-toggle[open] {
+  .ref-card {
+    display: grid;
     min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--ref-caption-bg);
+    box-shadow: 0 8px 20px var(--media-shadow);
   }
-
-  body[data-show-storyboard="true"] .ref-toggle[open] summary {
-    min-height: 2.65rem;
-  }
-
-  .ref-toggle { margin: 0; }
-
-  .ref-toggle[hidden] {
-    display: none;
-  }
-
-  .ref-toggle + .ref-toggle { margin-top: 0.28rem; }
 
   .ref-source {
     margin: 0;
@@ -630,103 +482,40 @@
     color: var(--note-ink);
   }
 
-  .ref-toggle summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
+  .ref-caption {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.5rem;
+    align-items: start;
+    padding: 0.48rem 0.58rem 0.52rem;
+    border-top: 1px solid var(--line);
     color: var(--accent);
-    cursor: pointer;
     font-weight: 700;
-    list-style: none;
-    min-width: 0;
   }
-
-  .ref-toggle summary:focus-visible {
-    outline: 2px solid var(--focus-ring);
-    outline-offset: 2px;
-  }
-
-  .ref-toggle summary::-webkit-details-marker { display: none; }
 
   .ref-title {
     min-width: 0;
     overflow-wrap: anywhere;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.16em;
   }
 
-  .ref-type-badge {
-    flex: 0 0 auto;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: var(--media-chip-bg);
-    color: var(--media-chip-ink);
+  .ref-kind {
+    color: var(--muted);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 0.56rem;
     font-weight: 800;
     letter-spacing: 0.08em;
     line-height: 1;
-    padding: 0.22rem 0.38rem;
-    text-decoration: none;
     text-transform: uppercase;
     white-space: nowrap;
   }
 
-  .ref-toggle summary::after {
-    flex: 0 0 auto;
-    content: "View";
-    border: 1px solid var(--ref-pill-border);
-    border-radius: 999px;
-    color: var(--ref-pill-ink);
-    font-size: 0.62rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    line-height: 1;
-    padding: 0.26rem 0.42rem;
-    text-transform: uppercase;
-  }
-
-  .ref-toggle[open] summary::after { content: "Hide"; }
-
-  .ref-toggle[open] {
-    display: grid;
-    gap: 0;
-  }
-
-  .ref-toggle[open] summary {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto auto;
-    align-items: center;
-    order: 2;
-    margin-top: 0;
-    padding: 0.48rem 0.6rem 0.5rem;
-    border: 1px solid var(--line);
-    border-top: 0;
-    border-radius: 0 0 8px 8px;
-    background: var(--ref-caption-bg);
-  }
-
-  .ref-toggle[open] .ref-title {
-    text-decoration: none;
-  }
-
   .ref-media {
     display: block;
-    margin-top: 0.55rem;
+    margin: 0;
     overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: 8px;
+    border: 0;
+    border-radius: 0;
     background: var(--media-bg);
-    box-shadow: 0 8px 20px var(--media-shadow);
-  }
-
-  .ref-toggle[open] .ref-media {
-    order: 1;
-    margin-top: 0;
-    border-radius: 8px 8px 0 0;
-    box-shadow: 0 8px 20px var(--media-shadow);
   }
 
   .ref-media img,
@@ -772,10 +561,6 @@
   }
 
   body[data-show-review="false"] .shot-review {
-    display: none;
-  }
-
-  body[data-show-review="false"] .review-tools-panel {
     display: none;
   }
 
@@ -861,14 +646,14 @@
     border-color: var(--accent);
   }
 
-  .shot-review .review-copy-shot,
+  .shot-review .review-edit,
   .shot-review .review-cancel {
     color: var(--muted);
   }
 
   .shot-review-form {
     display: grid;
-    grid-template-columns: minmax(0, 7.5rem) minmax(0, 6.8rem) minmax(0, 8rem) minmax(0, 1fr) auto auto;
+    grid-template-columns: minmax(0, 7.5rem) minmax(0, 8rem) minmax(0, 8rem) minmax(0, 1fr) auto auto;
     gap: 0.45rem;
     margin-top: 0.5rem;
     padding: 0.52rem;
@@ -988,6 +773,19 @@
     gap: 0.32rem;
   }
 
+  .review-related {
+    color: var(--muted);
+    font-size: 0.68rem;
+  }
+
+  .review-empty {
+    margin: 0.48rem 0 0;
+    color: var(--muted);
+    font-size: 0.72rem;
+  }
+
+  .review-empty[hidden] { display: none; }
+
   .shot-review .review-delete {
     min-height: 1.45rem;
     padding: 0.26rem 0.42rem;
@@ -1080,51 +878,13 @@
     white-space: nowrap;
   }
 
-  [data-script-editable="true"] {
-    transition: background-color 160ms ease-out, box-shadow 160ms ease-out;
-  }
-
-  body[data-edit-mode="true"] [data-script-editable="true"] {
-    border-radius: 4px;
-    cursor: text;
-    outline: 1px dashed color-mix(in oklch, var(--edit-line) 58%, transparent);
-    outline-offset: 0.12rem;
-  }
-
-  body[data-edit-mode="true"] [data-script-editable="true"]:hover,
-  body[data-edit-mode="true"] [data-script-editable="true"]:focus {
-    background: var(--edit-bg);
-    box-shadow: 0 0 0 0.2rem var(--edit-bg);
-  }
-
-  [data-script-editable="true"].is-edited {
-    background: var(--edit-bg);
-    box-shadow: 0 0 0 0.18rem var(--edit-bg);
-    white-space: pre-wrap;
-  }
-
-  [data-script-editable="true"][contenteditable="true"]:focus {
-    outline: 2px solid var(--focus-ring);
-  }
-
   @media screen and (max-width: 600px) {
     body { font-size: 11pt; margin: 0; padding: 0 0.7rem 1rem; max-width: 100%; }
-    .control-stack:has(.filter-panel[open]),
-    .control-stack:has(.review-tools-panel[open]) { position: static; }
-    .control-stack { gap: 0.32rem; width: calc(100% + 1.4rem); margin: 0 -0.7rem 0.85rem; padding: 0.38rem 0.7rem; }
-    .control-group { width: 100%; justify-content: center; gap: 0; }
-    .build-stamp { min-height: 1.62rem; margin-top: 0.1rem; padding: 0.32rem 0.5rem; }
-    .control-label { display: none; }
+    .control-stack { position: static; gap: 0.42rem; width: calc(100% + 1.4rem); margin: 0 -0.7rem 0.85rem; padding: 0.46rem 0.7rem; }
     .control-row { width: 100%; max-width: 100%; flex-wrap: wrap; border-radius: 12px; gap: 0.16rem; }
     .control-row button { flex: 1 1 42%; justify-content: center; white-space: nowrap; padding: 0.44rem 0.46rem; }
-    .button-label-full { display: none; }
-    .button-label-short { display: inline; }
-    .filter-panel summary,
-    .review-tools-panel summary { min-height: 1.78rem; padding: 0.34rem 0.52rem; font-size: 0.58rem; }
-    .filter-panel button { min-height: 1.84rem; padding: 0.36rem 0.48rem; }
-    .filter-controls { gap: 0.22rem; margin-top: 0.34rem; }
-    .review-tools { gap: 0.22rem; margin-top: 0.34rem; }
-    .review-tools button,
+    .review-exchange { justify-content: center; width: 100%; }
+    .review-exchange button,
     .review-import-label { min-height: 1.78rem; padding: 0.34rem 0.48rem; }
     .review-status { flex-basis: 100%; min-width: 0; text-align: center; }
     .title-page { margin-top: 0.55in; margin-bottom: 1in; overflow-wrap: anywhere; padding: 0 0.2rem; }
@@ -1142,9 +902,8 @@
     .review-cancel { align-self: stretch; }
     .shot-review button { justify-content: center; }
     .section-title { margin-bottom: 0.95rem; padding: 0.42rem 0.7rem 0.48rem; }
-    .ref-toggle summary { align-items: flex-start; gap: 0.55rem; }
-    .ref-type-badge { justify-self: start; }
-    .ref-toggle summary::after { margin-top: 0.08rem; }
+    .ref-caption { grid-template-columns: 1fr; gap: 0.18rem; }
+    .ref-kind { justify-self: start; }
     .ref-media img { height: auto; }
     .scene-heading,
     .action,
@@ -1182,52 +941,20 @@
   }
 </style>
 </head>
-<body data-show-screenplay="true" data-show-storyboard="true" data-show-production="true" data-show-review="true" data-edit-mode="false">
+<body data-show-screenplay="true" data-show-storyboard="true" data-show-production="true" data-show-review="true">
 
 <div class="control-stack" aria-label="Draft display controls">
-  <div class="control-group">
-    <span class="control-label">Show</span>
-    <div class="control-row" aria-label="Page layers">
-      <button type="button" data-layer-toggle="screenplay" aria-pressed="true"><span class="button-label-full">Screenplay</span><span class="button-label-short">Script</span></button>
-      <button type="button" data-layer-toggle="storyboard" aria-pressed="true"><span>Storyboard</span></button>
-      <button type="button" data-layer-toggle="production" aria-pressed="true"><span class="button-label-full">Production Notes</span><span class="button-label-short">Production</span></button>
-      <button type="button" data-layer-toggle="review" aria-pressed="true"><span class="button-label-full">Review Notes</span><span class="button-label-short">Notes</span></button>
-    </div>
+  <div class="control-row" aria-label="Visible sections">
+    <button type="button" data-layer-toggle="screenplay" aria-pressed="true">Screenplay</button>
+    <button type="button" data-layer-toggle="production" aria-pressed="true">Production</button>
+    <button type="button" data-layer-toggle="storyboard" aria-pressed="true">Storyboard</button>
+    <button type="button" data-layer-toggle="review" aria-pressed="true">Review</button>
   </div>
-  <span class="build-stamp" title="Use the cache-busted URL if this stamp is missing.">Tooling v3</span>
-  <details class="filter-panel" data-enabled="true">
-    <summary>View filters</summary>
-    <div class="filter-controls" aria-label="Production note filters">
-      <span class="filter-subhead">Production Components</span>
-      <button type="button" data-note-filter="CAM" aria-pressed="true">CAM</button>
-      <button type="button" data-note-filter="LIGHT" aria-pressed="true">LIGHT</button>
-      <button type="button" data-note-filter="PROD" aria-pressed="true">PROD</button>
-      <button type="button" data-note-filter="LOC" aria-pressed="true">LOC</button>
-      <button type="button" data-note-filter="PROP" aria-pressed="true">PROP</button>
-      <button type="button" data-note-filter="TRACK" aria-pressed="true">TRACK</button>
-      <button type="button" data-note-filter="VFX" aria-pressed="true">VFX</button>
-      <button type="button" data-note-filter="GFX" aria-pressed="true">GFX</button>
-      <button type="button" data-note-filter="EDIT" aria-pressed="true">EDIT</button>
-      <span class="filter-subhead">Reference Media</span>
-      <button type="button" data-ref-filter="concept" aria-pressed="true">Concept</button>
-      <button type="button" data-ref-filter="location" aria-pressed="true">Location</button>
-      <button type="button" data-ref-filter="look" aria-pressed="true">Look</button>
-      <button type="button" data-ref-filter="technical" aria-pressed="true">Technical</button>
-    </div>
-  </details>
-  <details class="review-tools-panel">
-    <summary>Draft tools</summary>
-    <div class="review-tools" aria-label="Draft review and edit tools">
-      <button type="button" data-edit-toggle aria-pressed="false">Edit text</button>
-      <button type="button" data-edit-copy>Copy text edits</button>
-      <button type="button" data-review-copy>Copy review JSON</button>
-      <button type="button" data-review-download>Download JSON</button>
-      <label class="review-import-label">Import JSON<input type="file" accept="application/json" data-review-import></label>
-      <button type="button" data-review-clear>Clear notes</button>
-      <button type="button" data-edit-clear>Clear edits</button>
-      <span class="review-status" aria-live="polite"></span>
-    </div>
-  </details>
+  <div class="review-exchange" aria-label="Review note exchange">
+    <button type="button" data-review-download>Export review notes</button>
+    <label class="review-import-label">Import review notes<input type="file" accept="application/json" data-review-import></label>
+    <span class="review-status" aria-live="polite"></span>
+  </div>
 </div>
 
 <div class="title-page">
@@ -1894,40 +1621,23 @@
 <script>
   const layerButtons = document.querySelectorAll('[data-layer-toggle]');
   const controlStack = document.querySelector('.control-stack');
-  const filterPanel = document.querySelector('.filter-panel');
-  const reviewToolsPanel = document.querySelector('.review-tools-panel');
-  const filterButtons = document.querySelectorAll('[data-note-filter]');
-  const refFilterButtons = document.querySelectorAll('[data-ref-filter]');
   const productionNotes = document.querySelectorAll('.note:not(.ref-note)');
   const refToggles = document.querySelectorAll('.ref-toggle');
-  const refVideos = document.querySelectorAll('.ref-media video');
+  let refVideos = document.querySelectorAll('.ref-media video');
   const shots = document.querySelectorAll('.shot');
-  const reviewCopyButton = document.querySelector('[data-review-copy]');
   const reviewDownloadButton = document.querySelector('[data-review-download]');
   const reviewImportInput = document.querySelector('[data-review-import]');
-  const reviewClearButton = document.querySelector('[data-review-clear]');
-  const editToggleButton = document.querySelector('[data-edit-toggle]');
-  const editCopyButton = document.querySelector('[data-edit-copy]');
-  const editClearButton = document.querySelector('[data-edit-clear]');
   const reviewStatus = document.querySelector('.review-status');
   const reviewStorageKey = 'pulled-pork-shot-review-notes-v1';
   const reviewAuthorKey = 'pulled-pork-review-author-v1';
-  const scriptEditStorageKey = 'pulled-pork-screenplay-edits-v1';
-  const reviewTargets = ['Shot', 'Scene', 'Script', 'Action', 'Dialogue', 'CAM', 'LIGHT', 'PROD', 'LOC', 'PROP', 'TRACK', 'VFX', 'GFX', 'EDIT', 'REF', 'Timing'];
-  const reviewKinds = ['Note', 'Question', 'Change', 'Idea', 'Blocker'];
-  const scriptEditableSelector = '.shot .scene-heading, .shot .action, .shot .character, .shot .dialogue, .shot .transition, .section-title .section-purpose, .scene-outline li';
+  const reviewTargets = ['Shot', 'Script', 'Action', 'Dialogue', 'CAM', 'LIGHT', 'LOC', 'PROD', 'PROP', 'TRACK', 'VFX', 'GFX', 'EDIT', 'Reference', 'Timing'];
   const layerState = {
     screenplay: document.body.dataset.showScreenplay !== 'false',
     storyboard: document.body.dataset.showStoryboard !== 'false',
     production: document.body.dataset.showProduction !== 'false',
     review: document.body.dataset.showReview !== 'false'
   };
-  const noteFilters = {};
-  const refFilters = {};
   let reviewNotes = loadReviewNotes();
-  let scriptEdits = loadScriptEdits();
-  let editMode = false;
-  let savedRefOpenStates = null;
 
   productionNotes.forEach((note) => {
     const label = note.querySelector('.lbl')?.textContent?.trim().toUpperCase();
@@ -1944,26 +1654,36 @@
     return 'concept';
   }
 
-  refToggles.forEach((toggle) => {
-    const summary = toggle.querySelector('summary');
-    const title = summary?.querySelector('.ref-title')?.textContent?.trim() || '';
-    const type = toggle.dataset.refType || classifyReference(title);
-    toggle.dataset.refType = type;
-    if (summary && !summary.querySelector('.ref-type-badge')) {
-      const badge = document.createElement('span');
-      badge.className = 'ref-type-badge';
-      badge.textContent = type;
-      summary.append(badge);
-    }
-  });
+  function normalizeReferenceCards() {
+    refToggles.forEach((toggle) => {
+      const summary = toggle.querySelector('summary');
+      const title = summary?.querySelector('.ref-title')?.textContent?.trim() || 'Reference';
+      const type = toggle.dataset.refType || classifyReference(title);
+      const media = toggle.querySelector('.ref-media');
+      if (!media) return;
 
-  filterButtons.forEach((button) => {
-    noteFilters[button.dataset.noteFilter] = button.getAttribute('aria-pressed') !== 'false';
-  });
+      const card = document.createElement('div');
+      card.className = 'ref-card';
+      card.dataset.refType = type;
 
-  refFilterButtons.forEach((button) => {
-    refFilters[button.dataset.refFilter] = button.getAttribute('aria-pressed') !== 'false';
-  });
+      const caption = document.createElement('div');
+      caption.className = 'ref-caption';
+
+      const captionTitle = document.createElement('span');
+      captionTitle.className = 'ref-title';
+      captionTitle.textContent = title;
+
+      const captionType = document.createElement('span');
+      captionType.className = 'ref-kind';
+      captionType.textContent = type;
+
+      caption.append(captionTitle, captionType);
+      card.append(media, caption);
+      toggle.replaceWith(card);
+    });
+
+    refVideos = document.querySelectorAll('.ref-media video');
+  }
 
   function updateControlSpace() {
     if (!controlStack) return;
@@ -1982,36 +1702,6 @@
     if ('ResizeObserver' in window) {
       new ResizeObserver(scheduleControlSpaceUpdate).observe(controlStack);
     }
-  }
-
-  if (filterPanel) {
-    filterPanel.querySelector('summary')?.addEventListener('click', () => {
-      if (!filterPanel.open && reviewToolsPanel) {
-        reviewToolsPanel.open = false;
-      }
-    });
-
-    filterPanel.addEventListener('toggle', () => {
-      if (filterPanel.open && reviewToolsPanel) {
-        reviewToolsPanel.open = false;
-      }
-      scheduleControlSpaceUpdate();
-    });
-  }
-
-  if (reviewToolsPanel) {
-    reviewToolsPanel.querySelector('summary')?.addEventListener('click', () => {
-      if (!reviewToolsPanel.open && filterPanel) {
-        filterPanel.open = false;
-      }
-    });
-
-    reviewToolsPanel.addEventListener('toggle', () => {
-      if (reviewToolsPanel.open && filterPanel) {
-        filterPanel.open = false;
-      }
-      scheduleControlSpaceUpdate();
-    });
   }
 
   function setReviewStatus(message) {
@@ -2038,19 +1728,6 @@
     localStorage.setItem(reviewStorageKey, JSON.stringify(reviewNotes));
   }
 
-  function loadScriptEdits() {
-    try {
-      const parsed = JSON.parse(localStorage.getItem(scriptEditStorageKey) || '{}');
-      return normalizeScriptEdits(parsed);
-    } catch {
-      return {};
-    }
-  }
-
-  function saveScriptEdits() {
-    localStorage.setItem(scriptEditStorageKey, JSON.stringify(scriptEdits));
-  }
-
   function getShotMeta(shot) {
     const number = shot.querySelector('.shot-num')?.textContent?.trim() || '';
     const heading = shot.querySelector('.scene-heading')?.textContent?.trim() || `Shot ${number}`;
@@ -2065,130 +1742,110 @@
     return 'Shot';
   }
 
-  function inferReviewKind(category) {
-    return reviewKinds.includes(category) ? category : 'Note';
+  function normalizeShotNumber(value) {
+    const match = String(value || '').match(/\d+/);
+    return match ? String(Number(match[0])) : '';
+  }
+
+  function parseRelatedShots(value, primaryShot = '') {
+    if (Array.isArray(value)) {
+      return [...new Set(value.map(normalizeShotNumber).filter(Boolean).filter((shot) => shot !== primaryShot))];
+    }
+
+    return [...new Set(String(value || '')
+      .split(/[,\s]+/)
+      .map(normalizeShotNumber)
+      .filter(Boolean)
+      .filter((shot) => shot !== primaryShot))];
+  }
+
+  function notesArrayFromInput(input) {
+    if (Array.isArray(input?.notes)) return input.notes;
+    if (Array.isArray(input)) return input;
+    const source = input?.shots && typeof input.shots === 'object' ? input.shots : input;
+    if (!source || typeof source !== 'object' || Array.isArray(source)) return [];
+    return Object.entries(source).flatMap(([shotNumber, notes]) => {
+      if (!Array.isArray(notes)) return [];
+      return notes.map((note) => ({ ...note, shot: note?.shot || shotNumber }));
+    });
   }
 
   function normalizeReviewNotes(input) {
-    const source = input?.shots && typeof input.shots === 'object' ? input.shots : input;
     const normalized = {};
-    if (!source || typeof source !== 'object' || Array.isArray(source)) return normalized;
-
-    Object.entries(source).forEach(([shotNumber, notes]) => {
-      if (!Array.isArray(notes)) return;
-      normalized[shotNumber] = notes
-        .filter((note) => note && typeof note.text === 'string' && note.text.trim())
-        .map((note) => ({
+    notesArrayFromInput(input)
+      .filter((note) => note && typeof note.text === 'string' && note.text.trim())
+      .forEach((note) => {
+        const shot = normalizeShotNumber(note.shot || note.primaryShot || note.primary) || '0';
+        const createdAt = note.createdAt || new Date().toISOString();
+        const normalizedNote = {
           id: note.id || `${Date.now()}-${Math.random().toString(36).slice(2)}`,
-          shot: String(note.shot || shotNumber),
+          shot,
+          relatedShots: parseRelatedShots(note.relatedShots || note.related || note.appliesTo, shot),
           heading: note.heading || '',
           target: reviewTargets.includes(note.target) ? note.target : inferReviewTarget(note.category),
-          kind: reviewKinds.includes(note.kind) ? note.kind : inferReviewKind(note.category),
-          category: note.category || note.kind || 'Note',
           author: note.author || '',
           text: note.text.trim(),
-          createdAt: note.createdAt || new Date().toISOString()
-        }));
+          createdAt,
+          updatedAt: note.updatedAt || createdAt
+        };
+        normalized[shot] = [...(normalized[shot] || []), normalizedNote];
     });
     return normalized;
   }
 
-  function normalizeScriptEdits(input) {
-    const source = input?.scriptEdits && typeof input.scriptEdits === 'object' ? input.scriptEdits : input;
-    const normalized = {};
-    if (!source || typeof source !== 'object' || Array.isArray(source)) return normalized;
-
-    Object.entries(source).forEach(([key, edit]) => {
-      if (edit && typeof edit.text === 'string') {
-        normalized[key] = {
-          key,
-          text: edit.text,
-          original: typeof edit.original === 'string' ? edit.original : '',
-          label: edit.label || key,
-          updatedAt: edit.updatedAt || new Date().toISOString()
-        };
-      } else if (typeof edit === 'string') {
-        normalized[key] = {
-          key,
-          text: edit,
-          original: '',
-          label: key,
-          updatedAt: new Date().toISOString()
-        };
-      }
+  function flattenReviewNotes(notesByShot = reviewNotes) {
+    return Object.values(notesByShot).flat().sort((a, b) => {
+      const shotA = Number(a.shot) || 0;
+      const shotB = Number(b.shot) || 0;
+      if (shotA !== shotB) return shotA - shotB;
+      return String(a.createdAt || '').localeCompare(String(b.createdAt || ''));
     });
-
-    return normalized;
   }
 
-  function textOf(element) {
-    return element?.innerText?.trim() || '';
+  function findReviewNote(id) {
+    for (const [shot, notes] of Object.entries(reviewNotes)) {
+      const index = notes.findIndex((note) => note.id === id);
+      if (index >= 0) return { shot, index, note: notes[index] };
+    }
+    return null;
   }
 
-  function buildShotComponents(shot) {
-    const meta = getShotMeta(shot);
-    const production = {};
-    shot.querySelectorAll('.note:not(.ref-note)').forEach((note) => {
-      const label = note.querySelector('.lbl')?.textContent?.trim().toUpperCase();
-      const value = textOf(note.querySelector('.note-text'));
-      if (!label || !value) return;
-      production[label] = [...(production[label] || []), value];
-    });
+  function upsertReviewNote(note) {
+    const shot = normalizeShotNumber(note.shot);
+    if (!shot) return;
+    const existing = findReviewNote(note.id);
+    if (existing && existing.shot !== shot) {
+      reviewNotes[existing.shot].splice(existing.index, 1);
+      if (!reviewNotes[existing.shot].length) delete reviewNotes[existing.shot];
+    }
 
-    const screenplay = [];
-    shot.querySelectorAll('.scene-heading, .action, .character, .dialogue, .transition').forEach((block) => {
-      const type = [...block.classList].find((name) => ['scene-heading', 'action', 'character', 'dialogue', 'transition'].includes(name));
-      screenplay.push({ type, text: textOf(block) });
-    });
+    const bucket = reviewNotes[shot] || [];
+    const index = bucket.findIndex((item) => item.id === note.id);
+    if (index >= 0) {
+      bucket[index] = note;
+    } else {
+      bucket.push(note);
+    }
+    reviewNotes[shot] = bucket;
+  }
 
-    const references = [];
-    shot.querySelectorAll('.ref-toggle').forEach((ref) => {
-      const title = textOf(ref.querySelector('.ref-title'));
-      const media = ref.querySelector('.ref-media');
-      references.push({
-        title,
-        type: ref.dataset.refType || classifyReference(title),
-        href: media?.getAttribute('href') || media?.querySelector('video, img, iframe')?.getAttribute('src') || '',
-        mediaTag: media?.querySelector('video') ? 'video' : media?.querySelector('iframe') ? 'iframe' : 'image'
-      });
-    });
-
-    return {
-      shot: meta.number,
-      heading: meta.heading,
-      screenplay,
-      production,
-      references
-    };
+  function mergeReviewNotes(input) {
+    flattenReviewNotes(normalizeReviewNotes(input)).forEach(upsertReviewNote);
   }
 
   function reviewExportPayload() {
     return {
+      version: 2,
       title: document.title,
       source: window.location.href,
       exportedAt: new Date().toISOString(),
-      shots: normalizeReviewNotes(reviewNotes),
-      scriptEdits: normalizeScriptEdits(scriptEdits),
-      components: Array.from(shots, buildShotComponents)
-    };
-  }
-
-  function shotPacket(shot) {
-    const meta = getShotMeta(shot);
-    const shotClone = shot.cloneNode(true);
-    shotClone.querySelector('.shot-review')?.remove();
-    return {
-      shot: meta.number,
-      heading: meta.heading,
-      text: shotClone.innerText.trim(),
-      components: buildShotComponents(shot),
-      reviewNotes: reviewNotes[meta.number] || []
+      notes: flattenReviewNotes()
     };
   }
 
   function renderReviewList(shot, list) {
     const { number } = getShotMeta(shot);
-    const notes = reviewNotes[number] || [];
+    const notes = flattenReviewNotes().filter((note) => note.shot === number || (note.relatedShots || []).includes(number));
     list.replaceChildren();
 
     notes.forEach((note) => {
@@ -2205,28 +1862,48 @@
 
       const details = document.createElement('span');
       details.className = 'review-meta-text';
-      details.textContent = [note.kind || inferReviewKind(note.category), note.author, stamp].filter(Boolean).join(' • ');
+      const primary = note.shot !== number ? `primary shot ${note.shot}` : '';
+      const updated = note.updatedAt && note.updatedAt !== note.createdAt ? 'edited' : '';
+      details.textContent = [primary, note.author, stamp, updated].filter(Boolean).join(' • ');
       meta.append(target, details);
 
       const text = document.createElement('p');
       text.className = 'review-note-text';
       text.textContent = note.text;
 
+      const related = document.createElement('div');
+      related.className = 'review-related';
+      const relatedShots = note.relatedShots || [];
+      related.hidden = !relatedShots.length;
+      related.textContent = relatedShots.length ? `Also applies to shots ${relatedShots.join(', ')}` : '';
+
       const actions = document.createElement('div');
       actions.className = 'review-note-actions';
+      const editButton = document.createElement('button');
+      editButton.type = 'button';
+      editButton.className = 'review-edit';
+      editButton.textContent = 'Edit';
+      editButton.addEventListener('click', () => {
+        const panel = list.closest('.shot-review');
+        panel?.dispatchEvent(new CustomEvent('edit-note', { detail: { note }, bubbles: true }));
+      });
+
       const deleteButton = document.createElement('button');
       deleteButton.type = 'button';
       deleteButton.className = 'review-delete';
       deleteButton.textContent = 'Delete';
       deleteButton.addEventListener('click', () => {
-        reviewNotes[number] = (reviewNotes[number] || []).filter((item) => item.id !== note.id);
-        if (!reviewNotes[number].length) delete reviewNotes[number];
+        const found = findReviewNote(note.id);
+        if (found) {
+          reviewNotes[found.shot].splice(found.index, 1);
+          if (!reviewNotes[found.shot].length) delete reviewNotes[found.shot];
+        }
         saveReviewNotes();
         updateReviewPanels();
       });
-      actions.append(deleteButton);
+      actions.append(editButton, deleteButton);
 
-      item.append(meta, text, actions);
+      item.append(meta, text, related, actions);
       list.append(item);
     });
   }
@@ -2235,130 +1912,13 @@
     document.querySelectorAll('.shot-review').forEach((panel) => {
       const shot = panel.closest('.shot');
       const { number } = getShotMeta(shot);
-      const notes = reviewNotes[number] || [];
+      const notes = flattenReviewNotes().filter((note) => note.shot === number || (note.relatedShots || []).includes(number));
       const count = panel.querySelector('.review-count');
       const list = panel.querySelector('.shot-review-list');
+      const empty = panel.querySelector('.review-empty');
       if (count) count.textContent = notes.length === 1 ? '1 note' : `${notes.length} notes`;
       if (list) renderReviewList(shot, list);
-    });
-  }
-
-  function editableKind(element) {
-    if (element.classList.contains('scene-heading')) return 'heading';
-    if (element.classList.contains('section-purpose')) return 'scene-purpose';
-    if (element.classList.contains('action')) return 'action';
-    if (element.classList.contains('character')) return 'character';
-    if (element.classList.contains('dialogue')) return 'dialogue';
-    if (element.classList.contains('transition')) return 'transition';
-    return 'outline';
-  }
-
-  function editScope(element) {
-    const shot = element.closest('.shot');
-    if (shot) return `shot-${getShotMeta(shot).number || 'unknown'}`;
-
-    const section = element.closest('.section-title');
-    if (section) {
-      const label = textOf(section.querySelector('.section-label')).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-      return `section-${label || 'untitled'}`;
-    }
-
-    const outline = element.closest('.scene-outline');
-    if (outline) return 'scene-outline';
-
-    return 'document';
-  }
-
-  function editLabel(element) {
-    const shot = element.closest('.shot');
-    const kind = editableKind(element);
-    if (shot) {
-      const { number, heading } = getShotMeta(shot);
-      return `Shot ${number} ${kind}: ${heading}`;
-    }
-    return `${kind}: ${textOf(element).slice(0, 70)}`;
-  }
-
-  function setupScriptEditing() {
-    const counters = {};
-    document.querySelectorAll(scriptEditableSelector).forEach((element) => {
-      const scope = editScope(element);
-      const kind = editableKind(element);
-      const counterKey = `${scope}:${kind}`;
-      counters[counterKey] = (counters[counterKey] || 0) + 1;
-      const key = `${counterKey}:${counters[counterKey]}`;
-      const originalText = textOf(element);
-
-      element.dataset.scriptEditable = 'true';
-      element.dataset.editableId = key;
-      element.dataset.originalText = originalText;
-      element.dataset.originalHtml = element.innerHTML;
-      element.contentEditable = 'false';
-      element.spellcheck = true;
-
-      if (scriptEdits[key]) {
-        element.textContent = scriptEdits[key].text;
-        element.classList.add('is-edited');
-      }
-
-      element.addEventListener('input', () => {
-        const text = element.innerText.trim();
-        if (text && text !== originalText) {
-          scriptEdits[key] = {
-            key,
-            label: editLabel(element),
-            original: originalText,
-            text,
-            updatedAt: new Date().toISOString()
-          };
-          element.classList.add('is-edited');
-        } else {
-          delete scriptEdits[key];
-          element.classList.remove('is-edited');
-        }
-        saveScriptEdits();
-      });
-
-      element.addEventListener('paste', (event) => {
-        event.preventDefault();
-        const text = event.clipboardData?.getData('text/plain') || '';
-        document.execCommand('insertText', false, text);
-      });
-    });
-  }
-
-  function setEditMode(nextMode) {
-    editMode = Boolean(nextMode);
-    document.body.dataset.editMode = String(editMode);
-    document.querySelectorAll('[data-script-editable="true"]').forEach((element) => {
-      element.contentEditable = editMode ? 'true' : 'false';
-    });
-    if (editToggleButton) {
-      editToggleButton.setAttribute('aria-pressed', String(editMode));
-      editToggleButton.textContent = editMode ? 'Editing on' : 'Edit text';
-    }
-    setReviewStatus(editMode ? 'Text editing on' : 'Text editing off');
-  }
-
-  function clearScriptEdits() {
-    scriptEdits = {};
-    localStorage.removeItem(scriptEditStorageKey);
-    document.querySelectorAll('[data-script-editable="true"]').forEach((element) => {
-      element.innerHTML = element.dataset.originalHtml || element.dataset.originalText || '';
-      element.classList.remove('is-edited');
-    });
-  }
-
-  function applyScriptEditsToDom() {
-    document.querySelectorAll('[data-script-editable="true"]').forEach((element) => {
-      const edit = scriptEdits[element.dataset.editableId];
-      if (edit) {
-        element.textContent = edit.text;
-        element.classList.add('is-edited');
-      } else {
-        element.innerHTML = element.dataset.originalHtml || element.dataset.originalText || '';
-        element.classList.remove('is-edited');
-      }
+      if (empty) empty.hidden = notes.length > 0;
     });
   }
 
@@ -2389,25 +1949,13 @@
     addButton.textContent = 'Add note';
     addButton.setAttribute('aria-expanded', 'false');
 
-    const copyShotButton = document.createElement('button');
-    copyShotButton.type = 'button';
-    copyShotButton.className = 'review-copy-shot';
-    copyShotButton.textContent = 'Copy shot JSON';
-    copyShotButton.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(JSON.stringify(shotPacket(shot), null, 2));
-        setReviewStatus(`Shot ${number} copied`);
-      } catch {
-        setReviewStatus('Copy failed');
-      }
-    });
-
-    actions.append(addButton, copyShotButton);
+    actions.append(addButton);
     bar.append(title, actions);
 
     const form = document.createElement('form');
     form.className = 'shot-review-form';
     form.hidden = true;
+    let editingId = '';
 
     function wrapField(labelText, field) {
       const label = document.createElement('label');
@@ -2428,14 +1976,10 @@
       target.append(option);
     });
 
-    const kind = document.createElement('select');
-    kind.setAttribute('aria-label', `Review note kind for shot ${number}`);
-    reviewKinds.forEach((value) => {
-      const option = document.createElement('option');
-      option.value = value;
-      option.textContent = value;
-      kind.append(option);
-    });
+    const related = document.createElement('input');
+    related.type = 'text';
+    related.placeholder = '4, 8, 12';
+    related.setAttribute('aria-label', `Other shots this note applies to`);
 
     const author = document.createElement('input');
     author.type = 'text';
@@ -2459,7 +2003,7 @@
 
     form.append(
       wrapField('Target', target),
-      wrapField('Type', kind),
+      wrapField('Also applies to shots', related),
       wrapField('Reviewer', author),
       wrapField('Note', textarea),
       saveButton,
@@ -2469,11 +2013,33 @@
     const list = document.createElement('div');
     list.className = 'shot-review-list';
 
-    function setComposerOpen(open) {
+    const empty = document.createElement('p');
+    empty.className = 'review-empty';
+    empty.textContent = 'No review notes yet.';
+
+    function resetComposer() {
+      editingId = '';
+      target.value = 'Shot';
+      related.value = '';
+      textarea.value = '';
+      saveButton.textContent = 'Save';
+    }
+
+    function setComposerOpen(open, note = null) {
       form.hidden = !open;
       addButton.setAttribute('aria-expanded', String(open));
       addButton.textContent = open ? 'Close note' : 'Add note';
       if (open) {
+        if (note) {
+          editingId = note.id;
+          target.value = reviewTargets.includes(note.target) ? note.target : 'Shot';
+          related.value = (note.relatedShots || []).join(', ');
+          author.value = note.author || localStorage.getItem(reviewAuthorKey) || '';
+          textarea.value = note.text || '';
+          saveButton.textContent = 'Update';
+        } else {
+          resetComposer();
+        }
         requestAnimationFrame(() => textarea.focus());
       }
       scheduleControlSpaceUpdate();
@@ -2484,8 +2050,12 @@
     });
 
     cancelButton.addEventListener('click', () => {
-      textarea.value = '';
+      resetComposer();
       setComposerOpen(false);
+    });
+
+    panel.addEventListener('edit-note', (event) => {
+      setComposerOpen(true, event.detail.note);
     });
 
     form.addEventListener('submit', (event) => {
@@ -2497,30 +2067,33 @@
       if (reviewer) {
         localStorage.setItem(reviewAuthorKey, reviewer);
       }
+      const existing = editingId ? findReviewNote(editingId)?.note : null;
+      const primaryShot = existing?.shot || meta.number;
+      const createdAt = existing?.createdAt || new Date().toISOString();
       const note = {
-        id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
-        shot: meta.number,
-        heading: meta.heading,
+        id: existing?.id || `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+        shot: primaryShot,
+        relatedShots: parseRelatedShots(related.value, primaryShot),
+        heading: existing?.heading || meta.heading,
         target: target.value,
-        kind: kind.value,
-        category: kind.value,
         author: reviewer,
         text,
-        createdAt: new Date().toISOString()
+        createdAt,
+        updatedAt: new Date().toISOString()
       };
-      reviewNotes[meta.number] = [...(reviewNotes[meta.number] || []), note];
-      textarea.value = '';
+      upsertReviewNote(note);
+      resetComposer();
       saveReviewNotes();
       updateReviewPanels();
       setComposerOpen(false);
-      setReviewStatus(`Shot ${number} saved`);
+      setReviewStatus(`Shot ${number} note saved`);
     });
 
-    panel.append(bar, form, list);
+    panel.append(bar, form, empty, list);
     shot.querySelector('.shot-content')?.append(panel);
   }
 
-  setupScriptEditing();
+  normalizeReferenceCards();
   shots.forEach(addReviewPanel);
   updateReviewPanels();
 
@@ -2621,74 +2194,17 @@
 
   refVideos.forEach(setupReferenceVideo);
 
-  function showStoryboardRefs() {
-    if (!savedRefOpenStates) {
-      savedRefOpenStates = Array.from(refToggles, (toggle) => toggle.open);
-    }
-    refToggles.forEach((toggle) => {
-      toggle.open = true;
-    });
-  }
-
-  function restoreStoryboardRefs() {
-    if (savedRefOpenStates) {
-      refToggles.forEach((toggle, index) => {
-        toggle.open = savedRefOpenStates[index] ?? false;
-      });
-      savedRefOpenStates = null;
-    }
-  }
-
-  function applyNoteFilters() {
-    productionNotes.forEach((note) => {
-      const type = note.dataset.noteType;
-      note.hidden = Boolean(type && noteFilters[type] === false);
-    });
-
-    filterButtons.forEach((button) => {
-      const type = button.dataset.noteFilter;
-      button.setAttribute('aria-pressed', String(noteFilters[type] !== false));
-      button.disabled = !layerState.production;
-    });
-  }
-
-  function applyRefFilters() {
-    refToggles.forEach((toggle) => {
-      const type = toggle.dataset.refType || 'concept';
-      toggle.hidden = Boolean(type && refFilters[type] === false);
-    });
-
-    refFilterButtons.forEach((button) => {
-      const type = button.dataset.refFilter;
-      button.setAttribute('aria-pressed', String(refFilters[type] !== false));
-      button.disabled = !layerState.storyboard;
-    });
-  }
-
-  function applyFilterPanelState() {
-    if (filterPanel) {
-      filterPanel.dataset.enabled = String(layerState.production || layerState.storyboard);
-    }
-  }
-
   function applyLayerState() {
     document.body.dataset.showScreenplay = String(layerState.screenplay);
     document.body.dataset.showStoryboard = String(layerState.storyboard);
     document.body.dataset.showProduction = String(layerState.production);
     document.body.dataset.showReview = String(layerState.review);
 
-    if (!layerState.review && reviewToolsPanel) {
-      reviewToolsPanel.open = false;
-    }
-
     layerButtons.forEach((button) => {
       const layer = button.dataset.layerToggle;
       button.setAttribute('aria-pressed', String(Boolean(layerState[layer])));
     });
 
-    applyNoteFilters();
-    applyRefFilters();
-    applyFilterPanelState();
     scheduleControlSpaceUpdate();
   }
 
@@ -2696,16 +2212,7 @@
     if (!(layer in layerState)) return;
 
     const nextValue = Boolean(value);
-    const changed = layerState[layer] !== nextValue;
     layerState[layer] = nextValue;
-
-    if (layer === 'storyboard' && changed) {
-      if (nextValue) {
-        showStoryboardRefs();
-      } else {
-        restoreStoryboardRefs();
-      }
-    }
 
     applyLayerState();
   }
@@ -2715,51 +2222,6 @@
       const layer = button.dataset.layerToggle;
       setLayer(layer, !layerState[layer]);
     });
-  });
-
-  filterButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      if (!layerState.production) return;
-      const type = button.dataset.noteFilter;
-      noteFilters[type] = !noteFilters[type];
-      applyNoteFilters();
-    });
-  });
-
-  refFilterButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      if (!layerState.storyboard) return;
-      const type = button.dataset.refFilter;
-      refFilters[type] = !refFilters[type];
-      applyRefFilters();
-    });
-  });
-
-  editToggleButton?.addEventListener('click', () => {
-    setEditMode(!editMode);
-  });
-
-  editCopyButton?.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(JSON.stringify({ scriptEdits: normalizeScriptEdits(scriptEdits) }, null, 2));
-      setReviewStatus('Edits copied');
-    } catch {
-      setReviewStatus('Copy failed');
-    }
-  });
-
-  editClearButton?.addEventListener('click', () => {
-    clearScriptEdits();
-    setReviewStatus('Local edits cleared');
-  });
-
-  reviewCopyButton?.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(JSON.stringify(reviewExportPayload(), null, 2));
-      setReviewStatus('Review JSON copied');
-    } catch {
-      setReviewStatus('Copy failed');
-    }
   });
 
   reviewDownloadButton?.addEventListener('click', () => {
@@ -2772,7 +2234,7 @@
     link.click();
     link.remove();
     URL.revokeObjectURL(url);
-    setReviewStatus('JSON downloaded');
+    setReviewStatus('Review notes exported');
   });
 
   reviewImportInput?.addEventListener('change', async () => {
@@ -2781,32 +2243,16 @@
     try {
       const text = await file.text();
       const parsed = JSON.parse(text);
-      reviewNotes = normalizeReviewNotes(parsed);
+      mergeReviewNotes(parsed);
       saveReviewNotes();
-      if (parsed?.scriptEdits && typeof parsed.scriptEdits === 'object') {
-        scriptEdits = normalizeScriptEdits(parsed);
-        saveScriptEdits();
-        applyScriptEditsToDom();
-      }
       updateReviewPanels();
-      setReviewStatus('Review JSON imported');
+      setReviewStatus('Review notes imported');
     } catch {
       setReviewStatus('Import failed');
     } finally {
       reviewImportInput.value = '';
     }
   });
-
-  reviewClearButton?.addEventListener('click', () => {
-    reviewNotes = {};
-    saveReviewNotes();
-    updateReviewPanels();
-    setReviewStatus('Local notes cleared');
-  });
-
-  if (layerState.storyboard) {
-    showStoryboardRefs();
-  }
 
   applyLayerState();
 </script>
