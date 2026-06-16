@@ -123,56 +123,51 @@
     z-index: 20;
     width: calc(100% + 0.9in);
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.42rem 0.7rem;
+    justify-content: center;
     margin: 0 -0.45in 1rem;
-    padding: 0.42rem 0.45in;
+    padding: 0.34rem 0.45in;
     border-bottom: 1px solid var(--divider);
-    background: color-mix(in oklch, var(--paper) 92%, var(--page));
-    box-shadow: 0 0.18rem 0.75rem var(--control-shadow);
+    background: color-mix(in oklch, var(--paper) 95%, var(--page));
+    box-shadow: 0 0.12rem 0.48rem var(--control-shadow);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
   .control-row {
     display: inline-flex;
-    flex: 0 1 auto;
     align-items: center;
-    gap: 0.16rem;
+    justify-content: center;
+    gap: 0.12rem;
     max-width: 100%;
-    padding: 0.14rem;
+    padding: 0.12rem;
     border: 1px solid var(--line);
-    border-radius: 10px;
-    background: var(--control-bg);
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--control-bg) 74%, transparent);
   }
 
   .control-row button {
     display: inline-flex;
     align-items: center;
-    min-height: 1.72rem;
+    justify-content: center;
+    min-height: 1.64rem;
     border: 1px solid transparent;
-    border-radius: 8px;
+    border-radius: 999px;
     background: transparent;
     color: var(--control-ink);
     cursor: pointer;
-    font: 700 0.63rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    padding: 0.42rem 0.58rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    font: 730 0.66rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    padding: 0.4rem 0.68rem;
+    text-transform: none;
+    letter-spacing: 0.01em;
     transition: background-color 180ms ease-out, border-color 180ms ease-out, color 180ms ease-out, opacity 180ms ease-out;
   }
 
   .control-row button:hover,
-  .review-exchange button:hover,
-  .review-import-label:hover,
   .shot-review button:hover {
     color: var(--ink);
   }
 
   .control-row button:focus-visible,
-  .review-exchange button:focus-visible,
-  .review-import-label:focus-within,
   .shot-review summary:focus-visible,
   .shot-review button:focus-visible,
   .shot-review textarea:focus-visible,
@@ -183,63 +178,23 @@
   }
 
   .control-row button[aria-pressed="true"] {
-    background: var(--layer-active-bg);
+    background: color-mix(in oklch, var(--layer-active-bg) 72%, transparent);
     border-color: var(--ref-pill-border);
     color: var(--layer-active-ink);
   }
 
   .control-row button[aria-pressed="false"] {
-    background: color-mix(in oklch, var(--filter-off-bg) 64%, transparent);
-  }
-
-  .review-exchange {
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 0.36rem;
-    flex: 1 1 14rem;
-    min-width: 0;
-  }
-
-  .review-exchange button,
-  .review-import-label {
-    min-height: 1.72rem;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: var(--filter-off-bg);
-    color: var(--control-ink);
-    cursor: pointer;
-    font: 800 0.58rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    letter-spacing: 0.06em;
-    padding: 0.38rem 0.58rem;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .review-exchange button:hover,
-  .review-import-label:hover {
-    background: var(--control-shell);
-  }
-
-  .review-import-label {
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .review-import-label input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    pointer-events: none;
+    background: transparent;
+    color: color-mix(in oklch, var(--control-ink) 72%, var(--muted));
   }
 
   .review-status {
-    align-self: center;
-    color: var(--muted);
-    flex: 0 1 auto;
-    font-size: 0.72rem;
-    min-width: 0;
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 
   .title-page {
@@ -899,13 +854,9 @@
 
   @media screen and (max-width: 600px) {
     body { font-size: 11pt; margin: 0; padding: 0 0.7rem 1rem; max-width: 100%; }
-    .control-stack { position: static; gap: 0.42rem; width: calc(100% + 1.4rem); margin: 0 -0.7rem 0.85rem; padding: 0.46rem 0.7rem; }
-    .control-row { width: 100%; max-width: 100%; flex-wrap: wrap; border-radius: 12px; gap: 0.16rem; }
-    .control-row button { flex: 1 1 42%; justify-content: center; white-space: nowrap; padding: 0.44rem 0.46rem; }
-    .review-exchange { justify-content: center; width: 100%; }
-    .review-exchange button,
-    .review-import-label { min-height: 1.78rem; padding: 0.34rem 0.48rem; }
-    .review-status { flex-basis: 100%; min-width: 0; text-align: center; }
+    .control-stack { position: static; width: calc(100% + 1.4rem); margin: 0 -0.7rem 0.85rem; padding: 0.42rem 0.7rem; }
+    .control-row { width: 100%; max-width: 28rem; flex-wrap: wrap; border-radius: 13px; gap: 0.12rem; }
+    .control-row button { flex: 1 1 42%; white-space: nowrap; padding: 0.45rem 0.46rem; }
     .title-page { margin-top: 0.55in; margin-bottom: 1in; overflow-wrap: anywhere; padding: 0 0.2rem; }
     .title-page h1 { font-size: 16pt; letter-spacing: 0.06em; line-height: 1.34; margin-bottom: 0.3in; }
     .shot { grid-template-columns: 1.45rem minmax(0, 1fr); gap: 0.55rem; width: 100%; max-width: 100%; padding: 0.7rem 0.15rem 0.75rem 0; }
@@ -972,11 +923,7 @@
     <button type="button" data-layer-toggle="storyboard" aria-pressed="true">Storyboard</button>
     <button type="button" data-layer-toggle="review" aria-pressed="true">Review</button>
   </div>
-  <div class="review-exchange" aria-label="Review note exchange">
-    <button type="button" data-review-download>Export review notes</button>
-    <label class="review-import-label">Import review notes<input type="file" accept="application/json" data-review-import></label>
-    <span class="review-status" aria-live="polite"></span>
-  </div>
+  <span class="review-status" aria-live="polite"></span>
 </div>
 
 <div class="title-page">
@@ -1647,8 +1594,6 @@
   const refToggles = document.querySelectorAll('.ref-toggle');
   let refVideos = document.querySelectorAll('.ref-media video');
   const shots = document.querySelectorAll('.shot');
-  const reviewDownloadButton = document.querySelector('[data-review-download]');
-  const reviewImportInput = document.querySelector('[data-review-import]');
   const reviewStatus = document.querySelector('.review-status');
   const reviewStorageKey = 'pulled-pork-shot-review-notes-v1';
   const reviewAuthorKey = 'pulled-pork-review-author-v1';
@@ -1912,20 +1857,6 @@
       bucket.push(note);
     }
     reviewNotes[shot] = bucket;
-  }
-
-  function mergeReviewNotes(input) {
-    flattenReviewNotes(normalizeReviewNotes(input)).forEach(upsertReviewNote);
-  }
-
-  function reviewExportPayload() {
-    return {
-      version: 2,
-      title: document.title,
-      source: window.location.href,
-      exportedAt: new Date().toISOString(),
-      notes: flattenReviewNotes()
-    };
   }
 
   function renderReviewList(shot, list) {
@@ -2316,36 +2247,6 @@
       const layer = button.dataset.layerToggle;
       setLayer(layer, !layerState[layer]);
     });
-  });
-
-  reviewDownloadButton?.addEventListener('click', () => {
-    const blob = new Blob([JSON.stringify(reviewExportPayload(), null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `pulled-pork-review-notes-${new Date().toISOString().slice(0, 10)}.json`;
-    document.body.append(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
-    setReviewStatus('Review notes exported');
-  });
-
-  reviewImportInput?.addEventListener('change', async () => {
-    const [file] = reviewImportInput.files || [];
-    if (!file) return;
-    try {
-      const text = await file.text();
-      const parsed = JSON.parse(text);
-      mergeReviewNotes(parsed);
-      saveReviewNotes();
-      updateReviewPanels();
-      setReviewStatus('Review notes imported');
-    } catch {
-      setReviewStatus('Import failed');
-    } finally {
-      reviewImportInput.value = '';
-    }
   });
 
   applyLayerState();
