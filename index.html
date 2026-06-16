@@ -221,15 +221,6 @@
     background: var(--control-shell);
   }
 
-  .note[data-note-type="LOC"] {
-    border-color: color-mix(in oklch, var(--accent) 28%, var(--line));
-    background: color-mix(in oklch, var(--note-bg) 88%, var(--filter-active-bg));
-  }
-
-  .note[data-note-type="LOC"] .lbl {
-    color: var(--accent);
-  }
-
   .review-import-label {
     display: inline-flex;
     align-items: center;
@@ -327,6 +318,7 @@
   .dialogue,
   .transition { order: 10; }
 
+  .shot-media { order: 15; }
   .note:not(.ref-note) { order: 20; }
   .note[data-note-type="CAM"] { order: 20; }
   .note[data-note-type="LIGHT"] { order: 21; }
@@ -337,7 +329,7 @@
   .note[data-note-type="VFX"] { order: 26; }
   .note[data-note-type="GFX"] { order: 27; }
   .note[data-note-type="EDIT"] { order: 28; }
-  .ref-note { order: 30; }
+  .ref-note { order: 15; }
   .shot-review { order: 40; }
 
   .scene-outline {
@@ -443,23 +435,43 @@
     text-underline-offset: 0.16em;
   }
 
-  .ref-note .note-text {
+  .shot-media {
     display: grid;
-    gap: 0.7rem;
+    gap: 0.86rem;
+    margin: 0.72rem 0 0.82rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
-  body[data-show-storyboard="true"] .ref-note .note-text {
+  .media-section {
+    display: grid;
+    gap: 0.52rem;
+  }
+
+  .media-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.46rem;
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.62rem;
+    font-weight: 850;
+    letter-spacing: 0.09em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .media-heading::after {
+    content: "";
+    height: 1px;
+    flex: 1 1 auto;
+    background: var(--divider);
+  }
+
+  .media-grid {
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 14.5rem), 1fr));
     align-items: start;
-    gap: 0.78rem;
-  }
-
-  body[data-show-storyboard="true"] .ref-source {
-    grid-column: 1 / -1;
-  }
-
-  body[data-show-storyboard="true"] .ref-card + .ref-card {
-    margin-top: 0;
+    gap: 0.74rem;
   }
 
   .ref-card {
@@ -473,7 +485,8 @@
     box-shadow: 0 8px 20px var(--media-shadow);
   }
 
-  .ref-source {
+  .media-source {
+    grid-column: 1 / -1;
     margin: 0;
     padding: 0.44rem 0.55rem;
     border: 1px solid var(--line);
@@ -482,11 +495,14 @@
     color: var(--note-ink);
   }
 
+  .media-source a {
+    color: var(--accent);
+    font-weight: 650;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.16em;
+  }
+
   .ref-caption {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 0.5rem;
-    align-items: start;
     padding: 0.48rem 0.58rem 0.52rem;
     border-top: 1px solid var(--line);
     color: var(--accent);
@@ -498,20 +514,10 @@
     overflow-wrap: anywhere;
   }
 
-  .ref-kind {
-    color: var(--muted);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 0.56rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    line-height: 1;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
   .ref-media {
     display: block;
     margin: 0;
+    min-height: 9rem;
     overflow: hidden;
     border: 0;
     border-radius: 0;
@@ -556,6 +562,7 @@
     display: none;
   }
 
+  body[data-show-storyboard="false"] .shot-media,
   body[data-show-storyboard="false"] .ref-note {
     display: none;
   }
@@ -653,10 +660,10 @@
 
   .shot-review-form {
     display: grid;
-    grid-template-columns: minmax(0, 7.5rem) minmax(0, 8rem) minmax(0, 8rem) minmax(0, 1fr) auto auto;
-    gap: 0.45rem;
-    margin-top: 0.5rem;
-    padding: 0.52rem;
+    grid-template-columns: 1fr;
+    gap: 0.64rem;
+    margin-top: 0.58rem;
+    padding: 0.72rem;
     border: 1px solid var(--review-line);
     border-radius: 8px;
     background: var(--review-bg);
@@ -665,6 +672,18 @@
 
   .shot-review-form[hidden] {
     display: none;
+  }
+
+  .review-form-meta {
+    display: grid;
+    grid-template-columns: minmax(0, 8rem) minmax(0, 1fr) minmax(0, 10rem);
+    gap: 0.5rem;
+  }
+
+  .review-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.42rem;
   }
 
   .review-field {
@@ -704,15 +723,15 @@
   }
 
   .shot-review textarea {
-    min-height: 2.05rem;
-    max-height: 8rem;
+    min-height: 7rem;
+    max-height: 16rem;
     resize: vertical;
-    padding: 0.4rem 0.5rem;
+    padding: 0.55rem 0.62rem;
   }
 
   .review-save,
   .review-cancel {
-    align-self: end;
+    align-self: center;
   }
 
   .shot-review-list {
@@ -897,13 +916,16 @@
     .shot-review-title { flex: 1 1 100%; }
     .shot-review-actions { justify-content: stretch; width: 100%; }
     .shot-review-actions button { flex: 1 1 0; justify-content: center; }
-    .shot-review-form { grid-template-columns: 1fr; }
+    .shot-review-form { padding: 0.56rem; }
+    .review-form-meta { grid-template-columns: 1fr; }
+    .review-form-actions { justify-content: stretch; }
+    .review-form-actions button { flex: 1 1 0; }
     .review-save,
     .review-cancel { align-self: stretch; }
     .shot-review button { justify-content: center; }
     .section-title { margin-bottom: 0.95rem; padding: 0.42rem 0.7rem 0.48rem; }
-    .ref-caption { grid-template-columns: 1fr; gap: 0.18rem; }
-    .ref-kind { justify-self: start; }
+    .shot-media { margin: 0.62rem 0 0.72rem; }
+    .media-grid { grid-template-columns: 1fr; }
     .ref-media img { height: auto; }
     .scene-heading,
     .action,
@@ -1646,19 +1668,24 @@
     }
   });
 
-  function classifyReference(title) {
+  function isLocationReference(title) {
     const text = title.toLowerCase();
-    if (/\b(peerspace|location|rancho|kitchen location|dining room location)\b/.test(text)) return 'location';
-    if (/\b(buster|scruggs|look|reference shot|movie|film)\b/.test(text)) return 'look';
-    if (/\b(schlieren|probe|dial|chronometer|watch|rig|technical|chart|thermometer|oven warm)\b/.test(text)) return 'technical';
-    return 'concept';
+    return /\b(peerspace|location|rancho|kitchen location|dining room location)\b/.test(text);
+  }
+
+  function cleanReferenceTitle(title) {
+    return String(title || 'Reference')
+      .replace(/\s+concept$/i, '')
+      .replace(/\s+reference\s+(frame|clip)$/i, ' reference')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
   }
 
   function normalizeReferenceCards() {
     refToggles.forEach((toggle) => {
       const summary = toggle.querySelector('summary');
-      const title = summary?.querySelector('.ref-title')?.textContent?.trim() || 'Reference';
-      const type = toggle.dataset.refType || classifyReference(title);
+      const title = cleanReferenceTitle(summary?.querySelector('.ref-title')?.textContent?.trim() || 'Reference');
+      const type = isLocationReference(`${title} ${toggle.dataset.refType || ''}`) ? 'location' : 'storyboard';
       const media = toggle.querySelector('.ref-media');
       if (!media) return;
 
@@ -1673,16 +1700,74 @@
       captionTitle.className = 'ref-title';
       captionTitle.textContent = title;
 
-      const captionType = document.createElement('span');
-      captionType.className = 'ref-kind';
-      captionType.textContent = type;
-
-      caption.append(captionTitle, captionType);
+      caption.append(captionTitle);
       card.append(media, caption);
       toggle.replaceWith(card);
     });
 
     refVideos = document.querySelectorAll('.ref-media video');
+  }
+
+  function mediaBucketFor(node) {
+    if (node.classList?.contains('ref-card')) {
+      return node.dataset.refType === 'location' ? 'location' : 'storyboard';
+    }
+    const text = node.textContent || '';
+    const href = node.querySelector?.('a')?.href || '';
+    return isLocationReference(`${text} ${href}`) ? 'location' : 'storyboard';
+  }
+
+  function createMediaSection(label, items) {
+    if (!items.length) return null;
+
+    const section = document.createElement('section');
+    section.className = `media-section media-section-${label.toLowerCase()}`;
+
+    const heading = document.createElement('h3');
+    heading.className = 'media-heading';
+    heading.textContent = label;
+
+    const grid = document.createElement('div');
+    grid.className = 'media-grid';
+
+    items.forEach((item) => {
+      if (item.classList?.contains('ref-source')) {
+        item.classList.remove('ref-source');
+        item.classList.add('media-source');
+      }
+      grid.append(item);
+    });
+
+    section.append(heading, grid);
+    return section;
+  }
+
+  function organizeReferenceSections() {
+    shots.forEach((shot) => {
+      const refNotes = Array.from(shot.querySelectorAll('.ref-note'));
+      if (!refNotes.length) return;
+
+      const buckets = { storyboard: [], location: [] };
+      refNotes.forEach((note) => {
+        const noteText = note.querySelector('.note-text');
+        Array.from(noteText?.children || []).forEach((child) => {
+          buckets[mediaBucketFor(child)].push(child);
+        });
+        note.remove();
+      });
+
+      const media = document.createElement('div');
+      media.className = 'shot-media';
+
+      const storyboard = createMediaSection('Storyboard', buckets.storyboard);
+      const location = createMediaSection('Location', buckets.location);
+      if (storyboard) media.append(storyboard);
+      if (location) media.append(location);
+
+      if (media.children.length) {
+        shot.querySelector('.shot-content')?.append(media);
+      }
+    });
   }
 
   function updateControlSpace() {
@@ -1988,7 +2073,7 @@
     author.setAttribute('aria-label', `Reviewer name for shot ${number}`);
 
     const textarea = document.createElement('textarea');
-    textarea.placeholder = 'Add a targeted note';
+    textarea.placeholder = 'Write a clear note another reviewer or agent can act on.';
     textarea.setAttribute('aria-label', `Review note for shot ${number}`);
 
     const saveButton = document.createElement('button');
@@ -2001,14 +2086,22 @@
     cancelButton.className = 'review-cancel';
     cancelButton.textContent = 'Cancel';
 
-    form.append(
+    const noteField = wrapField('Note', textarea);
+    noteField.classList.add('review-field-note');
+
+    const metaFields = document.createElement('div');
+    metaFields.className = 'review-form-meta';
+    metaFields.append(
       wrapField('Target', target),
       wrapField('Also applies to shots', related),
-      wrapField('Reviewer', author),
-      wrapField('Note', textarea),
-      saveButton,
-      cancelButton
+      wrapField('Reviewer', author)
     );
+
+    const formActions = document.createElement('div');
+    formActions.className = 'review-form-actions';
+    formActions.append(saveButton, cancelButton);
+
+    form.append(noteField, metaFields, formActions);
 
     const list = document.createElement('div');
     list.className = 'shot-review-list';
@@ -2094,6 +2187,7 @@
   }
 
   normalizeReferenceCards();
+  organizeReferenceSections();
   shots.forEach(addReviewPanel);
   updateReviewPanels();
 
