@@ -402,24 +402,65 @@
     gap: 0.52rem;
   }
 
-  .media-heading {
+  .media-section-toggle {
     display: flex;
     align-items: center;
     gap: 0.46rem;
+    width: 100%;
+    min-height: 2rem;
     margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
     color: var(--muted);
+    cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 0.62rem;
     font-weight: 850;
     letter-spacing: 0.09em;
     line-height: 1;
+    text-align: left;
     text-transform: uppercase;
   }
 
-  .media-heading::after {
+  .media-section-toggle::after {
     content: "";
     height: 1px;
     flex: 1 1 auto;
     background: var(--divider);
+  }
+
+  .media-count,
+  .media-toggle-state {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.38rem;
+    padding: 0 0.42rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--ref-caption-bg);
+    color: var(--media-chip-ink);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+  }
+
+  .media-toggle-state {
+    margin-left: auto;
+  }
+
+  .media-section-body {
+    display: grid;
+    gap: 0.52rem;
+  }
+
+  .media-section-body[hidden] {
+    display: none;
+  }
+
+  .media-sources {
+    display: grid;
+    gap: 0.42rem;
   }
 
   .media-grid {
@@ -888,7 +929,41 @@
     .shot-review .review-delete { min-height: 2.75rem; }
     .section-title { margin-bottom: 0.95rem; padding: 0.42rem 0.7rem 0.48rem; }
     .shot-media { margin: 0.62rem 0 0.72rem; }
+    .media-section { gap: 0.42rem; }
+    .media-section-toggle {
+      min-height: 2.75rem;
+      padding: 0 0.62rem;
+      border: 1px solid var(--line);
+      background: var(--ref-caption-bg);
+    }
+    .media-section-toggle::after { display: none; }
+    .media-count { margin-left: auto; }
+    .media-toggle-state + .media-count,
+    .media-count + .media-toggle-state { margin-left: 0; }
     .media-grid { grid-template-columns: 1fr; }
+    .media-section-location .media-grid {
+      display: flex;
+      align-items: stretch;
+      gap: 0.62rem;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      padding: 0 0 0.22rem;
+      scroll-padding-inline: 0.12rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .media-section-location .ref-card {
+      flex: 0 0 min(82vw, 20rem);
+      scroll-snap-align: start;
+    }
+    .media-section-location .ref-media {
+      min-height: 12rem;
+      max-height: 27rem;
+    }
+    .media-section-location .ref-media img {
+      max-height: 27rem;
+      object-fit: contain;
+    }
     .ref-media img { height: auto; }
     .scene-heading,
     .action,
@@ -1625,14 +1700,30 @@
     }
   });
 
-  function isLocationReference(title) {
-    const text = title.toLowerCase();
-    return /\b(peerspace|location|rancho|kitchen location|dining room location)\b/.test(text);
+  function referenceTextFor(node, fallback = '') {
+    if (!node) return fallback;
+    const title = node.querySelector?.('.ref-title')?.textContent || node.textContent || '';
+    const href = node.querySelector?.('a')?.getAttribute('href') || node.querySelector?.('a')?.href || '';
+    const media = node.querySelector?.('.ref-media')?.getAttribute('href') || '';
+    return `${title} ${href} ${media} ${fallback}`.toLowerCase();
+  }
+
+  function referenceBucket(text) {
+    const refText = String(text || '').toLowerCase();
+    if (/\b(concept|look|scruggs|storybook|storyboard|cutaway|graph|chronometer|dial|oven|schlieren|smoke ghost|reference shot)\b/.test(refText)) {
+      return 'storyboard';
+    }
+    if (/shot-4-location-peerspace-/.test(refText) || /\b(peerspace location|location source|location scout)\b/.test(refText)) {
+      return 'location';
+    }
+    if (/#type=media/.test(refText) || /\b(peerspace|rancho|dining room location|kitchen location)\b/.test(refText)) {
+      return 'location';
+    }
+    return 'storyboard';
   }
 
   function cleanReferenceTitle(title) {
     return String(title || 'Reference')
-      .replace(/\s+concept$/i, '')
       .replace(/\s+reference\s+(frame|clip)$/i, ' reference')
       .replace(/\s{2,}/g, ' ')
       .trim();
@@ -1642,7 +1733,7 @@
     refToggles.forEach((toggle) => {
       const summary = toggle.querySelector('summary');
       const title = cleanReferenceTitle(summary?.querySelector('.ref-title')?.textContent?.trim() || 'Reference');
-      const type = isLocationReference(`${title} ${toggle.dataset.refType || ''}`) ? 'location' : 'storyboard';
+      const type = referenceBucket(referenceTextFor(toggle, toggle.dataset.refType || ''));
       const media = toggle.querySelector('.ref-media');
       if (!media) return;
 
@@ -1669,33 +1760,87 @@
     if (node.classList?.contains('ref-card')) {
       return node.dataset.refType === 'location' ? 'location' : 'storyboard';
     }
-    const text = node.textContent || '';
-    const href = node.querySelector?.('a')?.href || '';
-    return isLocationReference(`${text} ${href}`) ? 'location' : 'storyboard';
+    if (node.classList?.contains('ref-source') || node.classList?.contains('media-source')) {
+      return 'location';
+    }
+    return referenceBucket(referenceTextFor(node));
   }
 
-  function createMediaSection(label, items) {
+  function setMediaSectionExpanded(section, expanded) {
+    const button = section.querySelector('.media-section-toggle');
+    const body = section.querySelector('.media-section-body');
+    const state = section.querySelector('.media-toggle-state');
+    if (!button || !body || !state) return;
+    button.setAttribute('aria-expanded', String(expanded));
+    body.hidden = !expanded;
+    state.textContent = expanded ? 'Hide' : 'Show';
+  }
+
+  function shouldCollapseMediaSection(sectionKey, itemCount) {
+    return sectionKey === 'location'
+      && itemCount > 1
+      && window.matchMedia('(max-width: 600px)').matches;
+  }
+
+  function createMediaSection(label, items, sectionKey) {
     if (!items.length) return null;
 
-    const section = document.createElement('section');
-    section.className = `media-section media-section-${label.toLowerCase()}`;
+    const sources = items.filter((item) => item.classList?.contains('ref-source') || item.classList?.contains('media-source'));
+    const cards = items.filter((item) => !sources.includes(item));
 
-    const heading = document.createElement('h3');
+    const section = document.createElement('section');
+    section.className = `media-section media-section-${sectionKey}`;
+
+    const bodyId = `media-${sectionKey}-${Math.random().toString(36).slice(2)}`;
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'media-section-toggle';
+    toggle.setAttribute('aria-controls', bodyId);
+
+    const heading = document.createElement('span');
     heading.className = 'media-heading';
     heading.textContent = label;
 
-    const grid = document.createElement('div');
-    grid.className = 'media-grid';
+    const count = document.createElement('span');
+    count.className = 'media-count';
+    count.textContent = sectionKey === 'location'
+      ? `${cards.length} ${cards.length === 1 ? 'photo' : 'photos'}`
+      : `${cards.length} ${cards.length === 1 ? 'ref' : 'refs'}`;
 
-    items.forEach((item) => {
-      if (item.classList?.contains('ref-source')) {
+    const state = document.createElement('span');
+    state.className = 'media-toggle-state';
+    state.setAttribute('aria-hidden', 'true');
+
+    toggle.append(heading, count, state);
+
+    const body = document.createElement('div');
+    body.className = 'media-section-body';
+    body.id = bodyId;
+
+    if (sources.length) {
+      const sourceWrap = document.createElement('div');
+      sourceWrap.className = 'media-sources';
+      sources.forEach((item) => {
         item.classList.remove('ref-source');
         item.classList.add('media-source');
-      }
-      grid.append(item);
+        sourceWrap.append(item);
+      });
+      body.append(sourceWrap);
+    }
+
+    if (cards.length) {
+      const grid = document.createElement('div');
+      grid.className = 'media-grid';
+      cards.forEach((item) => grid.append(item));
+      body.append(grid);
+    }
+
+    toggle.addEventListener('click', () => {
+      setMediaSectionExpanded(section, toggle.getAttribute('aria-expanded') !== 'true');
     });
 
-    section.append(heading, grid);
+    section.append(toggle, body);
+    setMediaSectionExpanded(section, !shouldCollapseMediaSection(sectionKey, cards.length));
     return section;
   }
 
@@ -1716,8 +1861,8 @@
       const media = document.createElement('div');
       media.className = 'shot-media';
 
-      const storyboard = createMediaSection('Storyboard', buckets.storyboard);
-      const location = createMediaSection('Location', buckets.location);
+      const storyboard = createMediaSection('Storyboard', buckets.storyboard, 'storyboard');
+      const location = createMediaSection('Location', buckets.location, 'location');
       if (storyboard) media.append(storyboard);
       if (location) media.append(location);
 
