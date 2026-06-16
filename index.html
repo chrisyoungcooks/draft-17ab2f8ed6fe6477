@@ -392,14 +392,19 @@
 
   .shot-media {
     display: grid;
-    gap: 0.86rem;
+    gap: 0.74rem;
     margin: 0.72rem 0 0.82rem;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
   .media-section {
     display: grid;
-    gap: 0.52rem;
+    gap: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--note-bg);
+    box-shadow: 0 8px 20px var(--media-shadow);
   }
 
   .media-section-toggle {
@@ -407,12 +412,13 @@
     align-items: center;
     gap: 0.46rem;
     width: 100%;
-    min-height: 2rem;
+    min-height: 2.55rem;
     margin: 0;
-    padding: 0;
+    padding: 0.52rem 0.62rem;
     border: 0;
-    border-radius: 6px;
-    background: transparent;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    background: var(--ref-caption-bg);
     color: var(--muted);
     cursor: pointer;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -424,11 +430,21 @@
     text-transform: uppercase;
   }
 
+  .media-section[data-expanded="false"]:not([data-has-sources="true"]) .media-section-toggle {
+    border-bottom: 0;
+  }
+
+  .media-section-toggle:hover {
+    color: var(--accent);
+  }
+
+  .media-section-toggle:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: -3px;
+  }
+
   .media-section-toggle::after {
-    content: "";
-    height: 1px;
-    flex: 1 1 auto;
-    background: var(--divider);
+    display: none;
   }
 
   .media-count,
@@ -445,13 +461,18 @@
     letter-spacing: 0.08em;
   }
 
-  .media-toggle-state {
+  .media-count {
     margin-left: auto;
+  }
+
+  .media-toggle-state {
+    margin-left: 0;
   }
 
   .media-section-body {
     display: grid;
-    gap: 0.52rem;
+    gap: 0.62rem;
+    padding: 0.62rem;
   }
 
   .media-section-body[hidden] {
@@ -461,6 +482,15 @@
   .media-sources {
     display: grid;
     gap: 0.42rem;
+  }
+
+  .media-section-media {
+    display: grid;
+    gap: 0.74rem;
+  }
+
+  .media-section-media[hidden] {
+    display: none;
   }
 
   .media-grid {
@@ -477,17 +507,16 @@
     overflow: hidden;
     border: 1px solid var(--line);
     border-radius: 8px;
-    background: var(--ref-caption-bg);
-    box-shadow: 0 8px 20px var(--media-shadow);
+    background: var(--page);
   }
 
   .media-source {
     grid-column: 1 / -1;
     margin: 0;
-    padding: 0.44rem 0.55rem;
+    padding: 0.48rem 0.58rem;
     border: 1px solid var(--line);
-    border-radius: 4px;
-    background: var(--ref-caption-bg);
+    border-radius: 6px;
+    background: var(--page);
     color: var(--note-ink);
   }
 
@@ -929,14 +958,16 @@
     .shot-review .review-delete { min-height: 2.75rem; }
     .section-title { margin-bottom: 0.95rem; padding: 0.42rem 0.7rem 0.48rem; }
     .shot-media { margin: 0.62rem 0 0.72rem; }
-    .media-section { gap: 0.42rem; }
+    .media-section { gap: 0; }
     .media-section-toggle {
       min-height: 2.75rem;
       padding: 0 0.62rem;
-      border: 1px solid var(--line);
+      border: 0;
+      border-bottom: 1px solid var(--line);
       background: var(--ref-caption-bg);
     }
-    .media-section-toggle::after { display: none; }
+    .media-section[data-expanded="false"]:not([data-has-sources="true"]) .media-section-toggle { border-bottom: 0; }
+    .media-section-body { padding: 0.56rem; }
     .media-count { margin-left: auto; }
     .media-toggle-state + .media-count,
     .media-count + .media-toggle-state { margin-left: 0; }
@@ -1769,10 +1800,16 @@
   function setMediaSectionExpanded(section, expanded) {
     const button = section.querySelector('.media-section-toggle');
     const body = section.querySelector('.media-section-body');
+    const media = section.querySelector('.media-section-media');
+    const hasSources = Boolean(section.querySelector('.media-sources'));
     const state = section.querySelector('.media-toggle-state');
-    if (!button || !body || !state) return;
+    const heading = section.querySelector('.media-heading')?.textContent?.trim() || 'media';
+    if (!button || !body || !media || !state) return;
+    section.dataset.expanded = String(expanded);
     button.setAttribute('aria-expanded', String(expanded));
-    body.hidden = !expanded;
+    button.setAttribute('aria-label', `${expanded ? 'Hide' : 'Show'} ${heading.toLowerCase()} media`);
+    media.hidden = !expanded;
+    body.hidden = !expanded && !hasSources;
     state.textContent = expanded ? 'Hide' : 'Show';
   }
 
@@ -1790,12 +1827,13 @@
 
     const section = document.createElement('section');
     section.className = `media-section media-section-${sectionKey}`;
+    section.dataset.hasSources = String(sources.length > 0);
 
-    const bodyId = `media-${sectionKey}-${Math.random().toString(36).slice(2)}`;
+    const mediaId = `media-${sectionKey}-${Math.random().toString(36).slice(2)}`;
     const toggle = document.createElement('button');
     toggle.type = 'button';
     toggle.className = 'media-section-toggle';
-    toggle.setAttribute('aria-controls', bodyId);
+    toggle.setAttribute('aria-controls', mediaId);
 
     const heading = document.createElement('span');
     heading.className = 'media-heading';
@@ -1815,7 +1853,6 @@
 
     const body = document.createElement('div');
     body.className = 'media-section-body';
-    body.id = bodyId;
 
     if (sources.length) {
       const sourceWrap = document.createElement('div');
@@ -1828,12 +1865,17 @@
       body.append(sourceWrap);
     }
 
+    const mediaWrap = document.createElement('div');
+    mediaWrap.className = 'media-section-media';
+    mediaWrap.id = mediaId;
+
     if (cards.length) {
       const grid = document.createElement('div');
       grid.className = 'media-grid';
       cards.forEach((item) => grid.append(item));
-      body.append(grid);
+      mediaWrap.append(grid);
     }
+    body.append(mediaWrap);
 
     toggle.addEventListener('click', () => {
       setMediaSectionExpanded(section, toggle.getAttribute('aria-expanded') !== 'true');
