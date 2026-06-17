@@ -1175,10 +1175,10 @@
       <iframe src="https://www.youtube.com/embed/4uenEm2bdFI?rel=0&playsinline=1" title="Peerspace walkthrough video for Shot 4: rustic interior movement" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
   </details>
-  <details class="ref-toggle">
-    <summary><span class="ref-title">Peerspace kitchen location concept</span></summary>
+  <details class="ref-toggle" data-ref-type="storyboard">
+    <summary><span class="ref-title">Shot 4 scene concept — kitchen smoke ghost</span></summary>
     <a class="ref-media" href="refs/shot-4-peerspace-kitchen-location-reference.png" target="_blank" rel="noopener">
-      <img src="refs/shot-4-peerspace-kitchen-location-reference.png" alt="Rustic kitchen and dining location concept for Shot 4 based on the Peerspace rancho location." loading="lazy" decoding="async">
+      <img src="refs/shot-4-peerspace-kitchen-location-reference.png" alt="Shot 4 scene concept showing Chris in a rustic kitchen with the smoke ghost gag and warm backlight." loading="lazy" decoding="async">
     </a>
   </details>
   <details class="ref-toggle">
@@ -1926,7 +1926,10 @@
     refToggles.forEach((toggle) => {
       const summary = toggle.querySelector('summary');
       const title = cleanReferenceTitle(summary?.querySelector('.ref-title')?.textContent?.trim() || 'Reference');
-      const type = referenceBucket(referenceTextFor(toggle, toggle.dataset.refType || ''));
+      const explicitType = toggle.dataset.refType === 'location' || toggle.dataset.refType === 'storyboard'
+        ? toggle.dataset.refType
+        : '';
+      const type = explicitType || referenceBucket(referenceTextFor(toggle));
       const media = toggle.querySelector('.ref-media');
       if (!media) return;
 
