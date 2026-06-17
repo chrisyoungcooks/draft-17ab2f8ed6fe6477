@@ -566,6 +566,7 @@
   .ref-media video,
   .ref-media iframe {
     aspect-ratio: 16 / 9;
+    height: auto;
   }
 
   .ref-media video {
@@ -573,6 +574,22 @@
     cursor: pointer;
     object-fit: contain;
     object-position: center;
+  }
+
+  .ref-media-short {
+    display: grid;
+    place-items: center;
+    min-height: 0;
+    padding: 0.54rem;
+    background: color-mix(in oklch, var(--media-bg) 78%, var(--paper));
+  }
+
+  .ref-media-short iframe {
+    width: min(100%, 15rem);
+    aspect-ratio: 9 / 16;
+    border-radius: 6px;
+    background: #171411;
+    box-shadow: 0 0.32rem 0.9rem var(--media-shadow);
   }
 
   body[data-show-screenplay="false"] .action,
@@ -984,12 +1001,20 @@
       -webkit-overflow-scrolling: touch;
     }
     .media-section-location .ref-card {
-      flex: 0 0 min(82vw, 20rem);
+      flex: 0 0 min(76vw, 18rem);
       scroll-snap-align: start;
     }
     .media-section-location .ref-media {
       min-height: 12rem;
       max-height: 27rem;
+    }
+    .media-section-location .ref-media-short {
+      min-height: 0;
+      max-height: none;
+    }
+    .media-section-location .ref-media-short iframe {
+      width: min(68vw, 15rem);
+      max-height: 72vh;
     }
     .media-section-location .ref-media img {
       max-height: 27rem;
@@ -1137,6 +1162,18 @@
     <a class="ref-media" href="refs/shot-5-interior-smoke-ghost-reference.jpg" target="_blank" rel="noopener">
       <img src="refs/shot-5-interior-smoke-ghost-reference.jpg" alt="Indoor smoke ghost reference from The Ballad of Buster Scruggs." loading="lazy" decoding="async">
     </a>
+  </details>
+  <details class="ref-toggle" data-ref-type="location">
+    <summary><span class="ref-title">Peerspace walkthrough video: dining room and kitchen path</span></summary>
+    <div class="ref-media ref-media-short">
+      <iframe src="https://www.youtube.com/embed/py0PNTAAG8o?rel=0&playsinline=1" title="Peerspace walkthrough video for Shot 4: dining room and kitchen path" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </details>
+  <details class="ref-toggle" data-ref-type="location">
+    <summary><span class="ref-title">Peerspace walkthrough video: rustic interior movement</span></summary>
+    <div class="ref-media ref-media-short">
+      <iframe src="https://www.youtube.com/embed/4uenEm2bdFI?rel=0&playsinline=1" title="Peerspace walkthrough video for Shot 4: rustic interior movement" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
   </details>
   <details class="ref-toggle">
     <summary><span class="ref-title">Peerspace kitchen location concept</span></summary>
@@ -1864,14 +1901,14 @@
 
   function referenceBucket(text) {
     const refText = String(text || '').toLowerCase();
-    if (/\b(concept|look|scruggs|storybook|storyboard|cutaway|graph|chronometer|dial|oven|schlieren|smoke ghost|reference shot)\b/.test(refText)) {
-      return 'storyboard';
-    }
     if (/shot-4-location-peerspace-/.test(refText) || /\b(peerspace location|location source|location scout)\b/.test(refText)) {
       return 'location';
     }
     if (/#type=media/.test(refText) || /\b(peerspace|rancho|dining room location|kitchen location)\b/.test(refText)) {
       return 'location';
+    }
+    if (/\b(concept|look|scruggs|storybook|storyboard|cutaway|graph|chronometer|dial|oven|schlieren|smoke ghost|reference shot)\b/.test(refText)) {
+      return 'storyboard';
     }
     return 'storyboard';
   }
@@ -1894,6 +1931,13 @@
       const card = document.createElement('div');
       card.className = 'ref-card';
       card.dataset.refType = type;
+      if (media.querySelector('iframe')) {
+        card.dataset.mediaKind = 'embed';
+      } else if (media.querySelector('video')) {
+        card.dataset.mediaKind = 'video';
+      } else {
+        card.dataset.mediaKind = 'image';
+      }
 
       const caption = document.createElement('div');
       caption.className = 'ref-caption';
@@ -1965,7 +2009,7 @@
     const count = document.createElement('span');
     count.className = 'media-count';
     count.textContent = sectionKey === 'location'
-      ? `${cards.length} ${cards.length === 1 ? 'photo' : 'photos'}`
+      ? `${cards.length} ${cards.length === 1 ? 'item' : 'items'}`
       : `${cards.length} ${cards.length === 1 ? 'ref' : 'refs'}`;
 
     const state = document.createElement('span');
