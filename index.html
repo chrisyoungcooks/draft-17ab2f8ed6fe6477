@@ -407,18 +407,31 @@
     box-shadow: 0 8px 20px var(--media-shadow);
   }
 
+  .media-section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.46rem;
+    min-width: 0;
+    border-bottom: 1px solid var(--line);
+    background: var(--ref-caption-bg);
+  }
+
+  .media-section[data-expanded="false"]:not([data-has-sources="true"]) .media-section-header {
+    border-bottom: 0;
+  }
+
   .media-section-toggle {
     display: flex;
     align-items: center;
     gap: 0.46rem;
-    width: 100%;
+    flex: 1 1 auto;
+    min-width: 0;
     min-height: 2.55rem;
     margin: 0;
     padding: 0.52rem 0.62rem;
     border: 0;
-    border-bottom: 1px solid var(--line);
     border-radius: 0;
-    background: var(--ref-caption-bg);
+    background: transparent;
     color: var(--muted);
     cursor: pointer;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -428,10 +441,6 @@
     line-height: 1;
     text-align: left;
     text-transform: uppercase;
-  }
-
-  .media-section[data-expanded="false"]:not([data-has-sources="true"]) .media-section-toggle {
-    border-bottom: 0;
   }
 
   .media-section-toggle:hover {
@@ -448,7 +457,8 @@
   }
 
   .media-count,
-  .media-toggle-state {
+  .media-toggle-state,
+  .media-position {
     display: inline-flex;
     align-items: center;
     min-height: 1.38rem;
@@ -469,6 +479,55 @@
     margin-left: 0;
   }
 
+  .media-carousel-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.24rem;
+    flex: 0 0 auto;
+    margin-left: 0;
+    padding-right: 0.46rem;
+  }
+
+  .media-carousel-btn {
+    display: inline-grid;
+    place-items: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--page) 68%, transparent);
+    color: var(--control-ink);
+    cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1;
+    transition: background-color 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out, opacity 160ms ease-out;
+  }
+
+  .media-carousel-btn:hover {
+    border-color: var(--ref-pill-border);
+    color: var(--accent);
+  }
+
+  .media-carousel-btn:disabled {
+    cursor: default;
+    opacity: 0.38;
+  }
+
+  .media-carousel-btn:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .media-section[data-item-count="1"] .media-carousel-controls {
+    display: none;
+  }
+
+  .media-section[data-expanded="false"] .media-carousel-controls {
+    display: none;
+  }
+
   .media-section-body {
     display: grid;
     gap: 0.62rem;
@@ -484,30 +543,49 @@
     gap: 0.42rem;
   }
 
-  .media-section-media {
-    display: grid;
-    gap: 0.74rem;
-  }
+  .media-section-media { min-width: 0; }
 
   .media-section-media[hidden] {
     display: none;
   }
 
-  .media-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14.5rem), 1fr));
-    align-items: start;
-    gap: 0.74rem;
+  .media-carousel {
+    display: flex;
+    gap: 0.72rem;
+    min-width: 0;
+    margin: 0 -0.08rem;
+    padding: 0.04rem 0.08rem 0.42rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: 0.08rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-gutter: stable;
+    -webkit-overflow-scrolling: touch;
   }
 
   .ref-card {
     display: grid;
+    flex: 0 0 min(72%, 21rem);
     min-width: 0;
     margin: 0;
     overflow: hidden;
     border: 1px solid var(--line);
     border-radius: 8px;
     background: var(--page);
+    scroll-snap-align: start;
+  }
+
+  .media-section[data-item-count="1"] .ref-card {
+    flex-basis: 100%;
+  }
+
+  .media-section-location .ref-card {
+    flex-basis: min(64%, 19rem);
+  }
+
+  .media-section-storyboard .ref-card {
+    flex-basis: min(78%, 24rem);
   }
 
   .media-source {
@@ -559,6 +637,7 @@
 
   .ref-media img {
     height: auto;
+    max-height: 28rem;
     object-fit: contain;
     object-position: center;
   }
@@ -587,6 +666,7 @@
   .ref-media-short iframe {
     width: min(100%, 15rem);
     aspect-ratio: 9 / 16;
+    max-height: 30rem;
     border-radius: 6px;
     background: #171411;
     box-shadow: 0 0.32rem 0.9rem var(--media-shadow);
@@ -976,44 +1056,49 @@
     .section-title { margin-bottom: 0.95rem; padding: 0.42rem 0.7rem 0.48rem; }
     .shot-media { margin: 0.62rem 0 0.72rem; }
     .media-section { gap: 0; }
+    .media-section-header {
+      flex-wrap: wrap;
+      gap: 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--ref-caption-bg);
+    }
     .media-section-toggle {
       min-height: 2.75rem;
       padding: 0 0.62rem;
       border: 0;
-      border-bottom: 1px solid var(--line);
-      background: var(--ref-caption-bg);
+      background: transparent;
     }
-    .media-section[data-expanded="false"]:not([data-has-sources="true"]) .media-section-toggle { border-bottom: 0; }
+    .media-section[data-expanded="false"]:not([data-has-sources="true"]) .media-section-header { border-bottom: 0; }
     .media-section-body { padding: 0.56rem; }
     .media-count { margin-left: auto; }
     .media-toggle-state + .media-count,
     .media-count + .media-toggle-state { margin-left: 0; }
-    .media-grid { grid-template-columns: 1fr; }
-    .media-section-location .media-grid {
-      display: flex;
-      align-items: stretch;
+    .media-carousel-controls {
+      flex: 0 0 100%;
+      justify-content: flex-end;
+      margin-left: 0;
+      margin-top: -0.1rem;
+    }
+    .media-carousel-btn {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+    .media-carousel {
       gap: 0.62rem;
-      overflow-x: auto;
-      overscroll-behavior-x: contain;
-      padding: 0 0 0.22rem;
-      scroll-padding-inline: 0.12rem;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
+      margin-inline: -0.02rem;
+      padding: 0.02rem 0.02rem 0.4rem;
     }
+    .ref-card,
+    .media-section-storyboard .ref-card,
     .media-section-location .ref-card {
-      flex: 0 0 min(76vw, 18rem);
-      scroll-snap-align: start;
+      flex-basis: min(82vw, 19rem);
     }
+    .media-section[data-item-count="1"] .ref-card { flex-basis: 100%; }
     .media-section-location .ref-media {
       min-height: 12rem;
-      max-height: 27rem;
-    }
-    .media-section-location .ref-media-short {
-      min-height: 0;
-      max-height: none;
     }
     .media-section-location .ref-media-short iframe {
-      width: min(68vw, 15rem);
+      width: min(68vw, 14rem);
       max-height: 72vh;
     }
     .media-section-location .ref-media img {
@@ -1983,12 +2068,64 @@
     media.hidden = !expanded;
     body.hidden = !expanded && !hasSources;
     state.textContent = expanded ? 'Hide' : 'Show';
+    updateMediaCarouselState(section);
   }
 
   function shouldCollapseMediaSection(sectionKey, itemCount) {
     return sectionKey === 'location'
       && itemCount > 1
       && window.matchMedia('(max-width: 600px)').matches;
+  }
+
+  function mediaCarouselCards(carousel) {
+    return Array.from(carousel?.querySelectorAll(':scope > .ref-card') || []);
+  }
+
+  function mediaCarouselIndex(carousel) {
+    const cards = mediaCarouselCards(carousel);
+    if (!cards.length) return 0;
+    const left = carousel.scrollLeft;
+    let closestIndex = 0;
+    let closestDistance = Infinity;
+    cards.forEach((card, index) => {
+      const distance = Math.abs(card.offsetLeft - left);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+    return closestIndex;
+  }
+
+  function updateMediaCarouselState(section) {
+    const carousel = section.querySelector('.media-carousel');
+    if (!carousel) return;
+    const cards = mediaCarouselCards(carousel);
+    const index = mediaCarouselIndex(carousel);
+    const position = section.querySelector('.media-position');
+    const previous = section.querySelector('[data-carousel-step="previous"]');
+    const next = section.querySelector('[data-carousel-step="next"]');
+
+    if (position) {
+      position.textContent = cards.length ? `${index + 1} / ${cards.length}` : '0 / 0';
+    }
+    if (previous) previous.disabled = index <= 0;
+    if (next) next.disabled = index >= cards.length - 1;
+  }
+
+  function scrollMediaCarousel(section, direction) {
+    const carousel = section.querySelector('.media-carousel');
+    const cards = mediaCarouselCards(carousel);
+    if (!carousel || !cards.length) return;
+
+    const nextIndex = Math.min(
+      Math.max(mediaCarouselIndex(carousel) + direction, 0),
+      cards.length - 1
+    );
+    carousel.scrollTo({
+      left: cards[nextIndex].offsetLeft,
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+    });
   }
 
   function createMediaSection(label, items, sectionKey) {
@@ -2000,12 +2137,15 @@
     const section = document.createElement('section');
     section.className = `media-section media-section-${sectionKey}`;
     section.dataset.hasSources = String(sources.length > 0);
+    section.dataset.itemCount = String(cards.length);
 
     const mediaId = `media-${sectionKey}-${Math.random().toString(36).slice(2)}`;
+    const header = document.createElement('div');
+    header.className = 'media-section-header';
+
     const toggle = document.createElement('button');
     toggle.type = 'button';
     toggle.className = 'media-section-toggle';
-    toggle.setAttribute('aria-controls', mediaId);
 
     const heading = document.createElement('span');
     heading.className = 'media-heading';
@@ -2023,8 +2163,36 @@
 
     toggle.append(heading, count, state);
 
+    const controls = document.createElement('div');
+    controls.className = 'media-carousel-controls';
+    controls.setAttribute('aria-label', `${label} carousel controls`);
+
+    const previous = document.createElement('button');
+    previous.type = 'button';
+    previous.className = 'media-carousel-btn';
+    previous.dataset.carouselStep = 'previous';
+    previous.setAttribute('aria-label', `Show previous ${label.toLowerCase()} item`);
+    previous.textContent = '‹';
+
+    const position = document.createElement('span');
+    position.className = 'media-position';
+    position.setAttribute('aria-live', 'polite');
+    position.textContent = cards.length ? `1 / ${cards.length}` : '0 / 0';
+
+    const next = document.createElement('button');
+    next.type = 'button';
+    next.className = 'media-carousel-btn';
+    next.dataset.carouselStep = 'next';
+    next.setAttribute('aria-label', `Show next ${label.toLowerCase()} item`);
+    next.textContent = '›';
+
+    controls.append(previous, position, next);
+    header.append(toggle, controls);
+
     const body = document.createElement('div');
     body.className = 'media-section-body';
+    body.id = `${mediaId}-body`;
+    toggle.setAttribute('aria-controls', body.id);
 
     if (sources.length) {
       const sourceWrap = document.createElement('div');
@@ -2039,22 +2207,30 @@
 
     const mediaWrap = document.createElement('div');
     mediaWrap.className = 'media-section-media';
-    mediaWrap.id = mediaId;
 
     if (cards.length) {
-      const grid = document.createElement('div');
-      grid.className = 'media-grid';
-      cards.forEach((item) => grid.append(item));
-      mediaWrap.append(grid);
+      const carousel = document.createElement('div');
+      carousel.className = 'media-carousel';
+      carousel.id = mediaId;
+      carousel.tabIndex = 0;
+      carousel.setAttribute('aria-label', `${label} media, ${cards.length} ${cards.length === 1 ? 'item' : 'items'}`);
+      cards.forEach((item) => carousel.append(item));
+      mediaWrap.append(carousel);
+      carousel.addEventListener('scroll', () => {
+        window.requestAnimationFrame(() => updateMediaCarouselState(section));
+      }, { passive: true });
     }
     body.append(mediaWrap);
 
     toggle.addEventListener('click', () => {
       setMediaSectionExpanded(section, toggle.getAttribute('aria-expanded') !== 'true');
     });
+    previous.addEventListener('click', () => scrollMediaCarousel(section, -1));
+    next.addEventListener('click', () => scrollMediaCarousel(section, 1));
 
-    section.append(toggle, body);
+    section.append(header, body);
     setMediaSectionExpanded(section, !shouldCollapseMediaSection(sectionKey, cards.length));
+    updateMediaCarouselState(section);
     return section;
   }
 
