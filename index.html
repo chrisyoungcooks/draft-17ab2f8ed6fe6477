@@ -197,6 +197,89 @@
     white-space: nowrap;
   }
 
+  .review-archive {
+    display: grid;
+    gap: 0.45rem;
+    max-width: 8in;
+    margin: -1.35rem auto 1.35rem;
+    padding: 0.64rem 0.72rem;
+    border: 1px solid var(--review-line);
+    border-radius: 8px;
+    background: var(--review-bg);
+    color: var(--note-ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.76rem;
+    line-height: 1.35;
+  }
+
+  .review-archive[hidden] {
+    display: none;
+  }
+
+  .review-archive-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.7rem;
+  }
+
+  .review-archive-title {
+    color: var(--label-ink);
+    font-size: 0.66rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .review-archive-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.38rem;
+  }
+
+  .review-archive button,
+  .review-import-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--page);
+    color: var(--control-ink);
+    cursor: pointer;
+    font: 800 0.58rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    letter-spacing: 0.07em;
+    padding: 0.42rem 0.58rem;
+    text-transform: uppercase;
+  }
+
+  .review-archive button:hover,
+  .review-import-label:hover {
+    border-color: var(--ref-pill-border);
+    color: var(--accent);
+  }
+
+  .review-archive button:focus-visible,
+  .review-import-label:focus-within {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .review-archive-text {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .review-archive-file {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
   .title-page {
     text-align: center;
     margin-top: 1.55in;
@@ -689,7 +772,8 @@
     display: none;
   }
 
-  body[data-show-review="false"] .shot-review {
+  body[data-show-review="false"] .shot-review,
+  body[data-show-review="false"] .review-archive {
     display: none;
   }
 
@@ -861,6 +945,122 @@
     display: none;
   }
 
+  .review-attachment-picker {
+    display: grid;
+    gap: 0.42rem;
+    padding: 0.54rem;
+    border: 1px dashed var(--review-line);
+    border-radius: 7px;
+    background: color-mix(in oklch, var(--review-field) 74%, transparent);
+  }
+
+  .review-attach-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: start;
+    min-height: 2rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--page);
+    color: var(--control-ink);
+    cursor: pointer;
+    font: 800 0.58rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    letter-spacing: 0.07em;
+    padding: 0.42rem 0.58rem;
+    text-transform: uppercase;
+  }
+
+  .review-attach-button:hover {
+    border-color: var(--ref-pill-border);
+    color: var(--accent);
+  }
+
+  .review-attach-button:focus-within {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .review-attachment-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .review-attachment-help {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.7rem;
+  }
+
+  .review-attachment-preview,
+  .review-note-attachments {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.42rem;
+  }
+
+  .review-attachment-preview:empty {
+    display: none;
+  }
+
+  .review-attachment-chip {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.42rem;
+    max-width: min(100%, 22rem);
+    padding: 0.32rem 0.36rem;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: var(--page);
+    color: var(--note-ink);
+    font: 0.68rem/1.25 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .review-attachment-chip img,
+  .review-image-summary img {
+    width: 3.4rem;
+    height: 2.5rem;
+    border-radius: 5px;
+    object-fit: cover;
+    background: var(--media-bg);
+  }
+
+  .review-file-icon {
+    display: grid;
+    place-items: center;
+    width: 3.4rem;
+    height: 2.5rem;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    background: var(--ref-caption-bg);
+    color: var(--muted);
+    font-size: 1.15rem;
+  }
+
+  .review-attachment-name {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .review-attachment-size {
+    display: block;
+    color: var(--muted);
+    font-size: 0.62rem;
+  }
+
+  .review-remove-attachment {
+    min-width: 2rem;
+    min-height: 2rem;
+    padding: 0;
+  }
+
   .review-save,
   .review-cancel {
     align-self: center;
@@ -928,6 +1128,68 @@
   .review-related {
     color: var(--muted);
     font-size: 0.68rem;
+  }
+
+  .review-note-attachments {
+    margin-top: 0.1rem;
+  }
+
+  .review-note-attachment {
+    min-width: 0;
+  }
+
+  .review-image-attachment {
+    display: grid;
+    max-width: min(100%, 22rem);
+  }
+
+  .review-image-attachment summary {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .review-image-attachment summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .review-image-summary,
+  .review-file-attachment {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.42rem;
+    padding: 0.32rem 0.36rem;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: var(--review-field);
+    color: var(--note-ink);
+    font: 0.68rem/1.25 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    text-decoration: none;
+  }
+
+  .review-image-expanded {
+    display: grid;
+    gap: 0.38rem;
+    margin-top: 0.38rem;
+    padding: 0.42rem;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: var(--page);
+  }
+
+  .review-image-expanded img {
+    width: 100%;
+    max-height: 24rem;
+    border-radius: 5px;
+    object-fit: contain;
+    background: var(--media-bg);
+  }
+
+  .review-attachment-download {
+    color: var(--accent);
+    font: 800 0.58rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
   }
 
   .review-empty {
@@ -1049,6 +1311,15 @@
     .review-form-meta { grid-template-columns: 1fr; }
     .review-form-actions { justify-content: stretch; }
     .review-form-actions button { flex: 1 1 0; }
+    .review-archive { margin: -0.5rem 0 0.95rem; }
+    .review-archive-header { align-items: stretch; flex-direction: column; }
+    .review-archive-actions { justify-content: stretch; }
+    .review-archive button,
+    .review-import-label { flex: 1 1 0; min-height: 2.75rem; }
+    .review-attach-button { justify-self: stretch; min-height: 2.75rem; }
+    .review-attachment-chip,
+    .review-image-attachment,
+    .review-file-attachment { width: 100%; max-width: none; }
     .review-save,
     .review-cancel { align-self: stretch; }
     .shot-review button { justify-content: center; min-height: 2.75rem; }
@@ -1159,6 +1430,19 @@
   <div class="subtitle">The Ballad of a Barbecue Rustler</div>
   <div class="byline">Working Draft</div>
 </div>
+
+<section class="review-archive" data-review-archive>
+  <div class="review-archive-header">
+    <span class="review-archive-title">Review Archive</span>
+    <div class="review-archive-actions">
+      <button type="button" data-review-download>Download Packet</button>
+      <label class="review-import-label">Import Packet
+        <input class="review-archive-file" type="file" accept="application/json,.json" data-review-import>
+      </label>
+    </div>
+  </div>
+  <p class="review-archive-text">Notes and attachments save in this browser. Download a packet to commit under <code>review-notes/</code> when feedback needs to travel with the repo.</p>
+</section>
 
 <div class="section-title">
   <span class="section-label">— SCENE 1: THE HOOK —</span>
@@ -1938,6 +2222,9 @@
   let refVideos = document.querySelectorAll('.ref-media video');
   const shots = document.querySelectorAll('.shot');
   const reviewStatus = document.querySelector('.review-status');
+  const reviewArchive = document.querySelector('[data-review-archive]');
+  const reviewDownloadButton = document.querySelector('[data-review-download]');
+  const reviewImportInput = document.querySelector('[data-review-import]');
   const reviewStorageKey = 'pulled-pork-shot-review-notes-v1';
   const reviewAuthorKey = 'pulled-pork-review-author-v1';
   const reviewTargets = ['Shot', 'Script', 'Action', 'Dialogue', 'CAM', 'LIGHT', 'LOC', 'PROD', 'PROP', 'TRACK', 'VFX', 'GFX', 'EDIT', 'Reference', 'Timing'];
@@ -2319,6 +2606,63 @@
       .filter((shot) => shot !== primaryShot))];
   }
 
+  function formatFileSize(bytes = 0) {
+    const size = Number(bytes) || 0;
+    if (size < 1024) return `${size} B`;
+    if (size < 1024 * 1024) return `${Math.round(size / 102.4) / 10} KB`;
+    return `${Math.round(size / (1024 * 102.4)) / 10} MB`;
+  }
+
+  function isImageAttachment(attachment) {
+    return attachment?.kind === 'image' || /^image\//i.test(attachment?.type || '');
+  }
+
+  function normalizeAttachment(attachment) {
+    if (!attachment || typeof attachment !== 'object') return null;
+    const dataUrl = String(attachment.dataUrl || attachment.url || '');
+    if (!dataUrl) return null;
+    const type = String(attachment.type || 'application/octet-stream');
+    const name = String(attachment.name || 'attachment').trim() || 'attachment';
+    const size = Number(attachment.size) || 0;
+    return {
+      id: attachment.id || `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+      name,
+      type,
+      size,
+      dataUrl,
+      kind: /^image\//i.test(type) || attachment.kind === 'image' ? 'image' : 'file',
+      createdAt: attachment.createdAt || new Date().toISOString()
+    };
+  }
+
+  function normalizeAttachments(value) {
+    return (Array.isArray(value) ? value : [])
+      .map(normalizeAttachment)
+      .filter(Boolean);
+  }
+
+  function readFileAsDataUrl(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => resolve(reader.result));
+      reader.addEventListener('error', () => reject(reader.error || new Error('Unable to read file')));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function createAttachmentFromFile(file) {
+    const dataUrl = await readFileAsDataUrl(file);
+    return normalizeAttachment({
+      id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+      name: file.name,
+      type: file.type || 'application/octet-stream',
+      size: file.size,
+      dataUrl,
+      kind: /^image\//i.test(file.type || '') ? 'image' : 'file',
+      createdAt: new Date().toISOString()
+    });
+  }
+
   function notesArrayFromInput(input) {
     if (Array.isArray(input?.notes)) return input.notes;
     if (Array.isArray(input)) return input;
@@ -2345,6 +2689,7 @@
           target: reviewTargets.includes(note.target) ? note.target : inferReviewTarget(note.category),
           author: note.author || '',
           text: note.text.trim(),
+          attachments: normalizeAttachments(note.attachments || note.files || []),
           createdAt,
           updatedAt: note.updatedAt || createdAt
         };
@@ -2362,6 +2707,46 @@
     });
   }
 
+  function makeReviewPacket() {
+    return {
+      schema: 'pulled-pork-review-notes/v1',
+      exportedAt: new Date().toISOString(),
+      source: {
+        title: document.title,
+        url: window.location.href
+      },
+      notes: flattenReviewNotes().map((note) => ({
+        ...note,
+        attachments: normalizeAttachments(note.attachments || [])
+      }))
+    };
+  }
+
+  function downloadReviewPacket() {
+    const packet = makeReviewPacket();
+    const blob = new Blob([JSON.stringify(packet, null, 2)], { type: 'application/json' });
+    const anchor = document.createElement('a');
+    const stamp = new Date().toISOString().slice(0, 10);
+    anchor.href = URL.createObjectURL(blob);
+    anchor.download = `pulled-pork-review-notes-${stamp}.json`;
+    document.body.append(anchor);
+    anchor.click();
+    anchor.remove();
+    URL.revokeObjectURL(anchor.href);
+    setReviewStatus('Review packet downloaded');
+  }
+
+  function mergeReviewNotesFromPacket(input) {
+    const incoming = flattenReviewNotes(normalizeReviewNotes(input));
+    incoming.forEach((note) => upsertReviewNote({
+      ...note,
+      attachments: normalizeAttachments(note.attachments || [])
+    }));
+    const saved = saveReviewNotes();
+    updateReviewPanels();
+    setReviewStatus(saved ? `Imported ${incoming.length} review notes` : `Imported ${incoming.length} review notes, but browser storage failed`);
+  }
+
   function findReviewNote(id) {
     for (const [shot, notes] of Object.entries(reviewNotes)) {
       const index = notes.findIndex((note) => note.id === id);
@@ -2373,6 +2758,7 @@
   function upsertReviewNote(note) {
     const shot = normalizeShotNumber(note.shot);
     if (!shot) return;
+    note.attachments = normalizeAttachments(note.attachments || []);
     const existing = findReviewNote(note.id);
     if (existing && existing.shot !== shot) {
       reviewNotes[existing.shot].splice(existing.index, 1);
@@ -2387,6 +2773,78 @@
       bucket.push(note);
     }
     reviewNotes[shot] = bucket;
+  }
+
+  function attachmentThumb(attachment) {
+    if (isImageAttachment(attachment)) {
+      const image = document.createElement('img');
+      image.src = attachment.dataUrl;
+      image.alt = attachment.name;
+      image.loading = 'lazy';
+      return image;
+    }
+
+    const icon = document.createElement('span');
+    icon.className = 'review-file-icon';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = 'File';
+    return icon;
+  }
+
+  function attachmentTextBlock(attachment) {
+    const wrapper = document.createElement('span');
+    const name = document.createElement('span');
+    name.className = 'review-attachment-name';
+    name.textContent = attachment.name;
+    const size = document.createElement('span');
+    size.className = 'review-attachment-size';
+    size.textContent = formatFileSize(attachment.size);
+    wrapper.append(name, size);
+    return wrapper;
+  }
+
+  function renderReviewNoteAttachments(note) {
+    const attachments = normalizeAttachments(note.attachments || []);
+    if (!attachments.length) return null;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'review-note-attachments';
+
+    attachments.forEach((attachment) => {
+      if (isImageAttachment(attachment)) {
+        const details = document.createElement('details');
+        details.className = 'review-image-attachment review-note-attachment';
+
+        const summary = document.createElement('summary');
+        summary.className = 'review-image-summary';
+        summary.append(attachmentThumb(attachment), attachmentTextBlock(attachment));
+
+        const expanded = document.createElement('div');
+        expanded.className = 'review-image-expanded';
+        const image = document.createElement('img');
+        image.src = attachment.dataUrl;
+        image.alt = attachment.name;
+        image.loading = 'lazy';
+        const download = document.createElement('a');
+        download.className = 'review-attachment-download';
+        download.href = attachment.dataUrl;
+        download.download = attachment.name;
+        download.textContent = 'Download image';
+        expanded.append(image, download);
+        details.append(summary, expanded);
+        wrapper.append(details);
+        return;
+      }
+
+      const link = document.createElement('a');
+      link.className = 'review-file-attachment review-note-attachment';
+      link.href = attachment.dataUrl;
+      link.download = attachment.name;
+      link.append(attachmentThumb(attachment), attachmentTextBlock(attachment));
+      wrapper.append(link);
+    });
+
+    return wrapper;
   }
 
   function renderReviewList(shot, list) {
@@ -2423,6 +2881,8 @@
       related.hidden = !relatedShots.length;
       related.textContent = relatedShots.length ? `Also applies to shots ${relatedShots.join(', ')}` : '';
 
+      const attachments = renderReviewNoteAttachments(note);
+
       const actions = document.createElement('div');
       actions.className = 'review-note-actions';
       const editButton = document.createElement('button');
@@ -2449,7 +2909,9 @@
       });
       actions.append(editButton, deleteButton);
 
-      item.append(meta, text, related, actions);
+      item.append(meta, text);
+      if (attachments) item.append(attachments);
+      item.append(related, actions);
       list.append(item);
     });
   }
@@ -2503,6 +2965,7 @@
     form.noValidate = true;
     form.hidden = true;
     let editingId = '';
+    let pendingAttachments = [];
 
     function wrapField(labelText, field) {
       const label = document.createElement('label');
@@ -2560,6 +3023,28 @@
     message.setAttribute('aria-live', 'polite');
     textarea.setAttribute('aria-describedby', message.id);
 
+    const attachmentInput = document.createElement('input');
+    attachmentInput.type = 'file';
+    attachmentInput.multiple = true;
+    attachmentInput.className = 'review-attachment-input';
+    attachmentInput.setAttribute('aria-label', `Attach files to review note for shot ${number}`);
+
+    const attachmentButton = document.createElement('label');
+    attachmentButton.className = 'review-attach-button';
+    attachmentButton.textContent = 'Attach files';
+    attachmentButton.append(attachmentInput);
+
+    const attachmentHelp = document.createElement('p');
+    attachmentHelp.className = 'review-attachment-help';
+    attachmentHelp.textContent = 'Images preview as thumbnails. Other files save as downloads in the review packet.';
+
+    const attachmentPreview = document.createElement('div');
+    attachmentPreview.className = 'review-attachment-preview';
+
+    const attachmentPicker = document.createElement('div');
+    attachmentPicker.className = 'review-attachment-picker';
+    attachmentPicker.append(attachmentButton, attachmentHelp, attachmentPreview);
+
     const metaFields = document.createElement('div');
     metaFields.className = 'review-form-meta';
     metaFields.append(
@@ -2572,7 +3057,7 @@
     formActions.className = 'review-form-actions';
     formActions.append(saveButton, cancelButton);
 
-    form.append(noteField, message, metaFields, formActions);
+    form.append(noteField, message, attachmentPicker, metaFields, formActions);
 
     const list = document.createElement('div');
     list.className = 'shot-review-list';
@@ -2581,14 +3066,37 @@
     empty.className = 'review-empty';
     empty.textContent = 'No review notes yet.';
 
+    function renderAttachmentPreview() {
+      attachmentPreview.replaceChildren();
+      pendingAttachments.forEach((attachment, index) => {
+        const chip = document.createElement('div');
+        chip.className = 'review-attachment-chip';
+        chip.append(attachmentThumb(attachment), attachmentTextBlock(attachment));
+
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'review-remove-attachment';
+        remove.setAttribute('aria-label', `Remove ${attachment.name}`);
+        remove.textContent = 'x';
+        remove.addEventListener('click', () => {
+          pendingAttachments.splice(index, 1);
+          renderAttachmentPreview();
+        });
+        chip.append(remove);
+        attachmentPreview.append(chip);
+      });
+    }
+
     function resetComposer() {
       editingId = '';
+      pendingAttachments = [];
       target.value = 'Shot';
       related.value = '';
       textarea.value = '';
       message.hidden = true;
       message.textContent = '';
       saveButton.textContent = 'Save';
+      renderAttachmentPreview();
     }
 
     function showComposerMessage(text) {
@@ -2607,6 +3115,8 @@
           related.value = (note.relatedShots || []).join(', ');
           author.value = note.author || localStorage.getItem(reviewAuthorKey) || '';
           textarea.value = note.text || '';
+          pendingAttachments = normalizeAttachments(note.attachments || []);
+          renderAttachmentPreview();
           saveButton.textContent = 'Update';
         } else {
           resetComposer();
@@ -2627,6 +3137,21 @@
 
     panel.addEventListener('edit-note', (event) => {
       setComposerOpen(true, event.detail.note);
+    });
+
+    attachmentInput.addEventListener('change', async () => {
+      const files = Array.from(attachmentInput.files || []);
+      if (!files.length) return;
+      message.hidden = true;
+      try {
+        const attachments = await Promise.all(files.map(createAttachmentFromFile));
+        pendingAttachments = pendingAttachments.concat(attachments.filter(Boolean));
+        renderAttachmentPreview();
+      } catch {
+        showComposerMessage('One attachment could not be read. Try a smaller file or a different format.');
+      } finally {
+        attachmentInput.value = '';
+      }
     });
 
     form.addEventListener('submit', (event) => {
@@ -2657,6 +3182,7 @@
         target: target.value,
         author: reviewer,
         text,
+        attachments: normalizeAttachments(pendingAttachments),
         createdAt,
         updatedAt: new Date().toISOString()
       };
@@ -2680,6 +3206,20 @@
   organizeReferenceSections();
   shots.forEach(addReviewPanel);
   updateReviewPanels();
+
+  reviewDownloadButton?.addEventListener('click', downloadReviewPacket);
+  reviewImportInput?.addEventListener('change', async () => {
+    const file = reviewImportInput.files?.[0];
+    if (!file) return;
+    try {
+      const packet = JSON.parse(await file.text());
+      mergeReviewNotesFromPacket(packet);
+    } catch {
+      setReviewStatus('Import failed. Use a review packet JSON file.');
+    } finally {
+      reviewImportInput.value = '';
+    }
+  });
 
   function formatVideoTime(seconds) {
     if (!Number.isFinite(seconds)) return '0:00';
