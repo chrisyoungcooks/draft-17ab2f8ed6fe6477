@@ -1062,8 +1062,25 @@
   }
 
   .review-save,
+  .review-publish,
   .review-cancel {
     align-self: center;
+  }
+
+  .shot-review .review-publish {
+    background: color-mix(in oklch, var(--accent) 86%, black);
+    border-color: color-mix(in oklch, var(--accent) 82%, black);
+    color: var(--page);
+  }
+
+  .shot-review .review-publish:hover {
+    background: var(--accent);
+    color: var(--page);
+  }
+
+  .shot-review .review-publish:disabled {
+    cursor: not-allowed;
+    opacity: 0.62;
   }
 
   .shot-review-list {
@@ -1084,6 +1101,11 @@
     border: 1px solid var(--line);
     border-radius: 5px;
     background: var(--page);
+  }
+
+  .review-note-item[data-review-source="published"] {
+    border-color: color-mix(in oklch, var(--accent) 34%, var(--line));
+    background: color-mix(in oklch, var(--review-tag-bg) 28%, var(--page));
   }
 
   .review-note-meta {
@@ -1110,6 +1132,10 @@
     white-space: nowrap;
   }
 
+  .review-source-tag {
+    border-color: color-mix(in oklch, var(--accent) 45%, var(--line));
+  }
+
   .review-meta-text {
     min-width: 0;
   }
@@ -1123,6 +1149,10 @@
     display: flex;
     justify-content: flex-end;
     gap: 0.32rem;
+  }
+
+  .review-note-actions[hidden] {
+    display: none;
   }
 
   .review-related {
@@ -1433,15 +1463,9 @@
 
 <section class="review-archive" data-review-archive>
   <div class="review-archive-header">
-    <span class="review-archive-title">Review Archive</span>
-    <div class="review-archive-actions">
-      <button type="button" data-review-download>Download Packet</button>
-      <label class="review-import-label">Import Packet
-        <input class="review-archive-file" type="file" accept="application/json,.json" data-review-import>
-      </label>
-    </div>
+    <span class="review-archive-title">Review Notes</span>
   </div>
-  <p class="review-archive-text">Notes and attachments save in this browser. Download a packet to commit under <code>review-notes/</code> when feedback needs to travel with the repo.</p>
+  <p class="review-archive-text">Published notes load from <code>review-notes/published.json</code> and are visible to everyone. Draft notes save in this browser until you use <strong>Publish to GitHub</strong> and submit the generated review-note issue.</p>
 </section>
 
 <div class="section-title">
@@ -2242,6 +2266,8 @@
   const reviewImportInput = document.querySelector('[data-review-import]');
   const reviewStorageKey = 'pulled-pork-shot-review-notes-v1';
   const reviewAuthorKey = 'pulled-pork-review-author-v1';
+  const publishedReviewNotesUrl = 'review-notes/published.json?v=20260621-1';
+  const reviewIssueUrl = 'https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/new';
   const reviewTargets = ['Shot', 'Script', 'Action', 'Dialogue', 'CAM', 'LIGHT', 'LOC', 'PROD', 'PROP', 'TRACK', 'VFX', 'GFX', 'EDIT', 'Reference', 'Timing'];
   const layerState = {
     screenplay: document.body.dataset.showScreenplay !== 'false',
@@ -2249,6 +2275,7 @@
     production: document.body.dataset.showProduction !== 'false',
     review: document.body.dataset.showReview !== 'false'
   };
+  let publishedReviewNotes = {};
   let reviewNotes = loadReviewNotes();
 
   productionNotes.forEach((note) => {
@@ -2590,6 +2617,44 @@
     }
   }
 
+  function withReviewSource(notesByShot, source) {
+    const sourced = {};
+    Object.entries(notesByShot || {}).forEach(([shot, notes]) => {
+      sourced[shot] = (Array.isArray(notes) ? notes : []).map((note) => ({
+        ...note,
+        source
+      }));
+    });
+    return sourced;
+  }
+
+  function combinedReviewNotes() {
+    const combined = withReviewSource(publishedReviewNotes, 'published');
+    const publishedIds = new Set(flattenReviewNotes(publishedReviewNotes).map((note) => note.id));
+    Object.entries(reviewNotes || {}).forEach(([shot, notes]) => {
+      (Array.isArray(notes) ? notes : []).forEach((note) => {
+        if (publishedIds.has(note.id)) return;
+        combined[shot] = combined[shot] || [];
+        combined[shot].push({ ...note, source: 'draft' });
+      });
+    });
+    return combined;
+  }
+
+  async function loadPublishedReviewNotes() {
+    try {
+      const response = await fetch(publishedReviewNotesUrl, { cache: 'no-store' });
+      if (!response.ok) return;
+      const packet = await response.json();
+      publishedReviewNotes = normalizeReviewNotes(packet);
+      updateReviewPanels();
+      const count = flattenReviewNotes(publishedReviewNotes).length;
+      if (count) setReviewStatus(`Loaded ${count} published review notes`);
+    } catch {
+      // Published notes are a convenience layer. The draft page should keep working if the JSON is unavailable.
+    }
+  }
+
   function getShotMeta(shot) {
     const number = shot.querySelector('.shot-num')?.textContent?.trim() || '';
     const heading = shot.querySelector('.scene-heading')?.textContent?.trim() || `Shot ${number}`;
@@ -2713,7 +2778,7 @@
     return normalized;
   }
 
-  function flattenReviewNotes(notesByShot = reviewNotes) {
+  function flattenReviewNotes(notesByShot = combinedReviewNotes()) {
     return Object.values(notesByShot).flat().sort((a, b) => {
       const shotA = Number(a.shot) || 0;
       const shotB = Number(b.shot) || 0;
@@ -2788,6 +2853,51 @@
       bucket.push(note);
     }
     reviewNotes[shot] = bucket;
+  }
+
+  function noteForGitHubIssue(note) {
+    const attachments = normalizeAttachments(note.attachments || []);
+    return {
+      schema: 'pulled-pork-review-note/v1',
+      submittedAt: new Date().toISOString(),
+      source: {
+        title: document.title,
+        url: window.location.href
+      },
+      note: {
+        ...note,
+        attachments: [],
+        localAttachmentCount: attachments.length,
+        localAttachments: attachments.map((attachment) => ({
+          name: attachment.name,
+          type: attachment.type,
+          size: attachment.size,
+          kind: attachment.kind
+        }))
+      }
+    };
+  }
+
+  function makeReviewIssueUrl(note) {
+    const title = `[Review Note] Shot ${note.shot}: ${note.target || 'Shot'}`;
+    const payload = noteForGitHubIssue(note);
+    const body = [
+      'This issue was created by the screenplay review tool.',
+      '',
+      'Submit the issue to publish this note into review-notes/published.json so it becomes visible to everyone on the GitHub Pages draft.',
+      '',
+      '```json',
+      JSON.stringify(payload, null, 2),
+      '```'
+    ].join('\n');
+    const params = new URLSearchParams({ title, body });
+    return `${reviewIssueUrl}?${params.toString()}`;
+  }
+
+  function openReviewIssue(note) {
+    const url = makeReviewIssueUrl(note);
+    window.open(url, '_blank', 'noopener');
+    setReviewStatus(`Opened GitHub publish issue for shot ${note.shot}`);
   }
 
   function attachmentThumb(attachment) {
@@ -2870,6 +2980,7 @@
     notes.forEach((note) => {
       const item = document.createElement('div');
       item.className = 'review-note-item';
+      item.dataset.reviewSource = note.source || 'draft';
 
       const meta = document.createElement('div');
       meta.className = 'review-note-meta';
@@ -2878,13 +2989,21 @@
       const target = document.createElement('span');
       target.className = 'review-tag';
       target.textContent = note.target || inferReviewTarget(note.category);
+      meta.append(target);
+
+      if (note.source === 'published') {
+        const source = document.createElement('span');
+        source.className = 'review-tag review-source-tag';
+        source.textContent = 'Published';
+        meta.append(source);
+      }
 
       const details = document.createElement('span');
       details.className = 'review-meta-text';
       const primary = note.shot !== number ? `primary shot ${note.shot}` : '';
       const updated = note.updatedAt && note.updatedAt !== note.createdAt ? 'edited' : '';
       details.textContent = [primary, note.author, stamp, updated].filter(Boolean).join(' • ');
-      meta.append(target, details);
+      meta.append(details);
 
       const text = document.createElement('p');
       text.className = 'review-note-text';
@@ -2900,6 +3019,7 @@
 
       const actions = document.createElement('div');
       actions.className = 'review-note-actions';
+      actions.hidden = note.source === 'published';
       const editButton = document.createElement('button');
       editButton.type = 'button';
       editButton.className = 'review-edit';
@@ -3020,7 +3140,12 @@
     const saveButton = document.createElement('button');
     saveButton.type = 'submit';
     saveButton.className = 'review-save';
-    saveButton.textContent = 'Save';
+    saveButton.textContent = 'Save draft';
+
+    const publishButton = document.createElement('button');
+    publishButton.type = 'button';
+    publishButton.className = 'review-publish';
+    publishButton.textContent = 'Publish to GitHub';
 
     const cancelButton = document.createElement('button');
     cancelButton.type = 'button';
@@ -3051,7 +3176,7 @@
 
     const attachmentHelp = document.createElement('p');
     attachmentHelp.className = 'review-attachment-help';
-    attachmentHelp.textContent = 'Images preview as thumbnails. Other files save as downloads in the review packet.';
+    attachmentHelp.textContent = 'Images preview in your draft note. Published GitHub notes include attachment names and sizes, not the local files.';
 
     const attachmentPreview = document.createElement('div');
     attachmentPreview.className = 'review-attachment-preview';
@@ -3070,7 +3195,7 @@
 
     const formActions = document.createElement('div');
     formActions.className = 'review-form-actions';
-    formActions.append(saveButton, cancelButton);
+    formActions.append(saveButton, publishButton, cancelButton);
 
     form.append(noteField, message, attachmentPicker, metaFields, formActions);
 
@@ -3110,7 +3235,7 @@
       textarea.value = '';
       message.hidden = true;
       message.textContent = '';
-      saveButton.textContent = 'Save';
+      saveButton.textContent = 'Save draft';
       renderAttachmentPreview();
     }
 
@@ -3132,7 +3257,7 @@
           textarea.value = note.text || '';
           pendingAttachments = normalizeAttachments(note.attachments || []);
           renderAttachmentPreview();
-          saveButton.textContent = 'Update';
+          saveButton.textContent = 'Update draft';
         } else {
           resetComposer();
         }
@@ -3169,13 +3294,12 @@
       }
     });
 
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
+    function buildComposerNote() {
       const text = textarea.value.trim();
       if (!text) {
         showComposerMessage('Add a note before saving.');
         textarea.focus();
-        return;
+        return null;
       }
       const meta = getShotMeta(shot);
       const reviewer = author.value.trim();
@@ -3189,7 +3313,7 @@
       const existing = editingId ? findReviewNote(editingId)?.note : null;
       const primaryShot = existing?.shot || meta.number;
       const createdAt = existing?.createdAt || new Date().toISOString();
-      const note = {
+      return {
         id: existing?.id || `${Date.now()}-${Math.random().toString(36).slice(2)}`,
         shot: primaryShot,
         relatedShots: parseRelatedShots(related.value, primaryShot),
@@ -3201,16 +3325,37 @@
         createdAt,
         updatedAt: new Date().toISOString()
       };
+    }
+
+    function saveComposerDraft(note) {
       upsertReviewNote(note);
       const saved = saveReviewNotes();
       updateReviewPanels();
       if (!saved) {
         showComposerMessage('This note is visible for now, but your browser blocked saving it. Copy it before leaving the page.');
-        return;
+        return false;
       }
+      return true;
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const note = buildComposerNote();
+      if (!note) return;
+      const saved = saveComposerDraft(note);
+      if (!saved) return;
       resetComposer();
       setComposerOpen(false);
-      setReviewStatus(`Shot ${number} note saved`);
+      setReviewStatus(`Shot ${number} draft note saved`);
+    });
+
+    publishButton.addEventListener('click', () => {
+      const note = buildComposerNote();
+      if (!note) return;
+      const saved = saveComposerDraft(note);
+      if (!saved) return;
+      openReviewIssue(note);
+      showComposerMessage('A GitHub issue opened in a new tab. Submit it to publish this note for everyone.');
     });
 
     panel.append(bar, form, empty, list);
@@ -3221,6 +3366,7 @@
   organizeReferenceSections();
   shots.forEach(addReviewPanel);
   updateReviewPanels();
+  loadPublishedReviewNotes();
 
   reviewDownloadButton?.addEventListener('click', downloadReviewPacket);
   reviewImportInput?.addEventListener('change', async () => {
