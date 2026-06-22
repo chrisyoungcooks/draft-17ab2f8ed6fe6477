@@ -1,5 +1,29 @@
 {
   "schema": "pulled-pork-review-notes/v1",
-  "updatedAt": null,
-  "notes": []
+  "updatedAt": "2026-06-22T14:30:29.993Z",
+  "notes": [
+    {
+      "id": "1782138592781-yfauwebq79",
+      "shot": "2",
+      "relatedShots": [],
+      "heading": "INSIDE THE BIG GREEN EGG — DAY",
+      "target": "Shot",
+      "author": "Riccardo",
+      "text": "Riccardo's recommended setup for this",
+      "attachments": [],
+      "createdAt": "2026-06-22T14:29:52.781Z",
+      "updatedAt": "2026-06-22T14:29:52.782Z",
+      "publishedAt": "2026-06-22T14:30:29.989Z",
+      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/1",
+      "localAttachmentCount": 1,
+      "localAttachments": [
+        {
+          "name": "scene 2 light setup.png",
+          "type": "image/png",
+          "size": 19385,
+          "kind": "image"
+        }
+      ]
+    }
+  ]
 }
