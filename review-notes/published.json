@@ -1,6 +1,6 @@
 {
   "schema": "pulled-pork-review-notes/v1",
-  "updatedAt": "2026-06-22T14:30:29.993Z",
+  "updatedAt": "2026-06-23T23:01:22.214Z",
   "notes": [
     {
       "id": "1782138592781-yfauwebq79",
@@ -24,6 +24,20 @@
           "kind": "image"
         }
       ]
+    },
+    {
+      "id": "1782254092119-i1faz82pehp",
+      "shot": "2",
+      "relatedShots": [],
+      "heading": "INSIDE THE BIG GREEN EGG — DAY",
+      "target": "Shot",
+      "author": "Athena",
+      "text": "Shot in Seattle - June 22",
+      "attachments": [],
+      "createdAt": "2026-06-23T22:34:52.119Z",
+      "updatedAt": "2026-06-23T23:00:37.613Z",
+      "publishedAt": "2026-06-23T23:01:22.209Z",
+      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/2"
     }
   ]
 }
