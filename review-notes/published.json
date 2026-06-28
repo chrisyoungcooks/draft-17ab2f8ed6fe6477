@@ -1,6 +1,6 @@
 {
   "schema": "pulled-pork-review-notes/v1",
-  "updatedAt": "2026-06-23T23:01:22.214Z",
+  "updatedAt": "2026-06-28T23:54:15.560Z",
   "notes": [
     {
       "id": "1782138592781-yfauwebq79",
@@ -38,6 +38,22 @@
       "updatedAt": "2026-06-23T23:00:37.613Z",
       "publishedAt": "2026-06-23T23:01:22.209Z",
       "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/2"
+    },
+    {
+      "id": "1782247209623-88hqih0wbsb",
+      "shot": "3",
+      "relatedShots": [
+        "62"
+      ],
+      "heading": "EXT. THE BIG GREEN EGG — CONTINUOUS",
+      "target": "PROP",
+      "author": "Athena",
+      "text": "- Chronometer (Chris purchased already)\n- Big Green Egg\n- Smoke\n- WHOLE pork shoulder (finished)\n- Buster Scruggs Shirt at minimum if sleeve is in shot",
+      "attachments": [],
+      "createdAt": "2026-06-23T20:40:09.623Z",
+      "updatedAt": "2026-06-28T23:53:56.941Z",
+      "publishedAt": "2026-06-28T23:54:15.499Z",
+      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/3"
     }
   ]
 }
