@@ -1,7 +1,23 @@
 {
   "schema": "pulled-pork-review-notes/v1",
-  "updatedAt": "2026-06-28T23:54:15.560Z",
+  "updatedAt": "2026-06-28T23:54:37.992Z",
   "notes": [
+    {
+      "id": "1782689822632-51v68mgpaai",
+      "shot": "1",
+      "relatedShots": [
+        "3"
+      ],
+      "heading": "EXT. THE BIG GREEN EGG — DAY",
+      "target": "LOC",
+      "author": "Athena",
+      "text": "Sultan - Need VFX, Blue Screen",
+      "attachments": [],
+      "createdAt": "2026-06-28T23:37:02.632Z",
+      "updatedAt": "2026-06-28T23:54:25.566Z",
+      "publishedAt": "2026-06-28T23:54:37.992Z",
+      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/4"
+    },
     {
       "id": "1782138592781-yfauwebq79",
       "shot": "2",
