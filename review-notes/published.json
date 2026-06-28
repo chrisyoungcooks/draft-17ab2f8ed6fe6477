@@ -1,6 +1,6 @@
 {
   "schema": "pulled-pork-review-notes/v1",
-  "updatedAt": "2026-06-28T23:55:24.271Z",
+  "updatedAt": "2026-06-28T23:58:29.149Z",
   "notes": [
     {
       "id": "1782689822632-51v68mgpaai",
@@ -70,6 +70,20 @@
       "updatedAt": "2026-06-28T23:55:12.204Z",
       "publishedAt": "2026-06-28T23:55:24.265Z",
       "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/5"
+    },
+    {
+      "id": "1782247220587-g4e3biw9r9o",
+      "shot": "4",
+      "relatedShots": [],
+      "heading": "INT. DINING ROOM — CONTINUOUS",
+      "target": "PROP",
+      "author": "Athena",
+      "text": "- Haze machine\n- Dust? \n- Outfit A: Buster Scruggs (full fit)\n- WHOLE Pork Shoulder (finished)\n- Plate/utensils for pork?\n- chronometer?\n- sweat?",
+      "attachments": [],
+      "createdAt": "2026-06-23T20:40:20.587Z",
+      "updatedAt": "2026-06-28T23:58:12.280Z",
+      "publishedAt": "2026-06-28T23:58:29.145Z",
+      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/6"
     }
   ]
 }
