@@ -1,6 +1,6 @@
 {
   "schema": "pulled-pork-review-notes/v1",
-  "updatedAt": "2026-06-29T00:04:13.108Z",
+  "updatedAt": "2026-06-29T00:07:33.654Z",
   "notes": [
     {
       "id": "1782689822632-51v68mgpaai",
@@ -98,6 +98,24 @@
       "updatedAt": "2026-06-29T00:04:00.330Z",
       "publishedAt": "2026-06-29T00:04:13.022Z",
       "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/7"
+    },
+    {
+      "id": "1782247902408-0tygasm3u47",
+      "shot": "10",
+      "relatedShots": [
+        "11",
+        "39",
+        "44"
+      ],
+      "heading": "INT. BEDROOM — NIGHT",
+      "target": "PROP",
+      "author": "Athena",
+      "text": "- Pendleton Spider Rock Sherpa Fleece Throw Queen Blanket Southwestern 96 x 92\n- Outfit B: Pajama Set\n- Navy Sheets\n- Additional Pendleton blanket\n- lamp (on location?)\n- Book on nightstand (modernist cuisine)",
+      "attachments": [],
+      "createdAt": "2026-06-23T20:51:42.408Z",
+      "updatedAt": "2026-06-29T00:07:18.386Z",
+      "publishedAt": "2026-06-29T00:07:33.574Z",
+      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/8"
     }
   ]
 }
