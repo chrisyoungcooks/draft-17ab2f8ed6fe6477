@@ -1,7 +1,39 @@
 {
   "schema": "pulled-pork-review-notes/v1",
-  "updatedAt": "2026-06-29T00:09:38.393Z",
+  "updatedAt": "2026-06-29T20:39:12.464Z",
   "notes": [
+    {
+      "id": "1782247139184-nkujx61fvi9",
+      "shot": "1",
+      "relatedShots": [
+        "46",
+        "47",
+        "48",
+        "49",
+        "51",
+        "52",
+        "53",
+        "54",
+        "60",
+        "61",
+        "63",
+        "64",
+        "65",
+        "66",
+        "85",
+        "86",
+        "87"
+      ],
+      "heading": "EXT. THE BIG GREEN EGG — DAY",
+      "target": "PROP",
+      "author": "Athena",
+      "text": "- Outfit A: Buster Scruggs\n- Big Green Egg\n- combustion grill gauge",
+      "attachments": [],
+      "createdAt": "2026-06-23T20:38:59.184Z",
+      "updatedAt": "2026-06-29T20:38:57.723Z",
+      "publishedAt": "2026-06-29T20:39:12.439Z",
+      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/10"
+    },
     {
       "id": "1782689822632-51v68mgpaai",
       "shot": "1",
