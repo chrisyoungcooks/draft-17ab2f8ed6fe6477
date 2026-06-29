@@ -1,6 +1,6 @@
 {
   "schema": "pulled-pork-review-notes/v1",
-  "updatedAt": "2026-06-29T00:07:33.654Z",
+  "updatedAt": "2026-06-29T00:09:38.393Z",
   "notes": [
     {
       "id": "1782689822632-51v68mgpaai",
@@ -116,6 +116,20 @@
       "updatedAt": "2026-06-29T00:07:18.386Z",
       "publishedAt": "2026-06-29T00:07:33.574Z",
       "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/8"
+    },
+    {
+      "id": "1782249149553-82d6fa4668",
+      "shot": "19",
+      "relatedShots": [],
+      "heading": "INSIDE THE OVEN — WARM BECOMES A NUMBER",
+      "target": "PROP",
+      "author": "Athena",
+      "text": "- Pork Shoulder (uncooked and prepped, and wrapped) for timelapse with - Combustion temperature probe/thermometer\n- oven\n- oven tray",
+      "attachments": [],
+      "createdAt": "2026-06-23T21:12:29.553Z",
+      "updatedAt": "2026-06-29T00:09:25.706Z",
+      "publishedAt": "2026-06-29T00:09:38.389Z",
+      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/9"
     }
   ]
 }
