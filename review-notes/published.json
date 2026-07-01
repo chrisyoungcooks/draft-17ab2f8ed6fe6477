@@ -1,6 +1,6 @@
 {
   "schema": "pulled-pork-review-notes/v1",
-  "updatedAt": "2026-07-01T05:18:41.624Z",
+  "updatedAt": "2026-07-01T05:20:30.753Z",
   "notes": [
     {
       "id": "1782247139184-nkujx61fvi9",
@@ -206,6 +206,20 @@
       "updatedAt": "2026-07-01T05:18:29.583Z",
       "publishedAt": "2026-07-01T05:18:41.542Z",
       "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/16"
+    },
+    {
+      "id": "1782883218908-9cxh4birqxo",
+      "shot": "16",
+      "relatedShots": [],
+      "heading": "INSIDE THE OVEN — INSERT",
+      "target": "PROP",
+      "author": "Athena",
+      "text": "Wrapped pork, probe, oven rack, metal tray",
+      "attachments": [],
+      "createdAt": "2026-07-01T05:20:18.908Z",
+      "updatedAt": "2026-07-01T05:20:18.909Z",
+      "publishedAt": "2026-07-01T05:20:30.749Z",
+      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/17"
     },
     {
       "id": "1782691753786-355er5gmyrt",
