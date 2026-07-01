@@ -1,6 +1,6 @@
 {
   "schema": "pulled-pork-review-notes/v1",
-  "updatedAt": "2026-06-29T20:39:12.464Z",
+  "updatedAt": "2026-07-01T05:05:46.264Z",
   "notes": [
     {
       "id": "1782247139184-nkujx61fvi9",
@@ -116,6 +116,20 @@
       "updatedAt": "2026-06-28T23:58:12.280Z",
       "publishedAt": "2026-06-28T23:58:29.145Z",
       "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/6"
+    },
+    {
+      "id": "1782691191075-xkwh5e5orkp",
+      "shot": "4",
+      "relatedShots": [],
+      "heading": "INT. DINING ROOM — CONTINUOUS",
+      "target": "Shot",
+      "author": "Athena",
+      "text": "May need green screen or blue screen behind Chris, may need to rotoscope this?\ntalk to David and James before trying to shoot this practically",
+      "attachments": [],
+      "createdAt": "2026-06-28T23:59:51.075Z",
+      "updatedAt": "2026-07-01T05:05:32.578Z",
+      "publishedAt": "2026-07-01T05:05:46.259Z",
+      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/11"
     },
     {
       "id": "1782247505873-lm5o9ii8qql",
