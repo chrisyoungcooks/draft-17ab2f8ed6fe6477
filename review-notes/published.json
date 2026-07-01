@@ -1,6 +1,6 @@
 {
   "schema": "pulled-pork-review-notes/v1",
-  "updatedAt": "2026-07-01T05:16:01.453Z",
+  "updatedAt": "2026-07-01T05:16:36.713Z",
   "notes": [
     {
       "id": "1782247139184-nkujx61fvi9",
@@ -162,6 +162,20 @@
       "updatedAt": "2026-06-29T00:07:18.386Z",
       "publishedAt": "2026-06-29T00:07:33.574Z",
       "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/8"
+    },
+    {
+      "id": "1782882985377-wbrxq32mg4p",
+      "shot": "12",
+      "relatedShots": [],
+      "heading": "INSERT — KITCHEN COUNTER — DAY",
+      "target": "PROP",
+      "author": "Athena",
+      "text": "Foil",
+      "attachments": [],
+      "createdAt": "2026-07-01T05:16:25.377Z",
+      "updatedAt": "2026-07-01T05:16:25.377Z",
+      "publishedAt": "2026-07-01T05:16:36.709Z",
+      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/13"
     },
     {
       "id": "1782691753786-355er5gmyrt",
