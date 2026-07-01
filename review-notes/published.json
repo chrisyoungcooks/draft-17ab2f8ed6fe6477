@@ -1,6 +1,6 @@
 {
   "schema": "pulled-pork-review-notes/v1",
-  "updatedAt": "2026-07-01T05:17:22.877Z",
+  "updatedAt": "2026-07-01T05:17:43.361Z",
   "notes": [
     {
       "id": "1782247139184-nkujx61fvi9",
@@ -180,16 +180,18 @@
     {
       "id": "1782883030736-l8dnh79vqc",
       "shot": "13",
-      "relatedShots": [],
+      "relatedShots": [
+        "14"
+      ],
       "heading": "INSERT — THE FOIL, STRETCHED",
       "target": "PROP",
       "author": "Athena",
       "text": "Foil, Outfit A: Buster Scruggs, uncooked seasoned pork butt",
       "attachments": [],
       "createdAt": "2026-07-01T05:17:10.736Z",
-      "updatedAt": "2026-07-01T05:17:10.736Z",
-      "publishedAt": "2026-07-01T05:17:22.873Z",
-      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/14"
+      "updatedAt": "2026-07-01T05:17:29.560Z",
+      "publishedAt": "2026-07-01T05:17:43.308Z",
+      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/15"
     },
     {
       "id": "1782691753786-355er5gmyrt",
