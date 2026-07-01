@@ -1,6 +1,6 @@
 {
   "schema": "pulled-pork-review-notes/v1",
-  "updatedAt": "2026-07-01T05:05:46.264Z",
+  "updatedAt": "2026-07-01T05:16:01.453Z",
   "notes": [
     {
       "id": "1782247139184-nkujx61fvi9",
@@ -162,6 +162,20 @@
       "updatedAt": "2026-06-29T00:07:18.386Z",
       "publishedAt": "2026-06-29T00:07:33.574Z",
       "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/8"
+    },
+    {
+      "id": "1782691753786-355er5gmyrt",
+      "shot": "17",
+      "relatedShots": [],
+      "heading": "INSERT — THE DIAL",
+      "target": "PROP",
+      "author": "Athena",
+      "text": "Put the knobs on the oven in Queen Anne - shot here, and then get Joe to make it look more vintage with AI",
+      "attachments": [],
+      "createdAt": "2026-06-29T00:09:13.786Z",
+      "updatedAt": "2026-07-01T05:15:45.894Z",
+      "publishedAt": "2026-07-01T05:16:01.396Z",
+      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/12"
     },
     {
       "id": "1782249149553-82d6fa4668",
