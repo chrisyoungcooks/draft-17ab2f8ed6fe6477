@@ -1,6 +1,6 @@
 {
   "schema": "pulled-pork-review-notes/v1",
-  "updatedAt": "2026-07-01T05:30:55.445Z",
+  "updatedAt": "2026-07-06T16:51:32.805Z",
   "notes": [
     {
       "id": "1782247139184-nkujx61fvi9",
@@ -86,6 +86,20 @@
       "updatedAt": "2026-06-23T23:00:37.613Z",
       "publishedAt": "2026-06-23T23:01:22.209Z",
       "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/2"
+    },
+    {
+      "id": "1783356680240-0lqch6kxslm",
+      "shot": "2",
+      "relatedShots": [],
+      "heading": "INSIDE THE BIG GREEN EGG — DAY",
+      "target": "Shot",
+      "author": "Danielle",
+      "text": "FOOTAGE LINKED (6/22 shoot, Canh + Chris). Selected take: DSC_8616.\n- Preview MP4: https://www.dropbox.com/scl/fi/wysd4ptqcb05tcz177awc/DSC_8616.MP4?rlkey=gxw98t0xn7bil8uge7azbhtl0&dl=0\n- RAW R3D: https://www.dropbox.com/scl/fi/6dqf39g08jzn0p07lkxsp/DSC_8616.R3D?rlkey=3rhfay065v9kyxslw1qrryxop&dl=0\n- Full folder (37 clips, DSC_8583-8619): https://www.dropbox.com/scl/fo/g5jw85dr3fx0xje954gay/AAg0FxIqSGvFSIXhvboufho?rlkey=ph4uroqz9ev7n33vjuc4zd1w7&dl=0\nChris on the look (6/22): shot at 60fps; two front lights 4 stops under the back light to keep the pork dark and moody.",
+      "attachments": [],
+      "createdAt": "2026-07-06T16:51:20.240Z",
+      "updatedAt": "2026-07-06T16:51:20.240Z",
+      "publishedAt": "2026-07-06T16:51:32.800Z",
+      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/19"
     },
     {
       "id": "1782247209623-88hqih0wbsb",
