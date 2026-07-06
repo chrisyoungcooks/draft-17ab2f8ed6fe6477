@@ -1,6 +1,6 @@
 {
   "schema": "pulled-pork-review-notes/v1",
-  "updatedAt": "2026-07-06T16:51:32.805Z",
+  "updatedAt": "2026-07-06T16:53:37.505Z",
   "notes": [
     {
       "id": "1782247139184-nkujx61fvi9",
@@ -144,6 +144,38 @@
       "updatedAt": "2026-07-01T05:05:32.578Z",
       "publishedAt": "2026-07-01T05:05:46.259Z",
       "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/11"
+    },
+    {
+      "id": "1783356680240-ybmge08hwy5",
+      "shot": "7",
+      "relatedShots": [
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "81"
+      ],
+      "heading": "MODERNIST CUISINE PAGE / BIG GREEN EGG CUTAWAY — TRANSITION",
+      "target": "Shot",
+      "author": "Danielle",
+      "text": "FOOTAGE (folder level): 6/25-26 BGE cutaway plates, 36 clips GTB_1898-1934 (1924 missing), shot by Brian/Josh:\nhttps://www.dropbox.com/scl/fo/m8huyvfp2pygpxphz8f2b/AE6PiKT8vMrbwNWsudtzPWc?rlkey=eonw8rq37x67pbekrbtgx50nw&dl=0\nCovers the interior-Egg cutaway shots: this one plus 49-58, 71-76, and 81. Per-clip mapping to shots is in progress (slate notes stop after shot 4 of the cutaways, and dvdp's composite-vs-recapture verdict is pending), so links are folder-level for now. Per-shot links will follow for the keeper clips.",
+      "attachments": [],
+      "createdAt": "2026-07-06T16:51:20.240Z",
+      "updatedAt": "2026-07-06T16:51:20.240Z",
+      "publishedAt": "2026-07-06T16:53:37.455Z",
+      "sourceIssue": "https://github.com/chrisyoungcooks/draft-17ab2f8ed6fe6477/issues/20"
     },
     {
       "id": "1782247505873-lm5o9ii8qql",
